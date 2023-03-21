@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    private MenuBar menuBar = new MenuBar();
+    private JMenuBar menuBar = new JMenuBar();
 
     public MainFrame() {
-        this.setMenuBar(this.menuBar);
+        this.setJMenuBar(this.menuBar);
     }
 }
