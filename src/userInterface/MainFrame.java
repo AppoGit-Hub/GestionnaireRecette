@@ -1,9 +1,12 @@
 package userInterface;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainFrame extends JFrame {
-    public MainFrame() {
+    private MenuBar menuBar = new MenuBar();
 
+    public MainFrame() {
+        this.setMenuBar(this.menuBar);
     }
 }
