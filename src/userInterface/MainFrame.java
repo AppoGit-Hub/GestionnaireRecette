@@ -8,5 +8,8 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         this.setJMenuBar(this.menuBar);
+
+        this.setBounds(100, 100, 500, 500);
+        this.setVisible(true);
     }
 }
