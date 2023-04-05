@@ -7,12 +7,10 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
     private JTabbedPane tabbedPane = new JTabbedPane();
-    private LoginPanel loginPanel = new LoginPanel();
     private PublishRecipePanel publishRecipePanel = new PublishRecipePanel();
     private SearchRecipePanel searchRecipePanel = new SearchRecipePanel();
 
     public MainFrame() {
-        this.tabbedPane.insertTab("Login", null, this.loginPanel, "Login Panek", 0);
         this.tabbedPane.insertTab("Publish", null, this.publishRecipePanel, "Publish Panek", 1);
         this.tabbedPane.insertTab("Search", null, this.searchRecipePanel, "Search Panek", 2);
 
