@@ -2,5 +2,5 @@ package userInterface;
 
 import javax.swing.*;
 
-public class ModificationRecipePanel extends JPanel {
+public class ModificationRecipePanel extends GlobalRecipePanel {
 }
