@@ -1,7 +1,6 @@
 package userInterface;
 
-import model.ComponentGroup;
-import model.FormBuilder;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +15,11 @@ public class GlobalRecipePanel extends JPanel {
     private JRadioButton isSweet;
     private ButtonGroup spiceGroup;
     private JLabel authorLabel;
-    private JComboBox authorComboBox;
+    private JComboBox<Person> authorComboBox;
     private JLabel countryLabel;
-    private JComboBox countryComboBox;
+    private JComboBox<Country> countryComboBox;
     private JLabel complexityLabel;
-    private JComboBox complexityComboBox;
+    private JComboBox<Complexity> complexityComboBox;
     private JLabel peopleLabel;
     private JSpinner peopleSpinner;
     private JLabel noteLabel;
@@ -31,33 +30,42 @@ public class GlobalRecipePanel extends JPanel {
     private JTextArea descriptionTextArea;
     private JButton addUtensilButton;
     private JButton removeUtensilButton;
-    private JComboBox utensilComboBox;
-    private JList utensilList;
+    private JComboBox<Utensil> utensilComboBox;
+    private JList<Utensil> utensilList;
     private JButton addMenuTypeButton;
     private JButton removeMenuTypeButton;
-    private JComboBox menuTypeComboBox;
-    private JList menuTypeList;
+    private JComboBox<MenuType> menuTypeComboBox;
+    private JList<MenuType> menuTypeList;
     private JButton addMenuCategoryButton;
     private JButton removeMenuCategoryButton;
-    private JComboBox menuCategoryComboBox;
-    private JList menuCategoryList;
+    private JComboBox<MealCategory> menuCategoryComboBox;
+    private JList<MealCategory> menuCategoryList;
     private JTextArea recipeStepsTextArea;
     private JButton addRecipeStepsButton;
     private JButton removeRecipeStepsButton;
     private JButton editRecipeStepsButton;
     private JButton saveRecipeStepsButton;
-    private JList recipeStepsList;
-    private JList ingredientList;
+    private JList<RecipeStep> recipeStepsList;
+    private JList<Ingredient> ingredientList;
     private JButton addIngredientButton;
     private JButton removeIngredientButton;
     private JButton editIngredientButton;
     private JButton saveIngredientButton;
-    private JComboBox nameIngredientComboBox;
+    private JComboBox<Ingredient> nameIngredientComboBox;
     private JSpinner quantityIngredientComboBox;
-    private JComboBox unitIngredientComboBox;
+    private JComboBox<Unit> unitIngredientComboBox;
     private JTabbedPane tabs;
 
     private static final int TITLE_MIN_LENGTH = 10;
+    private static final int DESCRIPTION_MIN_LENGTH = 100;
+    private static final int PEOPLE_MIN = 1;
+    private static final int PEOPLE_MAX = 100;
+    private static final int NOTE_MIN = 0;
+    private static final int NOTE_MAX = 10;
+    private static final int TIME_MIN = 1;
+    private static final int TIME_MAX = 1000;
+    private static final int QUANTITY_MIN = 1;
+    private static final int QUANTITY_MAX = 1000;
 
     public GlobalRecipePanel() {
         this.titleLabel = new JLabel("Title");
@@ -84,14 +92,17 @@ public class GlobalRecipePanel extends JPanel {
         this.complexityLabel = new JLabel("Complexity");
         this.complexityComboBox = new JComboBox();
 
-        this.peopleLabel = new JLabel("People");
-        this.peopleSpinner = new JSpinner();
+        this.peopleLabel = new JLabel("People For");
+        SpinnerNumberModel peopleSpinnerModel = new SpinnerNumberModel(1, PEOPLE_MIN, PEOPLE_MAX, 1);
+        this.peopleSpinner = new JSpinner(peopleSpinnerModel);
 
-        this.noteLabel = new JLabel("Note");
-        this.noteSpinner = new JSpinner();
+        this.noteLabel = new JLabel("Note (/10)");
+        SpinnerNumberModel noteSpinnerModel = new SpinnerNumberModel(5, NOTE_MIN, NOTE_MAX, 1);
+        this.noteSpinner = new JSpinner(noteSpinnerModel);
 
-        this.timeLabel = new JLabel("Time");
-        this.timeSpinner = new JSpinner();
+        this.timeLabel = new JLabel("Time (min)");
+        SpinnerNumberModel timeSpinnerModel = new SpinnerNumberModel(1, TIME_MIN, TIME_MAX, 1);
+        this.timeSpinner = new JSpinner(timeSpinnerModel);
 
         this.descriptionLabel = new JLabel("Description");
         this.descriptionTextArea = new JTextArea(10, 10);
@@ -99,42 +110,33 @@ public class GlobalRecipePanel extends JPanel {
         this.addUtensilButton = new JButton("Add");
         this.removeUtensilButton = new JButton("Remove");
         this.utensilComboBox = new JComboBox();
-        this.utensilList = new JList(new String[] {
-                "A", "B", "C"
-        });
+        this.utensilList = new JList();
 
         this.addMenuTypeButton = new JButton("Add");
         this.removeMenuTypeButton = new JButton("Remove");
         this.menuTypeComboBox = new JComboBox();
-        this.menuTypeList = new JList(new String[] {
-                "D", "E", "F"
-        });
+        this.menuTypeList = new JList();
 
         this.addMenuCategoryButton = new JButton("Add");
         this.removeMenuCategoryButton = new JButton("Remove");
         this.menuCategoryComboBox = new JComboBox();
-        this.menuCategoryList = new JList(new String[] {
-                "G", "H", "I"
-        });
+        this.menuCategoryList = new JList();
 
         this.recipeStepsTextArea = new JTextArea(10, 20);
         this.addRecipeStepsButton = new JButton("Add");
         this.removeRecipeStepsButton = new JButton("Remove");
         this.editRecipeStepsButton = new JButton("Edit");
         this.saveRecipeStepsButton = new JButton("Save");
-        this.recipeStepsList = new JList(new String[] {
-                "J", "K", "L"
-        });
+        this.recipeStepsList = new JList();
 
-        this.ingredientList = new JList(new String[] {
-                "M", "N", "O"
-        });
+        this.ingredientList = new JList();
         this.addIngredientButton = new JButton("Add");
         this.removeIngredientButton = new JButton("Remove");
         this.editIngredientButton = new JButton("Edit");
         this.saveIngredientButton = new JButton("Save");
         this.nameIngredientComboBox = new JComboBox();
-        this.quantityIngredientComboBox = new JSpinner();
+        SpinnerNumberModel quantityIngredientModel = new SpinnerNumberModel(1, QUANTITY_MIN, QUANTITY_MAX, 1);
+        this.quantityIngredientComboBox = new JSpinner(quantityIngredientModel);
         this.unitIngredientComboBox = new JComboBox();
 
         //TODO : Resolve the scaling problem
@@ -246,7 +248,7 @@ public class GlobalRecipePanel extends JPanel {
 
     public boolean isTitleValid() {
         String titleText = titleField.getText();
-        return titleText.length() > GlobalRecipePanel.TITLE_MIN_LENGTH;
+        return titleText.length() > TITLE_MIN_LENGTH;
     }
 
     public boolean isTemperatureValid() {
@@ -257,8 +259,97 @@ public class GlobalRecipePanel extends JPanel {
         return this.isSalty.isSelected() || this.isSweet.isSelected();
     }
 
-    public void setAuthors(String... authors) {
-
+    public boolean isDescriptionValid() {
+        String descriptionText = this.descriptionTextArea.getText();
+        return descriptionText.length() >= DESCRIPTION_MIN_LENGTH;
     }
+
+    public boolean isUtensilValid() {
+        return this.utensilList.getModel().getSize() > 0;
+    }
+
+    public boolean isMenuTypeValid() {
+        return this.menuTypeList.getModel().getSize() > 0;
+    }
+
+    public boolean isMealCategoryValid() {
+        return this.menuCategoryList.getModel().getSize() > 0;
+    }
+
+    public boolean isRecipeStepsValid() {
+        boolean isRecipeStepsListValid = this.recipeStepsList.getModel().getSize() > 0;
+        String isRecipeStepsDescription = this.recipeStepsTextArea.getText();
+        return isRecipeStepsDescription.length() > DESCRIPTION_MIN_LENGTH && isRecipeStepsListValid;
+    }
+
+    public boolean isIngredientValid() {
+        return this.ingredientList.getModel().getSize() > 0;
+    }
+
+    public Person getAuthor() {
+        return (Person) this.authorComboBox.getSelectedItem();
+    }
+
+    public void setAuthor(Person... authors) {
+        this.authorComboBox.removeAllItems();
+        for (Person author : authors) {
+            this.authorComboBox.addItem(author);
+        }
+    }
+
+    public Country getCountry() {
+        return (Country) this.countryComboBox.getSelectedItem();
+    }
+
+    public void setCountry(Country... countries) {
+        this.countryComboBox.removeAllItems();
+        for (Country country : countries) {
+            this.countryComboBox.addItem(country);
+        }
+    }
+
+    public Complexity getComplexity() {
+        return (Complexity) this.complexityComboBox.getSelectedItem();
+    }
+
+    public void setComplexity(Complexity... complexities) {
+        this.complexityComboBox.removeAllItems();
+        for (Complexity complexity : complexities) {
+            this.complexityComboBox.addItem(complexity);
+        }
+    }
+
+    public int getPeople() {
+        return (int) this.peopleSpinner.getValue();
+    }
+
+    public void setPeople(int peopleFor) {
+        if (peopleFor >= PEOPLE_MIN && peopleFor <= PEOPLE_MAX) {
+            this.peopleSpinner.setValue(peopleFor);
+        }
+    }
+
+    public int getNote() {
+        return (int) this.noteSpinner.getValue();
+    }
+
+    public void setNote(int note) {
+        if (note >= NOTE_MIN && note <= NOTE_MAX) {
+            this.noteSpinner.setValue(note);
+        }
+    }
+
+    public int getTime() {
+        return (int) this.timeSpinner.getValue();
+    }
+
+    public void setTime(int time) {
+        if (time >= TIME_MIN && time <= TIME_MAX) {
+            this.timeSpinner.setValue(time);
+        }
+    }
+
+
+
 }
 

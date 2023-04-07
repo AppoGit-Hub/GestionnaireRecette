@@ -12,7 +12,7 @@ public class Recipe {
     private Integer noteAuthor;
     private boolean isSalted;
     private int numberPeopleConcerned;
-    private int complexityLevel;
+    private Complexity complexity;
     private Country speciality;
     private Person person;
 
@@ -26,7 +26,7 @@ public class Recipe {
         Integer noteAuthor,
         boolean isSalted,
         int numberPeopleConcerned,
-        int complexityLevel,
+        Complexity complexity,
         Country speciality,
         Person person
     ) {
@@ -39,7 +39,7 @@ public class Recipe {
         this.noteAuthor = noteAuthor;
         this.isSalted = isSalted;
         this.numberPeopleConcerned = numberPeopleConcerned;
-        this.complexityLevel = complexityLevel;
+        this.complexity = complexity;
         this.speciality = speciality;
         this.person = person;
     }
@@ -80,8 +80,8 @@ public class Recipe {
         return numberPeopleConcerned;
     }
 
-    public int getComplexityLevel() {
-        return complexityLevel;
+    public Complexity getComplexity() {
+        return complexity;
     }
 
     public Country getSpeciality() {
