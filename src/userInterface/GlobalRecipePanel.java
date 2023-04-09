@@ -1,9 +1,12 @@
 package userInterface;
 
+import controller.MenuTypeController;
+import dataAccess.MenuTypeException;
 import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GlobalRecipePanel extends JPanel {
     private JLabel titleLabel;
@@ -36,6 +39,7 @@ public class GlobalRecipePanel extends JPanel {
     private JButton removeMenuTypeButton;
     private JComboBox<MenuType> menuTypeComboBox;
     private JList<MenuType> menuTypeList;
+    private JLabel menuTypeAccessErrorLabel;
     private JButton addMenuCategoryButton;
     private JButton removeMenuCategoryButton;
     private JComboBox<MealCategory> menuCategoryComboBox;
@@ -56,6 +60,7 @@ public class GlobalRecipePanel extends JPanel {
     private JComboBox<Unit> unitIngredientComboBox;
     private JTabbedPane tabs;
 
+    private MenuTypeController menuTypeController;
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
     private static final int PEOPLE_MIN = 1;
@@ -68,6 +73,8 @@ public class GlobalRecipePanel extends JPanel {
     private static final int QUANTITY_MAX = 1000;
 
     public GlobalRecipePanel() {
+        this.menuTypeController = new MenuTypeController();
+
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
 
@@ -116,6 +123,7 @@ public class GlobalRecipePanel extends JPanel {
         this.removeMenuTypeButton = new JButton("Remove");
         this.menuTypeComboBox = new JComboBox();
         this.menuTypeList = new JList();
+        this.menuTypeAccessErrorLabel = new JLabel("No Errors");
 
         this.addMenuCategoryButton = new JButton("Add");
         this.removeMenuCategoryButton = new JButton("Remove");
@@ -178,20 +186,20 @@ public class GlobalRecipePanel extends JPanel {
         menuTypeBottomPanel.add(removeMenuTypeButton);
 
         menuTypePanel.add(menuTypeBottomPanel, BorderLayout.NORTH);
+        menuTypePanel.add(menuTypeAccessErrorLabel, BorderLayout.SOUTH);
 
 
         JPanel mealCategoryPanel = new JPanel();
         mealCategoryPanel.setLayout(new BorderLayout());
         mealCategoryPanel.add(menuCategoryList);
 
-        JPanel mealCategoryBottomPanel = new JPanel();
-        mealCategoryBottomPanel.setLayout(new GridLayout());
-        mealCategoryBottomPanel.add(menuCategoryComboBox);
-        mealCategoryBottomPanel.add(addMenuCategoryButton);
-        mealCategoryBottomPanel.add(removeMenuCategoryButton);
+        JPanel mealCategoryUpPanel = new JPanel();
+        mealCategoryUpPanel.setLayout(new GridLayout());
+        mealCategoryUpPanel.add(menuCategoryComboBox);
+        mealCategoryUpPanel.add(addMenuCategoryButton);
+        mealCategoryUpPanel.add(removeMenuCategoryButton);
 
-        mealCategoryPanel.add(mealCategoryBottomPanel, BorderLayout.NORTH);
-
+        mealCategoryPanel.add(mealCategoryUpPanel, BorderLayout.NORTH);
 
         JPanel recipeStepsPanel = new JPanel();
         recipeStepsPanel.setLayout(new BorderLayout());
@@ -232,6 +240,8 @@ public class GlobalRecipePanel extends JPanel {
         ingredientPanel.add(ingredientNorthPanel, BorderLayout.NORTH);
         ingredientPanel.add(ingredientWestPanel, BorderLayout.WEST);
         ingredientPanel.add(ingredientList, BorderLayout.CENTER);
+
+        this.setAllMenuTypes();
 
         this.setLayout(new BorderLayout());
 
@@ -349,7 +359,15 @@ public class GlobalRecipePanel extends JPanel {
         }
     }
 
-
-
+    public void setAllMenuTypes() {
+        try {
+            ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
+            for (MenuType menuType : menuTypes) {
+                this.menuTypeComboBox.addItem(menuType);
+            }
+        } catch (MenuTypeException exception) {
+            this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
+        }
+    }
 }
 
