@@ -6,10 +6,10 @@ import model.MealCategory;
 
 import java.util.ArrayList;
 
-public class MenuCategoryController {
+public class MealCategoryController {
     private MealCategoryManager manager;
 
-    public MenuCategoryController() {
+    public MealCategoryController() {
         setManager(new MealCategoryManager());
     }
 
