@@ -5,6 +5,5 @@ import model.MealCategory;
 import java.util.ArrayList;
 
 public interface MealCategoryDataAccess {
-    MealCategory getMealCategory(String name);
-    ArrayList<MealCategory> getAllMealCategory();
+    ArrayList<MealCategory> getAllMealCategory() throws MealCategoryException;
 }
