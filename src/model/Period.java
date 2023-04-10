@@ -1,22 +1,22 @@
 package model;
 
 public class Period {
-    private Recipe recipe;
-    private MenuType menuType;
+    private int recipe;
+    private int menuType;
 
     public Period(
-            Recipe recipe,
-            MenuType menuType
+            int recipe,
+            int menuType
     ) {
         this.recipe = recipe;
         this.menuType = menuType;
     }
 
-    public Recipe getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 
-    public MenuType getMenuType() {
+    public int getMenuType() {
         return menuType;
     }
 }

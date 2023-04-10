@@ -1,22 +1,22 @@
 package model;
 
 public class FavoriteRecipe {
-    private Recipe recipe;
-    private Person person;
+    private int recipe;
+    private int person;
 
     public FavoriteRecipe(
-            Recipe recipe,
-            Person person
+            int recipe,
+            int person
     ) {
         this.recipe = recipe;
         this.person = person;
     }
 
-    public Recipe getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 
-    public Person getPerson() {
+    public int getPerson() {
         return person;
     }
 }

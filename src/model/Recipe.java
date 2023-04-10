@@ -13,8 +13,8 @@ public class Recipe {
     private boolean isSalted;
     private int numberPeopleConcerned;
     private Complexity complexity;
-    private Country speciality;
-    private Person person;
+    private int speciality;
+    private int person;
 
     public Recipe(
         int code,
@@ -27,8 +27,8 @@ public class Recipe {
         boolean isSalted,
         int numberPeopleConcerned,
         Complexity complexity,
-        Country speciality,
-        Person person
+        int speciality,
+        int person
     ) {
         this.code = code;
         this.title = title;
@@ -84,11 +84,11 @@ public class Recipe {
         return complexity;
     }
 
-    public Country getSpeciality() {
+    public int getSpeciality() {
         return speciality;
     }
 
-    public Person getPerson() {
+    public int getPerson() {
         return person;
     }
 }

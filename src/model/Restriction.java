@@ -1,22 +1,22 @@
 package model;
 
 public class Restriction {
-    private FoodCategory foodCategory;
-    private Diet diet;
+    private int foodCategory;
+    private int diet;
 
     public Restriction(
-            FoodCategory foodCategory,
-            Diet diet
+            int foodCategory,
+            int diet
     ) {
         this.foodCategory = foodCategory;
         this.diet = diet;
     }
 
-    public FoodCategory getFoodCategory() {
+    public int getFoodCategory() {
         return foodCategory;
     }
 
-    public Diet getDiet() {
+    public int getDiet() {
         return diet;
     }
 }

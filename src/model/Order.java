@@ -1,22 +1,22 @@
 package model;
 
 public class Order {
-    private Recipe recipe;
-    private MealCategory mealCategory;
+    private String recipe;
+    private int mealCategory;
 
     public Order(
-            Recipe recipe,
-            MealCategory mealCategory
+            String recipe,
+            int mealCategory
     ) {
         this.recipe = recipe;
         this.mealCategory = mealCategory;
     }
 
-    public Recipe getRecipe() {
+    public String getRecipe() {
         return recipe;
     }
 
-    public MealCategory getMealCategory() {
+    public int getMealCategory() {
         return mealCategory;
     }
 }

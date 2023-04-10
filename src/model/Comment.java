@@ -1,20 +1,20 @@
 package model;
 
 public class Comment {
-    private Recipe recipe;
+    private int recipe;
     private int number;
     private String message;
     private int rating;
     private String title;
-    private Person person;
+    private int person;
 
     public Comment(
-            Recipe recipe,
+            int recipe,
             int number,
             String message,
             int rating,
             String title,
-            Person person
+            int person
     ) {
         this.recipe = recipe;
         this.number = number;
@@ -24,7 +24,7 @@ public class Comment {
         this.person = person;
     }
 
-    public Recipe getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 
@@ -44,7 +44,7 @@ public class Comment {
         return title;
     }
 
-    public Person getPerson() {
+    public int getPerson() {
         return person;
     }
 }

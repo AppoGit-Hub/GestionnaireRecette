@@ -1,14 +1,14 @@
 package model;
 
 public class LineRecipe {
-    private Ingredient ingredient;
-    private Recipe recipe;
+    private String ingredient;
+    private int recipe;
     private int quantity;
     private Unit unit;
 
     public LineRecipe(
-            Ingredient ingredient,
-            Recipe recipe,
+            String ingredient,
+            int recipe,
             int quantity,
             Unit unit
     ) {
@@ -18,11 +18,11 @@ public class LineRecipe {
         this.unit = unit;
     }
 
-    public Ingredient getIngredient() {
+    public String getIngredient() {
         return ingredient;
     }
 
-    public Recipe getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 

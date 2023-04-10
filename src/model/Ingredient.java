@@ -4,15 +4,15 @@ public class Ingredient {
     private String name;
     private Integer minPerservationTemperature;
     private Integer maxPerservationTemperature;
-    private ProductionPeriod season;
-    private FoodCategory type;
+    private int season;
+    private int type;
 
     public Ingredient(
             String name,
             Integer minPerservationTemperature,
             Integer maxPerservationTemperature,
-            ProductionPeriod season,
-            FoodCategory type
+            int season,
+            int type
     ) {
         this.name = name;
         this.minPerservationTemperature = minPerservationTemperature;
@@ -33,11 +33,11 @@ public class Ingredient {
         return maxPerservationTemperature;
     }
 
-    public ProductionPeriod getSeason() {
+    public int getSeason() {
         return season;
     }
 
-    public FoodCategory getType() {
+    public int getType() {
         return type;
     }
 }

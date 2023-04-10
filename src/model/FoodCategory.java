@@ -3,7 +3,6 @@ package model;
 public class FoodCategory {
     private int id;
     private String name;
-    private Diet[] diets;
 
     public FoodCategory(
             int id,
@@ -12,7 +11,6 @@ public class FoodCategory {
     ) {
         this.id = id;
         this.name = name;
-        this.diets = diets;
     }
 
     public int getId() {
@@ -20,8 +18,5 @@ public class FoodCategory {
     }
     public String getName() {
         return name;
-    }
-    public Diet[] getDiets() {
-        return diets;
     }
 }

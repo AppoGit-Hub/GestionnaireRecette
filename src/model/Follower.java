@@ -1,22 +1,22 @@
 package model;
 
 public class Follower {
-    private Person child;
-    private Person parent;
+    private int child;
+    private int parent;
 
     public Follower(
-            Person child,
-            Person parent
+            int child,
+            int parent
     ) {
         this.child = child;
         this.parent = parent;
     }
 
-    public Person getChild() {
+    public int getChild() {
         return child;
     }
 
-    public Person getParent() {
+    public int getParent() {
         return parent;
     }
 }

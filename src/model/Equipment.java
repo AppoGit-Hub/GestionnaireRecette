@@ -1,22 +1,22 @@
 package model;
 
 public class Equipment {
-    private Utensil utensil;
-    private Recipe recipe;
+    private String utensil;
+    private int recipe;
 
     public Equipment(
-            Utensil utensil,
-            Recipe recipe
+            String utensil,
+            int recipe
     ) {
         this.utensil = utensil;
         this.recipe = recipe;
     }
 
-    public Utensil getUtensil() {
+    public String getUtensil() {
         return utensil;
     }
 
-    public Recipe getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 }
