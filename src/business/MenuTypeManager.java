@@ -2,7 +2,7 @@ package business;
 
 import dataAccess.MenuTypeDataAccess;
 import dataAccess.MenuTypeDataBaseAccess;
-import dataAccess.MenuTypeException;
+import model.AllMenuTypeException;
 import model.MenuType;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class MenuTypeManager {
         this.menuTypeAccess = menuTypeAccess;
     }
 
-    public ArrayList<MenuType> getAllMenuTypes() throws MenuTypeException {
+    public ArrayList<MenuType> getAllMenuTypes() throws AllMenuTypeException {
         return menuTypeAccess.getAllMenuTypes();
     }
 }

@@ -3,7 +3,7 @@ package userInterface;
 import business.MealCategoryManager;
 import controller.MenuTypeController;
 import dataAccess.MealCategoryException;
-import dataAccess.MenuTypeException;
+import model.AllMenuTypeException;
 import model.*;
 
 import javax.swing.*;
@@ -127,7 +127,14 @@ public class GlobalRecipePanel extends JPanel {
 
         this.addMenuTypeButton = new JButton("Add");
         this.removeMenuTypeButton = new JButton("Remove");
-        this.menuTypeComboBox = new JComboBox();
+
+        try {
+            ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
+            this.menuTypeComboBox = new JComboBox(menuTypes.toArray());
+        } catch (AllMenuTypeException exception) {
+            this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
+        }
+
         this.menuTypeList = new JList();
         this.menuTypeAccessErrorLabel = new JLabel();
 
@@ -364,17 +371,6 @@ public class GlobalRecipePanel extends JPanel {
     public void setTime(int time) {
         if (time >= TIME_MIN && time <= TIME_MAX) {
             this.timeSpinner.setValue(time);
-        }
-    }
-
-    public void setAllMenuTypes() {
-        try {
-            ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
-            for (MenuType menuType : menuTypes) {
-                this.menuTypeComboBox.addItem(menuType);
-            }
-        } catch (MenuTypeException exception) {
-            this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
         }
     }
 

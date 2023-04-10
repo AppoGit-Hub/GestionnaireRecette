@@ -1,7 +1,7 @@
 package controller;
 
 import business.MenuTypeManager;
-import dataAccess.MenuTypeException;
+import model.AllMenuTypeException;
 import model.MenuType;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class MenuTypeController {
         this.manager = manager;
     }
 
-    public ArrayList<MenuType> getAllMenuTypes() throws MenuTypeException {
+    public ArrayList<MenuType> getAllMenuTypes() throws AllMenuTypeException {
         return manager.getAllMenuTypes();
     }
 }
