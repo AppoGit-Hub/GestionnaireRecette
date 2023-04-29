@@ -1,6 +1,7 @@
 package userInterface;
 
 import business.MealCategoryManager;
+import controller.MealCategoryController;
 import controller.MenuTypeController;
 import dataAccess.MealCategoryException;
 import model.AllMenuTypeException;
@@ -64,7 +65,7 @@ public class GlobalRecipePanel extends JPanel {
     private JTabbedPane tabs;
 
     private MenuTypeController menuTypeController;
-    private MealCategoryManager mealCategoryManager;
+    private MealCategoryController mealCategoryController;
 
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
@@ -79,7 +80,7 @@ public class GlobalRecipePanel extends JPanel {
 
     public GlobalRecipePanel() {
         this.menuTypeController = new MenuTypeController();
-        this.mealCategoryManager = new MealCategoryManager();
+        this.mealCategoryController = new MealCategoryController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -377,7 +378,7 @@ public class GlobalRecipePanel extends JPanel {
 
     public void setAllMenuCategories() {
         try {
-            ArrayList<MealCategory> mealCategories = mealCategoryManager.getAllMenuCategories();
+            ArrayList<MealCategory> mealCategories = mealCategoryController.getAllMenuCategories();
             for (MealCategory mealCategory : mealCategories) {
                 this.menuCategoryComboBox.addItem(mealCategory);
             }
