@@ -13,8 +13,24 @@ public class Country {
         return id;
     }
 
+    public void setId(int id) {
+        if (id >= 0) {
+            this.id = id;
+        } else {
+            // throw exception ?
+        }
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        if (name.length() > 0) {
+            this.name = name;
+        } else {
+            // throw exception ?
+        }
     }
 
     @Override
