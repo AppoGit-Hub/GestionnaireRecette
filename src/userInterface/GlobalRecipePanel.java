@@ -1,10 +1,11 @@
 package userInterface;
 
-import business.MealCategoryManager;
+import controller.EquipementController;
 import controller.MealCategoryController;
 import controller.MenuTypeController;
-import dataAccess.MealCategoryException;
-import model.AllMenuTypeException;
+import controller.RecipeStepController;
+import exception.MealCategoryException;
+import exception.AllMenuTypeException;
 import model.*;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GlobalRecipePanel extends JPanel {
+    private int currentRecipeCode;
     private JLabel titleLabel;
     private JTextField titleField;
     private JRadioButton isHot;
@@ -53,6 +55,7 @@ public class GlobalRecipePanel extends JPanel {
     private JButton removeRecipeStepsButton;
     private JButton editRecipeStepsButton;
     private JButton saveRecipeStepsButton;
+    private JLabel recipeStepErrorLabel;
     private JList<RecipeStep> recipeStepsList;
     private JList<Ingredient> ingredientList;
     private JButton addIngredientButton;
@@ -66,7 +69,8 @@ public class GlobalRecipePanel extends JPanel {
 
     private MenuTypeController menuTypeController;
     private MealCategoryController mealCategoryController;
-
+    private EquipementController equipementController;
+    private RecipeStepController recipeStepController;
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
     private static final int PEOPLE_MIN = 1;
@@ -79,8 +83,11 @@ public class GlobalRecipePanel extends JPanel {
     private static final int QUANTITY_MAX = 1000;
 
     public GlobalRecipePanel() {
+        this.currentRecipeCode = 0;
+
         this.menuTypeController = new MenuTypeController();
         this.mealCategoryController = new MealCategoryController();
+        this.recipeStepController = new RecipeStepController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -151,7 +158,16 @@ public class GlobalRecipePanel extends JPanel {
         this.removeRecipeStepsButton = new JButton("Remove");
         this.editRecipeStepsButton = new JButton("Edit");
         this.saveRecipeStepsButton = new JButton("Save");
-        this.recipeStepsList = new JList();
+        DefaultListModel recipeStepsListModel = new DefaultListModel();
+        this.recipeStepsList = new JList(recipeStepsListModel);
+        this.recipeStepErrorLabel = new JLabel();
+
+        try {
+            ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(currentRecipeCode);
+            recipeStepsListModel.addAll(recipeSteps);
+        } catch (Exception exception) {
+            this.recipeStepErrorLabel.setText("Error Loading Recipe Steps");
+        }
 
         this.ingredientList = new JList();
         this.addIngredientButton = new JButton("Add");
@@ -236,6 +252,10 @@ public class GlobalRecipePanel extends JPanel {
 
         recipeStepsPanel.add(recipeStepsCenterPanel, BorderLayout.CENTER);
 
+        JPanel recipeStepsBottomPanel = new JPanel();
+        recipeStepsBottomPanel.add(recipeStepErrorLabel);
+
+        recipeStepsPanel.add(recipeStepsBottomPanel, BorderLayout.SOUTH);
 
         JPanel ingredientPanel = new JPanel();
         ingredientPanel.setLayout(new BorderLayout());

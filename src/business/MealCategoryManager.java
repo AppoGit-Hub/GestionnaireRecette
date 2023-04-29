@@ -1,8 +1,8 @@
 package business;
 
-import dataAccess.MealCategoryDataAccess;
+import interfaceAccess.MealCategoryDataAccess;
 import dataAccess.MealCategoryDataBaseAccess;
-import dataAccess.MealCategoryException;
+import exception.MealCategoryException;
 import model.MealCategory;
 
 import java.util.ArrayList;

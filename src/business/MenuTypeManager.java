@@ -1,8 +1,8 @@
 package business;
 
-import dataAccess.MenuTypeDataAccess;
+import interfaceAccess.MenuTypeDataAccess;
 import dataAccess.MenuTypeDataBaseAccess;
-import model.AllMenuTypeException;
+import exception.AllMenuTypeException;
 import model.MenuType;
 
 import java.util.ArrayList;

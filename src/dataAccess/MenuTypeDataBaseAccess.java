@@ -1,5 +1,7 @@
 package dataAccess;
 
+import interfaceAccess.MenuTypeDataAccess;
+import exception.AllMenuTypeException;
 import model.MenuType;
 
 import java.sql.*;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 
 public class MenuTypeDataBaseAccess implements MenuTypeDataAccess {
     @Override
-    public ArrayList<MenuType> getAllMenuTypes() throws MenuTypeException {
+    public ArrayList<MenuType> getAllMenuTypes() throws AllMenuTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM menuType";
@@ -23,7 +25,7 @@ public class MenuTypeDataBaseAccess implements MenuTypeDataAccess {
             }
             return menuTypes;
         } catch (SQLException exception) {
-            throw new MenuTypeException();
+            throw new AllMenuTypeException();
         }
     }
 }

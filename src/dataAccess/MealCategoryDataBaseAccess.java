@@ -1,7 +1,8 @@
 package dataAccess;
 
+import exception.MealCategoryException;
+import interfaceAccess.MealCategoryDataAccess;
 import model.MealCategory;
-import model.MenuType;
 
 import java.sql.*;
 import java.util.ArrayList;

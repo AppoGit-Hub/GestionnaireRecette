@@ -1,18 +1,15 @@
 package model;
 
 public class Order {
-    private String recipe;
+    private int recipe;
     private int mealCategory;
 
-    public Order(
-            String recipe,
-            int mealCategory
-    ) {
+    public Order(int recipe, int mealCategory) {
         this.recipe = recipe;
         this.mealCategory = mealCategory;
     }
 
-    public String getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 

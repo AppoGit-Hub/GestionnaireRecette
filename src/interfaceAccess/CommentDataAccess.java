@@ -1,4 +1,4 @@
-package dataAccess;
+package interfaceAccess;
 
 import model.Comment;
 import model.Recipe;

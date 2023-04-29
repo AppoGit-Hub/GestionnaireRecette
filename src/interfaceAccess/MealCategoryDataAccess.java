@@ -1,5 +1,6 @@
-package dataAccess;
+package interfaceAccess;
 
+import exception.MealCategoryException;
 import model.MealCategory;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package controller;
 
 import business.MenuTypeManager;
-import model.AllMenuTypeException;
+import exception.AllMenuTypeException;
 import model.MenuType;
 
 import java.util.ArrayList;

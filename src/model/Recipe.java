@@ -21,26 +21,20 @@ public class Recipe {
         String title,
         boolean isHot,
         LocalDate publicationDate,
-        String description,
         LocalDate timePreparation,
-        Integer noteAuthor,
         boolean isSalted,
         int numberPeopleConcerned,
         Complexity complexity,
-        int speciality,
         int person
     ) {
         this.code = code;
         this.title = title;
         this.isHot = isHot;
         this.publicationDate = publicationDate;
-        this.description = description;
         this.timePreparation = timePreparation;
-        this.noteAuthor = noteAuthor;
         this.isSalted = isSalted;
         this.numberPeopleConcerned = numberPeopleConcerned;
         this.complexity = complexity;
-        this.speciality = speciality;
         this.person = person;
     }
 
@@ -90,5 +84,53 @@ public class Recipe {
 
     public int getPerson() {
         return person;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setHot(boolean hot) {
+        isHot = hot;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setTimePreparation(LocalDate timePreparation) {
+        this.timePreparation = timePreparation;
+    }
+
+    public void setSalted(boolean salted) {
+        this.isSalted = salted;
+    }
+
+    public void setNumberPeopleConcerned(int numberPeopleConcerned) {
+        this.numberPeopleConcerned = numberPeopleConcerned;
+    }
+
+    public void setComplexity(Complexity complexity) {
+        this.complexity = complexity;
+    }
+
+    public void setPerson(int person) {
+        this.person = person;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNoteAuthor(Integer noteAuthor) {
+        this.noteAuthor = noteAuthor;
+    }
+
+    public void setSpeciality(int speciality) {
+        this.speciality = speciality;
     }
 }

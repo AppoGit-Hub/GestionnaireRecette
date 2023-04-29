@@ -1,12 +1,12 @@
 package model;
 
 public class RecipeStep {
-    private Recipe recipe;
+    private int recipe;
     private int number;
     private String description;
 
     public RecipeStep(
-            Recipe recipe,
+            int recipe,
             int number,
             String description
     ) {
@@ -15,7 +15,7 @@ public class RecipeStep {
         this.description = description;
     }
 
-    public Recipe getRecipe() {
+    public int getRecipe() {
         return recipe;
     }
 

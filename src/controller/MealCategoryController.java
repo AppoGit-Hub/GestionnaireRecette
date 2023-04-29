@@ -1,7 +1,7 @@
 package controller;
 
 import business.MealCategoryManager;
-import dataAccess.MealCategoryException;
+import exception.MealCategoryException;
 import model.MealCategory;
 
 import java.util.ArrayList;
