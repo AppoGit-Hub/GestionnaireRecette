@@ -2,7 +2,7 @@ package business;
 
 import interfaceAccess.MealCategoryDataAccess;
 import dataAccess.MealCategoryDataBaseAccess;
-import exception.MealCategoryException;
+import exception.AllMealCategoryException;
 import model.MealCategory;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class MealCategoryManager {
         this.mealCategoryAccess = mealCategoryAccess;
     }
 
-    public ArrayList<MealCategory> getAllMenuCategories() throws MealCategoryException {
+    public ArrayList<MealCategory> getAllMenuCategories() throws AllMealCategoryException {
         return this.mealCategoryAccess.getAllMealCategory();
     }
 }

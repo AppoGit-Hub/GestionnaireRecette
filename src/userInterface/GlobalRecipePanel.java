@@ -4,7 +4,7 @@ import controller.EquipementController;
 import controller.MealCategoryController;
 import controller.MenuTypeController;
 import controller.RecipeStepController;
-import exception.MealCategoryException;
+import exception.AllMealCategoryException;
 import exception.AllMenuTypeException;
 import model.*;
 
@@ -402,7 +402,7 @@ public class GlobalRecipePanel extends JPanel {
             for (MealCategory mealCategory : mealCategories) {
                 this.menuCategoryComboBox.addItem(mealCategory);
             }
-        } catch (MealCategoryException exception) {
+        } catch (AllMealCategoryException exception) {
             this.menuCategoryAccessErrorLabel.setText("Error Loading Menu Categories");
         }
     }

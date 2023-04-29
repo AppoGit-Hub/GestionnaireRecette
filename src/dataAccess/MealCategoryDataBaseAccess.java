@@ -1,6 +1,6 @@
 package dataAccess;
 
-import exception.MealCategoryException;
+import exception.AllMealCategoryException;
 import interfaceAccess.MealCategoryDataAccess;
 import model.MealCategory;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class MealCategoryDataBaseAccess implements MealCategoryDataAccess {
     @Override
-    public ArrayList<MealCategory> getAllMealCategory()throws MealCategoryException {
+    public ArrayList<MealCategory> getAllMealCategory()throws AllMealCategoryException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM mealcategory";
@@ -24,7 +24,7 @@ public class MealCategoryDataBaseAccess implements MealCategoryDataAccess {
             }
             return menuCategories;
         } catch (SQLException exception) {
-            throw new MealCategoryException();
+            throw new AllMealCategoryException();
         }
     }
 }

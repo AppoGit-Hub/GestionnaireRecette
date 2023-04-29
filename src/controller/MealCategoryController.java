@@ -1,7 +1,7 @@
 package controller;
 
 import business.MealCategoryManager;
-import exception.MealCategoryException;
+import exception.AllMealCategoryException;
 import model.MealCategory;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class MealCategoryController {
         this.manager = manager;
     }
 
-    public ArrayList<MealCategory> getAllMenuCategories() throws MealCategoryException {
+    public ArrayList<MealCategory> getAllMenuCategories() throws AllMealCategoryException {
         return manager.getAllMenuCategories();
     }
 
