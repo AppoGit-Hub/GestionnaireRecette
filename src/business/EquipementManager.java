@@ -18,7 +18,7 @@ public class EquipementManager {
         this.equipementAccess = equipementAccess;
     }
 
-    public ArrayList<Equipment> getEquipementOf(int recipeCode) throws AllEquipementException {
-        return this.equipementAccess.getEquipementOf(recipeCode);
+    public ArrayList<Equipment> getAllEquipementOf(int recipeCode) throws AllEquipementException {
+        return this.equipementAccess.getAllEquipementOf(recipeCode);
     }
 }
