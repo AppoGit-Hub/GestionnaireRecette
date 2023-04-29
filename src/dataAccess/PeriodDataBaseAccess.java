@@ -19,10 +19,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
     public ArrayList<Period> getAllPeriod(int recipeCode) throws AllPeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query =
-                    "SELECT * " +
-                    "FROM period" +
-                    "WHERE periodRecipe = ?";
+            String query = "SELECT * FROM period WHERE periodRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             ResultSet data = statement.executeQuery();

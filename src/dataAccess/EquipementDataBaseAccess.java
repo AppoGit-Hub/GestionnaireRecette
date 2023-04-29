@@ -16,10 +16,7 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
     public ArrayList<Equipment> getEquipementOf(Recipe recipe) throws EquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query =
-                    "SELECT * " +
-                    "FROM equipment" +
-                    "WHERE inRecipe = ?";
+            String query = "SELECT * FROM equipment WHERE inRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipe.getCode());
             ResultSet data = statement.executeQuery();

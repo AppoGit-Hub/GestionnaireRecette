@@ -17,8 +17,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
     public ArrayList<RecipeStep> getAllRecipeStep(int recipeCode) throws AllRecipeStepException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query =
-                    "SELECT * FROM recipestep WHERE baseRecipe = ?;";
+            String query = "SELECT * FROM recipestep WHERE baseRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             ResultSet data = statement.executeQuery();

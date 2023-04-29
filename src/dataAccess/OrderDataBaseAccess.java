@@ -21,10 +21,7 @@ public class OrderDataBaseAccess implements OrderDataAccess {
     public ArrayList<Order> getAllOrder(int recipeCode) throws AllOrderException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query =
-                    "SELECT * " +
-                    "FROM order" +
-                    "WHERE fromRecipe = ?";
+            String query = "SELECT *  FROM order WHERE fromRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             ResultSet data = statement.executeQuery();
