@@ -1,9 +1,8 @@
 package dataAccess;
 
-import exception.EquipementException;
+import exception.AllEquipementException;
 import interfaceAccess.EquipementDataAccess;
 import model.Equipment;
-import model.Recipe;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,12 +12,12 @@ import java.util.ArrayList;
 
 public class EquipementDataBaseAccess implements EquipementDataAccess {
     @Override
-    public ArrayList<Equipment> getEquipementOf(Recipe recipe) throws EquipementException {
+    public ArrayList<Equipment> getAllEquipementOf(int recipeCode) throws AllEquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM equipment WHERE inRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
-            statement.setInt(1, recipe.getCode());
+            statement.setInt(1, recipeCode);
             ResultSet data = statement.executeQuery();
             ArrayList<Equipment> equipments = new ArrayList<Equipment>();
             while (data.next()) {
@@ -29,7 +28,7 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             }
             return equipments;
         } catch (SQLException exception) {
-            throw new EquipementException();
+            throw new AllEquipementException();
         }
     }
 }

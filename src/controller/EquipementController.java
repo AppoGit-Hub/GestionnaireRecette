@@ -1,9 +1,8 @@
 package controller;
 
 import business.EquipementManager;
-import exception.EquipementException;
+import exception.AllEquipementException;
 import model.Equipment;
-import model.Recipe;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class EquipementController {
         this.manager = manager;
     }
 
-    public ArrayList<Equipment> getEquipementOf(Recipe recipe) throws EquipementException {
-        return this.manager.getEquipementOf(recipe);
+    public ArrayList<Equipment> getEquipementOf(int recipeCode) throws AllEquipementException {
+        return this.manager.getEquipementOf(recipeCode);
     }
 }
