@@ -1,10 +1,10 @@
 package model;
 
-public class Order {
+public class OrderType {
     private int recipe;
     private int mealCategory;
 
-    public Order(int recipe, int mealCategory) {
+    public OrderType(int recipe, int mealCategory) {
         this.recipe = recipe;
         this.mealCategory = mealCategory;
     }
