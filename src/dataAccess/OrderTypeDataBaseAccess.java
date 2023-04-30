@@ -13,26 +13,26 @@ import java.util.ArrayList;
 public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
 
     @Override
-    public void setOrder(OrderType order) {
+    public void setOrderType(OrderType order) {
 
     }
 
     @Override
-    public ArrayList<OrderType> getAllOrder(int recipeCode) throws AllOrderTypeException {
+    public ArrayList<OrderType> getAllOrderType(int recipeCode) throws AllOrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT *  FROM order WHERE fromRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             ResultSet data = statement.executeQuery();
-            ArrayList<OrderType> orders = new ArrayList<OrderType>();
+            ArrayList<OrderType> orderTypes = new ArrayList<OrderType>();
             while (data.next()) {
                 int recipe = data.getInt("fromRecipe");
                 int mealCategory = data.getInt("mealCategory");
-                OrderType order = new OrderType(recipe, mealCategory);
-                orders.add(order);
+                OrderType orderType = new OrderType(recipe, mealCategory);
+                orderTypes.add(orderType);
             }
-            return orders;
+            return orderTypes;
         } catch (SQLException exception) {
             throw new AllOrderTypeException();
         }

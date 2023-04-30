@@ -5,6 +5,6 @@ import model.OrderType;
 import java.util.ArrayList;
 
 public interface OrderTypeDataAccess {
-    void setOrder(OrderType order);
-    ArrayList<OrderType> getAllOrder(int recipeCode) throws AllOrderTypeException;
+    void setOrderType(OrderType order);
+    ArrayList<OrderType> getAllOrderType(int recipeCode) throws AllOrderTypeException;
 }
