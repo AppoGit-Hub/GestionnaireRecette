@@ -272,7 +272,8 @@ public class GlobalRecipePanel extends JPanel {
         this.setAllIngredient();
         this.setAllUnit();
         this.setAllCountry();
-
+        this.setAllComplexity();
+        
         this.setLayout(new BorderLayout());
 
         this.tabs = new JTabbedPane();
@@ -448,6 +449,13 @@ public class GlobalRecipePanel extends JPanel {
             }
         } catch (AllCountryException exception) {
 
+        }
+    }
+
+    public void setAllComplexity() {
+        Complexity[] complexities = Complexity.values();
+        for (Complexity complexity  : complexities) {
+            this.complexityComboBox.addItem(complexity);
         }
     }
 }
