@@ -71,6 +71,7 @@ public class GlobalRecipePanel extends JPanel {
     private UtensilController utensilController;
     private IngredientController ingredientController;
     private CountryController countryController;
+    private PersonController personController;
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
     private static final int PEOPLE_MIN = 1;
@@ -91,6 +92,7 @@ public class GlobalRecipePanel extends JPanel {
         this.utensilController = new UtensilController();
         this.ingredientController = new IngredientController();
         this.countryController = new CountryController();
+        this.personController = new PersonController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -275,6 +277,7 @@ public class GlobalRecipePanel extends JPanel {
         this.setAllUnit();
         this.setAllCountry();
         this.setAllComplexity();
+        this.setAllAuthor();
 
         this.setLayout(new BorderLayout());
 
@@ -458,6 +461,17 @@ public class GlobalRecipePanel extends JPanel {
         Complexity[] complexities = Complexity.values();
         for (Complexity complexity  : complexities) {
             this.complexityComboBox.addItem(complexity);
+        }
+    }
+
+    public void setAllAuthor() {
+        try {
+            ArrayList<Person> persons = personController.getAllPerson();
+            for (Person person : persons) {
+                this.authorComboBox.addItem(person);
+            }
+        } catch (AllPersonException exception) {
+
         }
     }
 }
