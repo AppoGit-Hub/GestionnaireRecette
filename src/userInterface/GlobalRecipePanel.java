@@ -159,13 +159,6 @@ public class GlobalRecipePanel extends JPanel {
         this.recipeStepsList = new JList(recipeStepsListModel);
         this.recipeStepErrorLabel = new JLabel();
 
-        try {
-            ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(currentRecipeCode);
-            recipeStepsListModel.addAll(recipeSteps);
-        } catch (Exception exception) {
-            this.recipeStepErrorLabel.setText("Error Loading Recipe Steps");
-        }
-
         this.ingredientList = new JList();
         this.addIngredientButton = new JButton("Add");
         this.removeIngredientButton = new JButton("Remove");
