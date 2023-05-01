@@ -1,5 +1,6 @@
 package interfaceAccess;
 
+import exception.NextCodeRecipeException;
 import model.Recipe;
 
 public interface RecipeDataAccess {
@@ -7,4 +8,6 @@ public interface RecipeDataAccess {
     Recipe read();
     void update(Recipe recipe);
     void delete(Recipe recipe);
+
+    int getNextCode() throws NextCodeRecipeException;
 }
