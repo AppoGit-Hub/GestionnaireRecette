@@ -100,12 +100,14 @@ public class GlobalRecipePanel extends JPanel {
         this.temperatureGroup = new ButtonGroup();
         temperatureGroup.add(isHot);
         temperatureGroup.add(isCold);
+        this.temperatureGroup.setSelected(this.isHot.getModel(), true);
 
         this.isSalty = new JRadioButton("Salty");
         this.isSweet = new JRadioButton("Sweet");
         this.spiceGroup = new ButtonGroup();
         spiceGroup.add(isSalty);
         spiceGroup.add(isSweet);
+        this.spiceGroup.setSelected(this.isSalty.getModel(), true);
 
         this.authorLabel = new JLabel("Author");
         this.authorComboBox = new JComboBox();
@@ -273,7 +275,7 @@ public class GlobalRecipePanel extends JPanel {
         this.setAllUnit();
         this.setAllCountry();
         this.setAllComplexity();
-        
+
         this.setLayout(new BorderLayout());
 
         this.tabs = new JTabbedPane();
