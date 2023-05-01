@@ -1,10 +1,7 @@
 package userInterface;
 
 import controller.*;
-import exception.AllIngredientException;
-import exception.AllMealCategoryException;
-import exception.AllMenuTypeException;
-import exception.AllUtensilException;
+import exception.*;
 import interfaceAccess.IngredientDataAccess;
 import model.*;
 
@@ -73,6 +70,7 @@ public class GlobalRecipePanel extends JPanel {
     private RecipeStepController recipeStepController;
     private UtensilController utensilController;
     private IngredientController ingredientController;
+    private CountryController countryController;
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
     private static final int PEOPLE_MIN = 1;
@@ -92,6 +90,7 @@ public class GlobalRecipePanel extends JPanel {
         this.recipeStepController = new RecipeStepController();
         this.utensilController = new UtensilController();
         this.ingredientController = new IngredientController();
+        this.countryController = new CountryController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -272,6 +271,7 @@ public class GlobalRecipePanel extends JPanel {
         this.setAllUtensil();
         this.setAllIngredient();
         this.setAllUnit();
+        this.setAllCountry();
 
         this.setLayout(new BorderLayout());
 
@@ -437,6 +437,17 @@ public class GlobalRecipePanel extends JPanel {
         Unit[] units = Unit.values();
         for (Unit unit : units) {
             this.unitIngredientComboBox.addItem(unit);
+        }
+    }
+
+    public void setAllCountry() {
+        try {
+            ArrayList<Country> countries = countryController.getAllCountry();
+            for (Country country : countries) {
+                this.countryComboBox.addItem(country);
+            }
+        } catch (AllCountryException exception) {
+
         }
     }
 }
