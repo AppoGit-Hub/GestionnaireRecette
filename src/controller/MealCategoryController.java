@@ -2,6 +2,7 @@ package controller;
 
 import business.MealCategoryManager;
 import exception.AllMealCategoryException;
+import exception.MealCategoryException;
 import model.MealCategory;
 
 import java.util.ArrayList;
@@ -21,4 +22,7 @@ public class MealCategoryController {
         return manager.getAllMenuCategories();
     }
 
+    public MealCategory getMealCategory(int mealCategory) throws MealCategoryException {
+        return manager.getMealCategory(mealCategory);
+    }
 }

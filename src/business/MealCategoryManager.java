@@ -1,5 +1,6 @@
 package business;
 
+import exception.MealCategoryException;
 import interfaceAccess.MealCategoryDataAccess;
 import dataAccess.MealCategoryDataBaseAccess;
 import exception.AllMealCategoryException;
@@ -21,4 +22,9 @@ public class MealCategoryManager {
     public ArrayList<MealCategory> getAllMenuCategories() throws AllMealCategoryException {
         return this.mealCategoryAccess.getAllMealCategory();
     }
+
+    public MealCategory getMealCategory(int mealCategory) throws MealCategoryException {
+        return this.mealCategoryAccess.getMealCategory(mealCategory);
+    }
+
 }
