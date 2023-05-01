@@ -19,6 +19,10 @@ public class MainFrame extends JFrame implements ActionListener {
     private JPanel currentPanel;
     private HashMap<String, JPanel> menus = new HashMap<>();
 
+    private static final int SCREEN_RESOLUTION_X = 1920;
+    private static final int SCREEN_RESOLUTION_Y = 1080;
+    private static final int WINDOWS_RESOLUTION_X = 700;
+    private static final int WINDOWS_RESOLUTION_Y = 500;
 
     public MainFrame() {
         this.publishRecipePanel = new PublishRecipePanel();
@@ -50,7 +54,12 @@ public class MainFrame extends JFrame implements ActionListener {
         this.setJMenuBar(this.menuBar);
         this.addWindowListener(new MainFrameListener());
 
-        this.setBounds(100, 100, 500, 500);
+        this.setBounds(
+            (SCREEN_RESOLUTION_X / 2) - (WINDOWS_RESOLUTION_X / 2),
+            (SCREEN_RESOLUTION_Y / 2) - (WINDOWS_RESOLUTION_Y / 2),
+            WINDOWS_RESOLUTION_X,
+            WINDOWS_RESOLUTION_Y
+        );
         this.setVisible(true);
     }
 
