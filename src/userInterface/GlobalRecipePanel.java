@@ -278,6 +278,7 @@ public class GlobalRecipePanel extends JPanel {
         this.setAllMenuCategory();
         this.setAllUtensil();
         this.setAllIngredient();
+        this.setAllUnit();
 
         this.setLayout(new BorderLayout());
 
@@ -436,6 +437,13 @@ public class GlobalRecipePanel extends JPanel {
             }
         } catch (AllIngredientException e) {
 
+        }
+    }
+
+    public void setAllUnit() {
+        Unit[] units = Unit.values();
+        for (Unit unit : units) {
+            this.unitIngredientComboBox.addItem(unit);
         }
     }
 }
