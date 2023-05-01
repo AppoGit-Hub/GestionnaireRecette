@@ -1,11 +1,9 @@
 package userInterface;
 
-import controller.EquipementController;
-import controller.MealCategoryController;
-import controller.MenuTypeController;
-import controller.RecipeStepController;
+import controller.*;
 import exception.AllMealCategoryException;
 import exception.AllMenuTypeException;
+import exception.AllUtensilException;
 import model.*;
 
 import javax.swing.*;
@@ -71,6 +69,7 @@ public class GlobalRecipePanel extends JPanel {
     private MealCategoryController mealCategoryController;
     private EquipementController equipementController;
     private RecipeStepController recipeStepController;
+    private UtensilController utensilController;
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
     private static final int PEOPLE_MIN = 1;
@@ -88,6 +87,7 @@ public class GlobalRecipePanel extends JPanel {
         this.menuTypeController = new MenuTypeController();
         this.mealCategoryController = new MealCategoryController();
         this.recipeStepController = new RecipeStepController();
+        this.utensilController = new UtensilController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -272,6 +272,7 @@ public class GlobalRecipePanel extends JPanel {
 
         this.setAllMenuType();
         this.setAllMenuCategory();
+        this.setAllUtensil();
 
         this.setLayout(new BorderLayout());
 
@@ -411,6 +412,16 @@ public class GlobalRecipePanel extends JPanel {
         }
     }
 
+    public void setAllUtensil() {
+        try {
+            ArrayList<Utensil> utensils = utensilController.getAllUtensil();
+            for (Utensil utensil : utensils) {
+                this.utensilComboBox.addItem(utensil);
+            }
+        } catch (AllUtensilException exception) {
+
+        }
+    }
 
 }
 
