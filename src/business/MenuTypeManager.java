@@ -1,5 +1,6 @@
 package business;
 
+import exception.MenuTypeException;
 import interfaceAccess.MenuTypeDataAccess;
 import dataAccess.MenuTypeDataBaseAccess;
 import exception.AllMenuTypeException;
@@ -20,5 +21,9 @@ public class MenuTypeManager {
 
     public ArrayList<MenuType> getAllMenuTypes() throws AllMenuTypeException {
         return menuTypeAccess.getAllMenuTypes();
+    }
+
+    public MenuType getMenuType(int menuType) throws MenuTypeException {
+        return menuTypeAccess.getMenuType(menuType);
     }
 }
