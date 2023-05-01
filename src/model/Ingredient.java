@@ -2,15 +2,14 @@ package model;
 
 public class Ingredient {
     private String name;
-    private Integer minPreservationTemperature;
-    private Integer maxPreservationTemperature;
+    private Float minPreservationTemperature;
+    private Float maxPreservationTemperature;
     private int season;
     private int type;
 
-    public Ingredient(String name, Integer minPreservationTemperature, Integer maxPreservationTemperature, int season, int type) {
+    public Ingredient(String name, Float minPreservationTemperature, Float maxPreservationTemperature, int season, int type) {
         this.setName(name);
-        this.setMinPreservationTemperature(minPreservationTemperature);
-        this.setMaxPreservationTemperature(maxPreservationTemperature);
+        this.setMinMaxPreservaationTemperature(minPreservationTemperature, maxPreservationTemperature);
         this.setSeason(season);
         this.setType(type);
     }
@@ -19,16 +18,16 @@ public class Ingredient {
         return name;
     }
     public void setName(String name) {
-        if (this.name.length() > 0) {
+        if (name.length() > 0) {
             this.name = name;
         }
     }
 
-    public Integer getMinPerservationTemperature() {
+    public Float getMinPerservationTemperature() {
         return minPreservationTemperature;
     }
 
-    public void setMinPreservationTemperature(Integer temperature) {
+    public void setMinPreservationTemperature(Float temperature) {
         if (temperature != null) {
             if (temperature < this.maxPreservationTemperature) {
                 this.minPreservationTemperature = temperature;
@@ -40,11 +39,11 @@ public class Ingredient {
         }
     }
 
-    public Integer getMaxPerservationTemperature() {
+    public Float getMaxPerservationTemperature() {
         return maxPreservationTemperature;
     }
 
-    public void setMaxPreservationTemperature(Integer temperature) {
+    public void setMaxPreservationTemperature(Float temperature) {
         if (temperature != null) {
             if (temperature > this.minPreservationTemperature) {
                 this.maxPreservationTemperature = temperature;
@@ -54,6 +53,11 @@ public class Ingredient {
         } else {
             this.maxPreservationTemperature = temperature;
         }
+    }
+
+    public void setMinMaxPreservaationTemperature(Float min, Float max) {
+        this.minPreservationTemperature = min;
+        this.maxPreservationTemperature = max;
     }
 
     public int getSeason() {
@@ -78,5 +82,10 @@ public class Ingredient {
         } else {
             // throw exception ?
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
