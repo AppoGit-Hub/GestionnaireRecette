@@ -138,14 +138,7 @@ public class GlobalRecipePanel extends JPanel {
 
         this.menuTypeList = new JList();
         this.menuTypeAccessErrorLabel = new JLabel();
-
-        try {
-            ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
-            this.menuTypeComboBox = new JComboBox(menuTypes.toArray());
-        } catch (AllMenuTypeException exception) {
-            this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
-            this.menuTypeComboBox = new JComboBox();
-        }
+        this.menuTypeComboBox = new JComboBox();
 
         this.addMenuCategoryButton = new JButton("Add");
         this.removeMenuCategoryButton = new JButton("Remove");
@@ -277,8 +270,8 @@ public class GlobalRecipePanel extends JPanel {
         ingredientPanel.add(ingredientWestPanel, BorderLayout.WEST);
         ingredientPanel.add(ingredientList, BorderLayout.CENTER);
 
-        //this.setAllMenuTypes();
-        this.setAllMenuCategories();
+        this.setAllMenuType();
+        this.setAllMenuCategory();
 
         this.setLayout(new BorderLayout());
 
@@ -396,7 +389,7 @@ public class GlobalRecipePanel extends JPanel {
         }
     }
 
-    public void setAllMenuCategories() {
+    public void setAllMenuCategory() {
         try {
             ArrayList<MealCategory> mealCategories = mealCategoryController.getAllMenuCategories();
             for (MealCategory mealCategory : mealCategories) {
@@ -406,6 +399,18 @@ public class GlobalRecipePanel extends JPanel {
             this.menuCategoryAccessErrorLabel.setText("Error Loading Menu Categories");
         }
     }
+
+    public void setAllMenuType() {
+        try {
+            ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
+            for (MenuType menuType : menuTypes) {
+                this.menuTypeComboBox.addItem(menuType);
+            }
+        } catch (AllMenuTypeException exception) {
+            this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
+        }
+    }
+
 
 }
 
