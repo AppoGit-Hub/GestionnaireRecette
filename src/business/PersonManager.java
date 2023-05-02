@@ -2,6 +2,7 @@ package business;
 
 import dataAccess.PersonDataBaseAccess;
 import exception.AllPersonException;
+import exception.PersonException;
 import interfaceAccess.PersonDataAccess;
 import model.Person;
 
@@ -20,5 +21,9 @@ public class PersonManager {
 
     public ArrayList<Person> getAllPerson() throws AllPersonException {
         return this.personAccess.getAllPerson();
+    }
+
+    public Person getPerson(int person) throws PersonException {
+        return this.personAccess.getPerson(person);
     }
 }

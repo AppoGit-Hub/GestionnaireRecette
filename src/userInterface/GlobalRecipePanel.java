@@ -10,7 +10,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GlobalRecipePanel extends JPanel {
-    private int currentRecipeCode;
     private JLabel titleLabel;
     private JTextField titleField;
     private JRadioButton isHot;
@@ -63,15 +62,14 @@ public class GlobalRecipePanel extends JPanel {
     private JSpinner quantityIngredientComboBox;
     private JComboBox<Unit> unitIngredientComboBox;
     private JTabbedPane tabs;
-
-    private MenuTypeController menuTypeController;
-    private MealCategoryController mealCategoryController;
-    private EquipementController equipementController;
-    private RecipeStepController recipeStepController;
-    private UtensilController utensilController;
-    private IngredientController ingredientController;
-    private CountryController countryController;
-    private PersonController personController;
+    protected MenuTypeController menuTypeController;
+    protected MealCategoryController mealCategoryController;
+    protected EquipementController equipementController;
+    protected RecipeStepController recipeStepController;
+    protected UtensilController utensilController;
+    protected IngredientController ingredientController;
+    protected CountryController countryController;
+    protected PersonController personController;
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
     private static final int PEOPLE_MIN = 1;
@@ -84,8 +82,6 @@ public class GlobalRecipePanel extends JPanel {
     private static final int QUANTITY_MAX = 1000;
 
     public GlobalRecipePanel() {
-        this.currentRecipeCode = 0;
-
         this.menuTypeController = new MenuTypeController();
         this.mealCategoryController = new MealCategoryController();
         this.recipeStepController = new RecipeStepController();
@@ -134,6 +130,7 @@ public class GlobalRecipePanel extends JPanel {
 
         this.descriptionLabel = new JLabel("Description");
         this.descriptionTextArea = new JTextArea(10, 10);
+        this.descriptionTextArea.setLineWrap(true);
 
         this.addUtensilButton = new JButton("Add");
         this.removeUtensilButton = new JButton("Remove");
@@ -332,67 +329,86 @@ public class GlobalRecipePanel extends JPanel {
         return this.ingredientList.getModel().getSize() > 0;
     }
 
+    public String getTitle() {
+        return this.titleLabel.getText();
+    }
+
+    public void setTitle(String title) {
+        if (title.length() > TITLE_MIN_LENGTH) {
+            this.titleField.setText(title);
+        }
+    }
+
+    public boolean getIsHot() {
+        return this.isHot.getModel().isSelected();
+    }
+
+    public void setIsHot(boolean isHot) {
+        if (isHot) {
+            this.temperatureGroup.setSelected(this.isHot.getModel(), true);
+        } else {
+            this.temperatureGroup.setSelected(this.isCold.getModel(), true);
+        }
+    }
+
+    public boolean getIsSalty() {
+        return this.isSalty.getModel().isSelected();
+    }
+
+    public void setIsSalty(boolean isSalty) {
+        if (isSalty) {
+            this.spiceGroup.setSelected(this.isSalty.getModel(), true);
+        } else {
+            this.spiceGroup.setSelected(this.isSweet.getModel(), true);
+        }
+    }
+
     public Person getAuthor() {
         return (Person) this.authorComboBox.getSelectedItem();
     }
-
-    public void setAuthor(Person... authors) {
-        this.authorComboBox.removeAllItems();
-        for (Person author : authors) {
-            this.authorComboBox.addItem(author);
-        }
+    public void setAuthor(Person person) {
+        this.authorComboBox.setSelectedItem(person);
     }
 
     public Country getCountry() {
         return (Country) this.countryComboBox.getSelectedItem();
     }
-
-    public void setCountry(Country... countries) {
-        this.countryComboBox.removeAllItems();
-        for (Country country : countries) {
-            this.countryComboBox.addItem(country);
-        }
+    public void setCountry(Country country) {
+        System.out.printf(country.toString());
+        this.countryComboBox.setSelectedItem(country);
     }
 
     public Complexity getComplexity() {
         return (Complexity) this.complexityComboBox.getSelectedItem();
     }
-
-    public void setComplexity(Complexity... complexities) {
-        this.complexityComboBox.removeAllItems();
-        for (Complexity complexity : complexities) {
-            this.complexityComboBox.addItem(complexity);
-        }
+    public void setComplexity(Complexity complexity) {
+        this.complexityComboBox.setSelectedItem(complexity);
     }
-
     public int getPeople() {
         return (int) this.peopleSpinner.getValue();
     }
-
-    public void setPeople(int peopleFor) {
-        if (peopleFor >= PEOPLE_MIN && peopleFor <= PEOPLE_MAX) {
-            this.peopleSpinner.setValue(peopleFor);
-        }
+    public void setPeople(int people) {
+        this.peopleSpinner.setValue(people);
     }
-
     public int getNote() {
         return (int) this.noteSpinner.getValue();
     }
-
     public void setNote(int note) {
-        if (note >= NOTE_MIN && note <= NOTE_MAX) {
-            this.noteSpinner.setValue(note);
-        }
+        this.noteSpinner.setValue(note);
     }
-
     public int getTime() {
         return (int) this.timeSpinner.getValue();
     }
-
     public void setTime(int time) {
-        if (time >= TIME_MIN && time <= TIME_MAX) {
-            this.timeSpinner.setValue(time);
-        }
+        this.timeSpinner.setValue(time);
+    }
+
+    public String getDescription() {
+        return this.descriptionTextArea.getText();
+    }
+
+    public void setDescription(String description) {
+        this.descriptionTextArea.setText(description);
     }
 
     public void setAllMenuCategory() {

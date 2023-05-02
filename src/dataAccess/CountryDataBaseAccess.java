@@ -2,6 +2,7 @@ package dataAccess;
 
 import exception.AllCountryException;
 import exception.AllEquipementException;
+import exception.CountryException;
 import interfaceAccess.CountryDataAccess;
 import model.Country;
 import model.Equipment;
@@ -30,6 +31,23 @@ public class CountryDataBaseAccess implements CountryDataAccess {
             return countries;
         } catch (SQLException exception) {
             throw new AllCountryException();
+        }
+    }
+
+    @Override
+    public Country getCountry(int country) throws CountryException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "SELECT * FROM country WHERE id = ?;";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, country);
+            ResultSet data = statement.executeQuery();
+            data.next();
+            int id = data.getInt("id");
+            String name = data.getString("name");
+            return new Country(id, name);
+        } catch (SQLException exception) {
+            throw new CountryException();
         }
     }
 }

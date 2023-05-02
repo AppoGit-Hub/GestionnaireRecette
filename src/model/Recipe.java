@@ -8,8 +8,8 @@ public class Recipe {
     private boolean isHot;
     private LocalDate publicationDate;
     private String description;
-    private LocalDate timePreparation;
-    private Integer noteAuthor;
+    private int timePreparation;
+    private String noteAuthor;
     private boolean isSalted;
     private int numberPeopleConcerned;
     private Complexity complexity;
@@ -21,7 +21,7 @@ public class Recipe {
         String title,
         boolean isHot,
         LocalDate publicationDate,
-        LocalDate timePreparation,
+        int timePreparation,
         boolean isSalted,
         int numberPeopleConcerned,
         Complexity complexity,
@@ -58,11 +58,11 @@ public class Recipe {
         return description;
     }
 
-    public LocalDate getTimePreparation() {
+    public int getTimePreparation() {
         return timePreparation;
     }
 
-    public Integer getNoteAuthor() {
+    public String getNoteAuthor() {
         return noteAuthor;
     }
 
@@ -102,7 +102,7 @@ public class Recipe {
         this.publicationDate = publicationDate;
     }
 
-    public void setTimePreparation(LocalDate timePreparation) {
+    public void setTimePreparation(int timePreparation) {
         this.timePreparation = timePreparation;
     }
 
@@ -126,11 +126,16 @@ public class Recipe {
         this.description = description;
     }
 
-    public void setNoteAuthor(Integer noteAuthor) {
+    public void setNoteAuthor(String noteAuthor) {
         this.noteAuthor = noteAuthor;
     }
 
     public void setSpeciality(int speciality) {
         this.speciality = speciality;
+    }
+
+    @Override
+    public String toString() {
+        return title + " " + publicationDate;
     }
 }
