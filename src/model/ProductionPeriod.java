@@ -9,7 +9,8 @@ public class ProductionPeriod {
 
     public ProductionPeriod(int id, LocalDate dateBeginning, LocalDate dateEnding) {
         this.setId(id);
-        this.setPeriod(dateBeginning, dateEnding);
+        this.setDateBeginning(dateBeginning);
+        this.setDateEnding(dateEnding);
     }
 
     public int getId() {
@@ -25,9 +26,7 @@ public class ProductionPeriod {
     }
 
     public void setDateBeginning(LocalDate dateBeginning) {
-        if (this.dateBeginning.isBefore(this.dateEnding)) {
-            this.dateBeginning = dateBeginning;
-        }
+        this.dateBeginning = dateBeginning;
     }
 
     public LocalDate getDateEnding() {
@@ -35,15 +34,6 @@ public class ProductionPeriod {
     }
 
     public void setDateEnding(LocalDate dateEnding) {
-        if (this.dateBeginning.isBefore(this.dateEnding)) {
-            this.dateEnding = dateEnding;
-        }
-    }
-
-    private void setPeriod(LocalDate dateBeginning, LocalDate dateEnding) {
-        if (dateBeginning.isBefore(dateEnding)) {
-            this.dateBeginning = dateBeginning;
-            this.dateEnding = dateEnding;
-        }
+        this.dateEnding = dateEnding;
     }
 }

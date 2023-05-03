@@ -16,26 +16,16 @@ public class Recipe {
     private int speciality;
     private int person;
 
-    public Recipe(
-        int code,
-        String title,
-        boolean isHot,
-        LocalDate publicationDate,
-        int timePreparation,
-        boolean isSalted,
-        int numberPeopleConcerned,
-        Complexity complexity,
-        int person
-    ) {
-        this.code = code;
-        this.title = title;
-        this.isHot = isHot;
-        this.publicationDate = publicationDate;
-        this.timePreparation = timePreparation;
-        this.isSalted = isSalted;
-        this.numberPeopleConcerned = numberPeopleConcerned;
-        this.complexity = complexity;
-        this.person = person;
+    public Recipe(int code, String title, boolean isHot, LocalDate publicationDate, int timePreparation, boolean isSalted, int numberPeopleConcerned, Complexity complexity, int person) {
+        setCode(code);
+        setTitle(title);
+        setIsHot(isHot);
+        setPublicationDate(publicationDate);
+        setTimePreparation(timePreparation);
+        setIsSalted(isSalted);
+        setNumberPeopleConcerned(numberPeopleConcerned);
+        setComplexity(complexity);
+        setPerson(person);
     }
 
     public int getCode() {
@@ -94,7 +84,7 @@ public class Recipe {
         this.title = title;
     }
 
-    public void setHot(boolean hot) {
+    public void setIsHot(boolean hot) {
         isHot = hot;
     }
 
@@ -106,7 +96,7 @@ public class Recipe {
         this.timePreparation = timePreparation;
     }
 
-    public void setSalted(boolean salted) {
+    public void setIsSalted(boolean salted) {
         this.isSalted = salted;
     }
 

@@ -9,6 +9,10 @@ public enum Complexity {
     private int complexity;
 
     Complexity(int complexity) {
+        setComplexity(complexity);
+    }
+
+    public void setComplexity(int complexity) {
         this.complexity = complexity;
     }
 

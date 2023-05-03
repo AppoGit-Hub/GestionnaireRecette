@@ -14,11 +14,7 @@ public class Follower {
     }
 
     public void setChild(int child) {
-        if (child >= 0) {
-            this.child = child;
-        } else {
-            // throw exception ?
-        }
+        this.child = child;
     }
 
     public int getParent() {
@@ -26,10 +22,6 @@ public class Follower {
     }
 
     public void setParent(int parent) {
-        if (parent >= 0) {
-            this.parent = parent;
-        } else {
-            // throw exception ?
-        }
+        this.parent = parent;
     }
 }

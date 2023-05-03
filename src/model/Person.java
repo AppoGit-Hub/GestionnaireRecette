@@ -22,11 +22,7 @@ public class Person {
     }
 
     public void setId(int id) {
-        if (this.id >= 0) {
-            this.id = id;
-        } else {
-            // throw exception ?
-        }
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -34,11 +30,7 @@ public class Person {
     }
 
     public void setFirstname(String firstname) {
-        if (firstname.length() > 0) {
-            this.firstname = firstname;
-        } else {
-            // throw exception ?
-        }
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -46,11 +38,7 @@ public class Person {
     }
 
     public void setLastname(String lastname) {
-        if (lastname.length() > 0) {
-            this.lastname = lastname;
-        } else {
-            // throw exception ?
-        }
+        this.lastname = lastname;
     }
 
     public LocalDate getBirthday() {
@@ -66,11 +54,7 @@ public class Person {
     }
 
     public void setPassword(String password) {
-        if (password.length() > 0) {
-            this.password = password;
-        } else {
-            // throw exception ?
-        }
+        this.password = password;
     }
 
     @Override

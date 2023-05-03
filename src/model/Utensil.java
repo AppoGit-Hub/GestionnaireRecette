@@ -5,14 +5,14 @@ public class Utensil {
     private boolean isElectic;
     private LevelPrice levelPrice;
 
-    public Utensil(
-            String name,
-            boolean isElectic,
-            LevelPrice levelPrice
-    ) {
+    public Utensil(String name, boolean isElectic, LevelPrice levelPrice) {
+        setIsElectic(isElectic);
+        setLevelPrice(levelPrice);
+        setName(name);
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.isElectic = isElectic;
-        this.levelPrice = levelPrice;
     }
 
     public String getName() {
@@ -23,8 +23,16 @@ public class Utensil {
         return isElectic;
     }
 
+    public void setIsElectic(boolean electic) {
+        this.isElectic = electic;
+    }
+
     public LevelPrice getLevelPrice() {
         return levelPrice;
+    }
+
+    public void setLevelPrice(LevelPrice levelPrice) {
+        this.levelPrice = levelPrice;
     }
 
     @Override

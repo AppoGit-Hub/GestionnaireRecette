@@ -14,11 +14,7 @@ public class Diet {
     }
 
     public void setId(int id) {
-        if (id >= 0) {
-            this.id = id;
-        } else {
-            // throw exception ?
-        }
+        this.id = id;
     }
 
     public String getName() {
@@ -26,10 +22,6 @@ public class Diet {
     }
 
     public void setName(String name) {
-        if (name.length() > 0) {
-            this.name = name;
-        } else {
-            // throw exception ?
-        }
+        this.name = name;
     }
 }

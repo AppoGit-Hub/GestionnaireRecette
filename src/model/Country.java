@@ -5,8 +5,8 @@ public class Country {
     private String name;
 
     public Country(int id, String name) {
-        this.id = id;
-        this.name = name;
+        setId(id);
+        setName(name);
     }
 
     public int getId() {
@@ -14,11 +14,7 @@ public class Country {
     }
 
     public void setId(int id) {
-        if (id >= 0) {
-            this.id = id;
-        } else {
-            // throw exception ?
-        }
+        this.id = id;
     }
 
     public String getName() {
@@ -26,11 +22,7 @@ public class Country {
     }
 
     public void setName(String name) {
-        if (name.length() > 0) {
-            this.name = name;
-        } else {
-            // throw exception ?
-        }
+        this.name = name;
     }
 
     @Override

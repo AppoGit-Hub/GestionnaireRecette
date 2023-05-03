@@ -18,11 +18,7 @@ public class LineRecipe {
     }
 
     public void setIngredient(String ingredient) {
-        if (ingredient.length() > 0) {
-            this.ingredient = ingredient;
-        } else {
-            // throw exception ?
-        }
+        this.ingredient = ingredient;
     }
 
     public int getRecipe() {
@@ -30,11 +26,7 @@ public class LineRecipe {
     }
 
     public void setRecipe(int recipe) {
-        if (recipe >= 0) {
-            this.recipe = recipe;
-        } else {
-            // throw exception ?
-        }
+        this.recipe = recipe;
     }
 
     public int getQuantity() {
@@ -42,11 +34,7 @@ public class LineRecipe {
     }
 
     public void setQuantity(int quantity) {
-        if (quantity >= 0) {
-            this.quantity = quantity;
-        } else {
-            // throw exception ?
-        }
+        this.quantity = quantity;
     }
 
     public Unit getUnit() {

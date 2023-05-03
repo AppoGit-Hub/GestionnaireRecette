@@ -14,11 +14,7 @@ public class Restriction {
     }
 
     public void setFoodCategory(int foodCategory) {
-        if (foodCategory >= 0) {
-            this.foodCategory = foodCategory;
-        } else {
-            // throw exception ?
-        }
+        this.foodCategory = foodCategory;
     }
 
     public int getDiet() {
@@ -26,10 +22,6 @@ public class Restriction {
     }
 
     public void setDiet(int diet) {
-        if (diet >= 0) {
-            this.diet = diet;
-        } else {
-            // throw exception ?
-        }
+       this.diet = diet;
     }
 }
