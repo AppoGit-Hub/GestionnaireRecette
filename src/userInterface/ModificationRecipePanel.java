@@ -2,6 +2,7 @@ package userInterface;
 
 import controller.EquipementController;
 import controller.RecipeController;
+import controller.RecipeStepController;
 import controller.UtensilController;
 import exception.*;
 import model.*;
@@ -97,7 +98,16 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     }
 
     public void setRecipeStepForRecipe() {
-
+        RecipeStepController recipeStepController = this.getRecipeStepController();
+        DefaultListModel<RecipeStep> recipeStepListModel = this.getRecipeStepListModel();
+        Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
+        try {
+            recipeStepListModel.removeAllElements();
+            ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
+            recipeStepListModel.addAll(recipeSteps);
+        } catch (Exception exception) {
+            System.out.printf(exception.getMessage());
+        }
     }
 
     @Override
@@ -107,6 +117,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
             Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
             this.setGeneralRecipeRecipe(selection);
             this.setUtencilForRecipe();
+            this.setRecipeStepForRecipe();
         } else if (source.equals("Modify")) {
 
         }

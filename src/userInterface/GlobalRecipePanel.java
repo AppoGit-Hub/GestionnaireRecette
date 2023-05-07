@@ -514,8 +514,14 @@ public class GlobalRecipePanel extends JPanel {
     public UtensilController getUtensilController() {
         return this.utensilController;
     }
+    public RecipeStepController getRecipeStepController() {
+        return this.recipeStepController;
+    }
     public DefaultListModel<Utensil> getUtensilListModel() {
         return utensilListModel;
+    }
+    public DefaultListModel<RecipeStep> getRecipeStepListModel() {
+        return  recipeStepListModel;
     }
 }
 
