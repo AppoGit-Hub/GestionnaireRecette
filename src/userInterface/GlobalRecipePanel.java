@@ -48,13 +48,13 @@ public class GlobalRecipePanel extends JPanel {
     private JList<MenuType> menuTypeList;
     private DefaultListModel<MenuType> menuTypeListModel;
     private JLabel menuTypeAccessErrorLabel;
-    private JButton addMenuCategoryButton;
-    private JButton removeMenuCategoryButton;
-    private JComboBox<MealCategory> menuCategoryComboBox;
-    private DefaultComboBoxModel<MealCategory> menuCategoryComboBoxModel;
-    private JList<MealCategory> menuCategoryList;
-    private DefaultListModel<MealCategory> menuCategoryListModel;
-    private JLabel menuCategoryAccessErrorLabel;
+    private JButton addMealCategoryButton;
+    private JButton removeMealCategoryButton;
+    private JComboBox<MealCategory> mealCategoryComboBox;
+    private DefaultComboBoxModel<MealCategory> mealCategoryComboBoxModel;
+    private JList<MealCategory> mealCategoryList;
+    private DefaultListModel<MealCategory> mealCategoryListModel;
+    private JLabel mealCategoryAccessErrorLabel;
     private JTextArea recipeStepsTextArea;
     private JButton addRecipeStepsButton;
     private JButton removeRecipeStepsButton;
@@ -81,6 +81,7 @@ public class GlobalRecipePanel extends JPanel {
     private RecipeStepController recipeStepController;
     private UtensilController utensilController;
     private IngredientController ingredientController;
+    private OrderTypeController orderTypeController;
     private CountryController countryController;
     private PersonController personController;
     private PeriodController periodController;
@@ -110,6 +111,7 @@ public class GlobalRecipePanel extends JPanel {
         this.personController = new PersonController();
         this.equipementController = new EquipementController();
         this.periodController = new PeriodController();
+        this.orderTypeController = new OrderTypeController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -172,13 +174,13 @@ public class GlobalRecipePanel extends JPanel {
         this.menuTypeComboBoxModel = new DefaultComboBoxModel<MenuType>();
         this.menuTypeComboBox = new JComboBox<MenuType>(menuTypeComboBoxModel);
 
-        this.addMenuCategoryButton = new JButton("Add");
-        this.removeMenuCategoryButton = new JButton("Remove");
-        this.menuCategoryComboBoxModel = new DefaultComboBoxModel<MealCategory>();
-        this.menuCategoryComboBox = new JComboBox<MealCategory>(menuCategoryComboBoxModel);
-        this.menuCategoryListModel = new DefaultListModel<MealCategory>();
-        this.menuCategoryList = new JList<MealCategory>(menuCategoryListModel);
-        this.menuCategoryAccessErrorLabel = new JLabel();
+        this.addMealCategoryButton = new JButton("Add");
+        this.removeMealCategoryButton = new JButton("Remove");
+        this.mealCategoryComboBoxModel = new DefaultComboBoxModel<MealCategory>();
+        this.mealCategoryComboBox = new JComboBox<MealCategory>(mealCategoryComboBoxModel);
+        this.mealCategoryListModel = new DefaultListModel<MealCategory>();
+        this.mealCategoryList = new JList<MealCategory>(mealCategoryListModel);
+        this.mealCategoryAccessErrorLabel = new JLabel();
 
         this.recipeStepsTextArea = new JTextArea(10, 20);
         this.addRecipeStepsButton = new JButton("Add");
@@ -246,13 +248,13 @@ public class GlobalRecipePanel extends JPanel {
 
         JPanel mealCategoryPanel = new JPanel();
         mealCategoryPanel.setLayout(new BorderLayout());
-        mealCategoryPanel.add(menuCategoryList);
+        mealCategoryPanel.add(mealCategoryList);
 
         JPanel mealCategoryUpPanel = new JPanel();
         mealCategoryUpPanel.setLayout(new GridLayout());
-        mealCategoryUpPanel.add(menuCategoryComboBox);
-        mealCategoryUpPanel.add(addMenuCategoryButton);
-        mealCategoryUpPanel.add(removeMenuCategoryButton);
+        mealCategoryUpPanel.add(mealCategoryComboBox);
+        mealCategoryUpPanel.add(addMealCategoryButton);
+        mealCategoryUpPanel.add(removeMealCategoryButton);
 
         mealCategoryPanel.add(mealCategoryUpPanel, BorderLayout.NORTH);
 
@@ -342,7 +344,7 @@ public class GlobalRecipePanel extends JPanel {
         return this.menuTypeList.getModel().getSize() > 0;
     }
     public boolean isMealCategoryValid() {
-        return this.menuCategoryList.getModel().getSize() > 0;
+        return this.mealCategoryList.getModel().getSize() > 0;
     }
     public boolean isRecipeStepsValid() {
         boolean isRecipeStepsListValid = this.recipeStepsList.getModel().getSize() > 0;
@@ -442,10 +444,10 @@ public class GlobalRecipePanel extends JPanel {
         try {
             this.mealCategories = mealCategoryController.getAllMenuCategories();
             for (MealCategory mealCategory : this.mealCategories) {
-                this.menuCategoryComboBox.addItem(mealCategory);
+                this.mealCategoryComboBox.addItem(mealCategory);
             }
         } catch (AllMealCategoryException exception) {
-            this.menuCategoryAccessErrorLabel.setText("Error Loading Menu Categories");
+            this.mealCategoryAccessErrorLabel.setText("Error Loading Menu Categories");
         }
     }
     public void setAllMenuType() {
@@ -525,14 +527,23 @@ public class GlobalRecipePanel extends JPanel {
     public PeriodController getPeriodController() {
         return this.periodController;
     }
+    public MealCategoryController getMealCategoryController() {
+        return this.mealCategoryController;
+    }
+    public OrderTypeController getOrderTypeController() {
+        return this.orderTypeController;
+    }
     public DefaultListModel<Utensil> getUtensilListModel() {
-        return utensilListModel;
+        return this.utensilListModel;
     }
     public DefaultListModel<RecipeStep> getRecipeStepListModel() {
-        return  recipeStepListModel;
+        return this.recipeStepListModel;
     }
     public DefaultListModel<MenuType> getMenuTypeListModel() {
-        return menuTypeListModel;
+        return this.menuTypeListModel;
+    }
+    public DefaultListModel<MealCategory> getMealCategoryListModel() {
+        return this.mealCategoryListModel;
     }
 }
 

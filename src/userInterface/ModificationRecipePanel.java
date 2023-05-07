@@ -125,6 +125,24 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
+    public void setMealCategoryForRecipe() {
+        OrderTypeController orderTypeController = this.getOrderTypeController();
+        MealCategoryController mealCategoryController = this.getMealCategoryController();
+        DefaultListModel<MealCategory> mealCategoryListModel = this.getMealCategoryListModel();
+        Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
+        try {
+            mealCategoryListModel.removeAllElements();
+            ArrayList<OrderType> orderTypes = orderTypeController.getAllOrderType(selection.getCode());
+            ArrayList<MealCategory> mealCategories = new ArrayList<MealCategory>();
+            for (OrderType orderType : orderTypes) {
+                mealCategories.add(mealCategoryController.getMealCategory(orderType.getMealCategory()));
+            }
+            mealCategoryListModel.addAll(mealCategories);
+        } catch (Exception exception) {
+            System.out.printf(exception.getMessage());
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String source = e.getActionCommand();
@@ -134,6 +152,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
             this.setUtencilForRecipe();
             this.setRecipeStepForRecipe();
             this.setMenuTypeForRecipe();
+            this.setMealCategoryForRecipe();
         } else if (source.equals("Modify")) {
 
         }
