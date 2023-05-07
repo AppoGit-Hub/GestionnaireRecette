@@ -60,6 +60,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
                 boolean isHot = data.getBoolean("isHot");
                 Date publicationDate = data.getDate("publicationDate");
                 int timePreparation = data.getInt("timePreparation");
+                int noteAuthor = data.getInt("notAuthor");
                 boolean isSalted = data.getBoolean("isSalted");
                 int numberPeopleConcerned = data.getInt("numberPeople");
                 Complexity complexity = Complexity.values()[data.getInt("complexityLevel")];
@@ -82,7 +83,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
                     recipe.setDescription(description);
                 }
 
-                String notAuthor = data.getString("notAuthor");
+                int notAuthor = data.getInt("notAuthor");
                 if (!data.wasNull()) {
                     recipe.setNoteAuthor(notAuthor);
                 }

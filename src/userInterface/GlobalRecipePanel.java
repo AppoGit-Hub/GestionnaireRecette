@@ -62,14 +62,20 @@ public class GlobalRecipePanel extends JPanel {
     private JSpinner quantityIngredientComboBox;
     private JComboBox<Unit> unitIngredientComboBox;
     private JTabbedPane tabs;
-    protected MenuTypeController menuTypeController;
-    protected MealCategoryController mealCategoryController;
-    protected EquipementController equipementController;
-    protected RecipeStepController recipeStepController;
-    protected UtensilController utensilController;
-    protected IngredientController ingredientController;
-    protected CountryController countryController;
-    protected PersonController personController;
+    private MenuTypeController menuTypeController;
+    private MealCategoryController mealCategoryController;
+    private EquipementController equipementController;
+    private RecipeStepController recipeStepController;
+    private UtensilController utensilController;
+    private IngredientController ingredientController;
+    private CountryController countryController;
+    private PersonController personController;
+    private ArrayList<MealCategory> mealCategories;
+    private ArrayList<Country> countries;
+    private ArrayList<MenuType> menuTypes;
+    private ArrayList<Utensil> utensils;
+    private ArrayList<Ingredient> ingredients;
+    private ArrayList<Person> persons;
     private static final int TITLE_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MIN_LENGTH = 100;
     private static final int PEOPLE_MIN = 1;
@@ -80,7 +86,6 @@ public class GlobalRecipePanel extends JPanel {
     private static final int TIME_MAX = 1000;
     private static final int QUANTITY_MIN = 1;
     private static final int QUANTITY_MAX = 1000;
-
     public GlobalRecipePanel() {
         this.menuTypeController = new MenuTypeController();
         this.mealCategoryController = new MealCategoryController();
@@ -288,61 +293,48 @@ public class GlobalRecipePanel extends JPanel {
 
         this.add(this.tabs, BorderLayout.CENTER);
     }
-
     public boolean isTitleValid() {
         String titleText = titleField.getText();
         return titleText.length() > TITLE_MIN_LENGTH;
     }
-
     public boolean isTemperatureValid() {
         return this.isHot.isSelected() || this.isCold.isSelected();
     }
-
     public boolean isSpiceValid() {
         return this.isSalty.isSelected() || this.isSweet.isSelected();
     }
-
     public boolean isDescriptionValid() {
         String descriptionText = this.descriptionTextArea.getText();
         return descriptionText.length() >= DESCRIPTION_MIN_LENGTH;
     }
-
     public boolean isUtensilValid() {
         return this.utensilList.getModel().getSize() > 0;
     }
-
     public boolean isMenuTypeValid() {
         return this.menuTypeList.getModel().getSize() > 0;
     }
-
     public boolean isMealCategoryValid() {
         return this.menuCategoryList.getModel().getSize() > 0;
     }
-
     public boolean isRecipeStepsValid() {
         boolean isRecipeStepsListValid = this.recipeStepsList.getModel().getSize() > 0;
         String isRecipeStepsDescription = this.recipeStepsTextArea.getText();
         return isRecipeStepsDescription.length() > DESCRIPTION_MIN_LENGTH && isRecipeStepsListValid;
     }
-
     public boolean isIngredientValid() {
         return this.ingredientList.getModel().getSize() > 0;
     }
-
     public String getTitle() {
         return this.titleLabel.getText();
     }
-
     public void setTitle(String title) {
         if (title.length() > TITLE_MIN_LENGTH) {
             this.titleField.setText(title);
         }
     }
-
     public boolean getIsHot() {
         return this.isHot.getModel().isSelected();
     }
-
     public void setIsHot(boolean isHot) {
         if (isHot) {
             this.temperatureGroup.setSelected(this.isHot.getModel(), true);
@@ -350,11 +342,9 @@ public class GlobalRecipePanel extends JPanel {
             this.temperatureGroup.setSelected(this.isCold.getModel(), true);
         }
     }
-
     public boolean getIsSalty() {
         return this.isSalty.getModel().isSelected();
     }
-
     public void setIsSalty(boolean isSalty) {
         if (isSalty) {
             this.spiceGroup.setSelected(this.isSalty.getModel(), true);
@@ -362,22 +352,34 @@ public class GlobalRecipePanel extends JPanel {
             this.spiceGroup.setSelected(this.isSweet.getModel(), true);
         }
     }
-
     public Person getAuthor() {
         return (Person) this.authorComboBox.getSelectedItem();
     }
     public void setAuthor(Person person) {
         this.authorComboBox.setSelectedItem(person);
     }
-
+    public void setAuthor(int authorID) {
+        int index = 0;
+        while (index < this.persons.size() && this.persons.get(index).getId() != authorID) {
+            index++;
+        }
+        Person person = this.persons.get(index);
+        this.setAuthor(person);
+    }
     public Country getCountry() {
         return (Country) this.countryComboBox.getSelectedItem();
     }
     public void setCountry(Country country) {
-        System.out.printf(country.toString());
         this.countryComboBox.setSelectedItem(country);
     }
-
+    public void setCountry(int countryID) {
+        int index = 0;
+        while (index < this.countries.size() && this.countries.get(index).getId() != countryID) {
+            index++;
+        }
+        Country country = this.countries.get(index);
+        this.setCountry(country);
+    }
     public Complexity getComplexity() {
         return (Complexity) this.complexityComboBox.getSelectedItem();
     }
@@ -402,88 +404,78 @@ public class GlobalRecipePanel extends JPanel {
     public void setTime(int time) {
         this.timeSpinner.setValue(time);
     }
-
     public String getDescription() {
         return this.descriptionTextArea.getText();
     }
-
     public void setDescription(String description) {
         this.descriptionTextArea.setText(description);
     }
-
     public void setAllMenuCategory() {
         try {
-            ArrayList<MealCategory> mealCategories = mealCategoryController.getAllMenuCategories();
-            for (MealCategory mealCategory : mealCategories) {
+            this.mealCategories = mealCategoryController.getAllMenuCategories();
+            for (MealCategory mealCategory : this.mealCategories) {
                 this.menuCategoryComboBox.addItem(mealCategory);
             }
         } catch (AllMealCategoryException exception) {
             this.menuCategoryAccessErrorLabel.setText("Error Loading Menu Categories");
         }
     }
-
     public void setAllMenuType() {
         try {
-            ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
-            for (MenuType menuType : menuTypes) {
+            this.menuTypes = menuTypeController.getAllMenuTypes();
+            for (MenuType menuType : this.menuTypes) {
                 this.menuTypeComboBox.addItem(menuType);
             }
         } catch (AllMenuTypeException exception) {
             this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
         }
     }
-
     public void setAllUtensil() {
         try {
-            ArrayList<Utensil> utensils = utensilController.getAllUtensil();
-            for (Utensil utensil : utensils) {
+            this.utensils = utensilController.getAllUtensil();
+            for (Utensil utensil : this.utensils) {
                 this.utensilComboBox.addItem(utensil);
             }
         } catch (AllUtensilException exception) {
 
         }
     }
-
     public void setAllIngredient() {
         try {
-            ArrayList<Ingredient> ingredients = ingredientController.getAllIngredient();
-            for (Ingredient ingredient : ingredients) {
+            this.ingredients = ingredientController.getAllIngredient();
+            for (Ingredient ingredient : this.ingredients) {
                 this.nameIngredientComboBox.addItem(ingredient);
             }
         } catch (AllIngredientException e) {
 
         }
     }
-
     public void setAllUnit() {
         Unit[] units = Unit.values();
         for (Unit unit : units) {
             this.unitIngredientComboBox.addItem(unit);
         }
     }
-
     public void setAllCountry() {
         try {
-            ArrayList<Country> countries = countryController.getAllCountry();
-            for (Country country : countries) {
+            this.countries = countryController.getAllCountry();
+            for (Country country : this.countries) {
                 this.countryComboBox.addItem(country);
             }
         } catch (AllCountryException exception) {
 
         }
     }
-
     public void setAllComplexity() {
         Complexity[] complexities = Complexity.values();
-        for (Complexity complexity  : complexities) {
+        for (Complexity complexity : complexities) {
             this.complexityComboBox.addItem(complexity);
         }
     }
-
     public void setAllAuthor() {
         try {
-            ArrayList<Person> persons = personController.getAllPerson();
-            for (Person person : persons) {
+            this.persons = personController.getAllPerson();
+            for (Person person : this.persons) {
                 this.authorComboBox.addItem(person);
             }
         } catch (AllPersonException exception) {

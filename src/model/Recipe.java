@@ -9,7 +9,7 @@ public class Recipe {
     private LocalDate publicationDate;
     private String description;
     private int timePreparation;
-    private String noteAuthor;
+    private int noteAuthor;
     private boolean isSalted;
     private int numberPeopleConcerned;
     private Complexity complexity;
@@ -52,7 +52,11 @@ public class Recipe {
         return timePreparation;
     }
 
-    public String getNoteAuthor() {
+    public void setNoteAuthor(int note) {
+        this.noteAuthor = note;
+    }
+
+    public int getNoteAuthor() {
         return noteAuthor;
     }
 
@@ -114,10 +118,6 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setNoteAuthor(String noteAuthor) {
-        this.noteAuthor = noteAuthor;
     }
 
     public void setSpeciality(int speciality) {

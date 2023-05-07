@@ -2,7 +2,12 @@ package userInterface;
 
 import controller.RecipeController;
 import exception.AllRecipeException;
+import exception.CountryException;
 import exception.NextCodeRecipeException;
+import exception.PersonException;
+import model.Complexity;
+import model.Country;
+import model.Person;
 import model.Recipe;
 
 import javax.swing.*;
@@ -43,9 +48,36 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
             for (Recipe recipe : recipes) {
                 this.recipeSelectionComboBox.addItem(recipe);
             }
-
         } catch (AllRecipeException exception) {
 
+        }
+    }
+
+    public void setGeneralRecipeRecipe(Recipe recipe) {
+        String title = recipe.getTitle();
+        boolean isHot = recipe.getIsHot();
+        boolean isSalty = recipe.getIsSalted();
+        int personID = recipe.getPerson();
+        int specialityID = recipe.getSpeciality();
+        Complexity complexity = recipe.getComplexity();
+        int peopleConcerned = recipe.getNumberPeopleConcerned();
+        int note = recipe.getNoteAuthor();
+        int timePreparation = recipe.getTimePreparation();
+        String description = recipe.getDescription();
+
+        try {
+            this.setTitle(title);
+            this.setIsHot(isHot);
+            this.setIsSalty(isSalty);
+            this.setAuthor(personID);
+            this.setCountry(specialityID);
+            this.setComplexity(complexity);
+            this.setPeople(peopleConcerned);
+            this.setNote(note);
+            this.setTime(timePreparation);
+            this.setDescription(description);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -53,22 +85,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     public void actionPerformed(ActionEvent e) {
         String source = e.getActionCommand();
         if (source.equals("comboBoxChanged")) {
-            try {
-                Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
-                this.setTitle(selection.getTitle());
-                this.setIsHot(selection.getIsHot());
-                this.setIsSalty(selection.getIsSalted());
-                this.setAuthor(this.personController.getPerson(selection.getPerson()));
-                this.setCountry(this.countryController.getCountry(selection.getSpeciality()));
-                this.setComplexity(selection.getComplexity());
-                this.setPeople(selection.getNumberPeopleConcerned());
-                // TODO : Transform author into int
-                //this.setNote(selection.get);
-                this.setTime(selection.getTimePreparation());
-                this.setDescription(selection.getDescription());
-            } catch (Exception exception) {
-                // add exception ???
-            }
+            Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
+            this.setGeneralRecipeRecipe(selection);
         } else if (source.equals("Modify")) {
 
         }
