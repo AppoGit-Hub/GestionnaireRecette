@@ -20,10 +20,13 @@ public class GlobalRecipePanel extends JPanel {
     private ButtonGroup spiceGroup;
     private JLabel authorLabel;
     private JComboBox<Person> authorComboBox;
+    private DefaultComboBoxModel<Person> authorComboBoxModel;
     private JLabel countryLabel;
     private JComboBox<Country> countryComboBox;
+    private DefaultComboBoxModel<Country> countryComboBoxModel;
     private JLabel complexityLabel;
     private JComboBox<Complexity> complexityComboBox;
+    private DefaultComboBoxModel<Complexity> complexityComboBoxModel;
     private JLabel peopleLabel;
     private JSpinner peopleSpinner;
     private JLabel noteLabel;
@@ -35,16 +38,22 @@ public class GlobalRecipePanel extends JPanel {
     private JButton addUtensilButton;
     private JButton removeUtensilButton;
     private JComboBox<Utensil> utensilComboBox;
+    private DefaultComboBoxModel<Utensil> utensilComboBoxModel;
     private JList<Utensil> utensilList;
+    private DefaultListModel<Utensil> utensilListModel;
     private JButton addMenuTypeButton;
     private JButton removeMenuTypeButton;
     private JComboBox<MenuType> menuTypeComboBox;
+    private DefaultComboBoxModel<MenuType> menuTypeComboBoxModel;
     private JList<MenuType> menuTypeList;
+    private DefaultListModel<MenuType> menuTypeListModel;
     private JLabel menuTypeAccessErrorLabel;
     private JButton addMenuCategoryButton;
     private JButton removeMenuCategoryButton;
     private JComboBox<MealCategory> menuCategoryComboBox;
+    private DefaultComboBoxModel<MealCategory> menuCategoryComboBoxModel;
     private JList<MealCategory> menuCategoryList;
+    private DefaultListModel<MealCategory> menuCategoryListModel;
     private JLabel menuCategoryAccessErrorLabel;
     private JTextArea recipeStepsTextArea;
     private JButton addRecipeStepsButton;
@@ -53,14 +62,18 @@ public class GlobalRecipePanel extends JPanel {
     private JButton saveRecipeStepsButton;
     private JLabel recipeStepErrorLabel;
     private JList<RecipeStep> recipeStepsList;
+    private DefaultListModel<RecipeStep> recipeStepListModel;
     private JList<Ingredient> ingredientList;
+    private DefaultListModel<Ingredient> ingredientListModel;
     private JButton addIngredientButton;
     private JButton removeIngredientButton;
     private JButton editIngredientButton;
     private JButton saveIngredientButton;
     private JComboBox<Ingredient> nameIngredientComboBox;
+    private DefaultComboBoxModel<Ingredient> nameIngredientComboBoxModel;
     private JSpinner quantityIngredientComboBox;
     private JComboBox<Unit> unitIngredientComboBox;
+    private DefaultComboBoxModel<Unit> unitIngredientComboBoxModel;
     private JTabbedPane tabs;
     private MenuTypeController menuTypeController;
     private MealCategoryController mealCategoryController;
@@ -94,6 +107,7 @@ public class GlobalRecipePanel extends JPanel {
         this.ingredientController = new IngredientController();
         this.countryController = new CountryController();
         this.personController = new PersonController();
+        this.equipementController = new EquipementController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -113,13 +127,16 @@ public class GlobalRecipePanel extends JPanel {
         this.spiceGroup.setSelected(this.isSalty.getModel(), true);
 
         this.authorLabel = new JLabel("Author");
-        this.authorComboBox = new JComboBox();
+        this.authorComboBoxModel = new DefaultComboBoxModel<Person>();
+        this.authorComboBox = new JComboBox<Person>(authorComboBoxModel);
 
         this.countryLabel = new JLabel("Country");
-        this.countryComboBox = new JComboBox();
+        this.countryComboBoxModel = new DefaultComboBoxModel<Country>();
+        this.countryComboBox = new JComboBox<Country>(countryComboBoxModel);
 
         this.complexityLabel = new JLabel("Complexity");
-        this.complexityComboBox = new JComboBox();
+        this.complexityComboBoxModel = new DefaultComboBoxModel<Complexity>();
+        this.complexityComboBox = new JComboBox<Complexity>(complexityComboBoxModel);
 
         this.peopleLabel = new JLabel("People For");
         SpinnerNumberModel peopleSpinnerModel = new SpinnerNumberModel(1, PEOPLE_MIN, PEOPLE_MAX, 1);
@@ -139,20 +156,26 @@ public class GlobalRecipePanel extends JPanel {
 
         this.addUtensilButton = new JButton("Add");
         this.removeUtensilButton = new JButton("Remove");
-        this.utensilComboBox = new JComboBox();
-        this.utensilList = new JList();
+        this.utensilComboBoxModel = new DefaultComboBoxModel<Utensil>();
+        this.utensilComboBox = new JComboBox<Utensil>(utensilComboBoxModel);
+        this.utensilListModel = new DefaultListModel<Utensil>();
+        this.utensilList = new JList<Utensil>(utensilListModel);
 
         this.addMenuTypeButton = new JButton("Add");
         this.removeMenuTypeButton = new JButton("Remove");
 
-        this.menuTypeList = new JList();
+        this.menuTypeListModel = new DefaultListModel<MenuType>();
+        this.menuTypeList = new JList<MenuType>(menuTypeListModel);
         this.menuTypeAccessErrorLabel = new JLabel();
-        this.menuTypeComboBox = new JComboBox();
+        this.menuTypeComboBoxModel = new DefaultComboBoxModel<MenuType>();
+        this.menuTypeComboBox = new JComboBox<MenuType>(menuTypeComboBoxModel);
 
         this.addMenuCategoryButton = new JButton("Add");
         this.removeMenuCategoryButton = new JButton("Remove");
-        this.menuCategoryComboBox = new JComboBox();
-        this.menuCategoryList = new JList();
+        this.menuCategoryComboBoxModel = new DefaultComboBoxModel<MealCategory>();
+        this.menuCategoryComboBox = new JComboBox<MealCategory>(menuCategoryComboBoxModel);
+        this.menuCategoryListModel = new DefaultListModel<MealCategory>();
+        this.menuCategoryList = new JList<MealCategory>(menuCategoryListModel);
         this.menuCategoryAccessErrorLabel = new JLabel();
 
         this.recipeStepsTextArea = new JTextArea(10, 20);
@@ -160,19 +183,22 @@ public class GlobalRecipePanel extends JPanel {
         this.removeRecipeStepsButton = new JButton("Remove");
         this.editRecipeStepsButton = new JButton("Edit");
         this.saveRecipeStepsButton = new JButton("Save");
-        DefaultListModel recipeStepsListModel = new DefaultListModel();
-        this.recipeStepsList = new JList(recipeStepsListModel);
+        this.recipeStepListModel = new DefaultListModel<RecipeStep>();
+        this.recipeStepsList = new JList<RecipeStep>(recipeStepListModel);
         this.recipeStepErrorLabel = new JLabel();
 
-        this.ingredientList = new JList();
+        this.ingredientListModel = new DefaultListModel<Ingredient>();
+        this.ingredientList = new JList<Ingredient>(ingredientListModel);
         this.addIngredientButton = new JButton("Add");
         this.removeIngredientButton = new JButton("Remove");
         this.editIngredientButton = new JButton("Edit");
         this.saveIngredientButton = new JButton("Save");
-        this.nameIngredientComboBox = new JComboBox();
+        this.nameIngredientComboBoxModel = new DefaultComboBoxModel<Ingredient>();
+        this.nameIngredientComboBox = new JComboBox<Ingredient>(nameIngredientComboBoxModel);
         SpinnerNumberModel quantityIngredientModel = new SpinnerNumberModel(1, QUANTITY_MIN, QUANTITY_MAX, 1);
         this.quantityIngredientComboBox = new JSpinner(quantityIngredientModel);
-        this.unitIngredientComboBox = new JComboBox();
+        this.unitIngredientComboBoxModel = new DefaultComboBoxModel<Unit>();
+        this.unitIngredientComboBox = new JComboBox<Unit>(unitIngredientComboBoxModel);
 
         //TODO : Resolve the scaling problem
         JPanel generalPanel = new FormBuilder()
@@ -481,6 +507,15 @@ public class GlobalRecipePanel extends JPanel {
         } catch (AllPersonException exception) {
 
         }
+    }
+    public EquipementController getEquipementController() {
+        return this.equipementController;
+    }
+    public UtensilController getUtensilController() {
+        return this.utensilController;
+    }
+    public DefaultListModel<Utensil> getUtensilListModel() {
+        return utensilListModel;
     }
 }
 

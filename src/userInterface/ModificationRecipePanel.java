@@ -1,14 +1,10 @@
 package userInterface;
 
+import controller.EquipementController;
 import controller.RecipeController;
-import exception.AllRecipeException;
-import exception.CountryException;
-import exception.NextCodeRecipeException;
-import exception.PersonException;
-import model.Complexity;
-import model.Country;
-import model.Person;
-import model.Recipe;
+import controller.UtensilController;
+import exception.*;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +14,7 @@ import java.util.ArrayList;
 
 public class ModificationRecipePanel extends GlobalRecipePanel implements ActionListener {
     private JComboBox<Recipe> recipeSelectionComboBox;
+    private DefaultComboBoxModel<Recipe> recipeSelectionComboBoxModel;
     private JButton recipeModifyButton;
     private RecipeController recipeController;
 
@@ -25,7 +22,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         super();
         BorderLayout layout = (BorderLayout) this.getLayout();
 
-        this.recipeSelectionComboBox = new JComboBox<Recipe>();
+        this.recipeSelectionComboBoxModel = new DefaultComboBoxModel<Recipe>();
+        this.recipeSelectionComboBox = new JComboBox<Recipe>(recipeSelectionComboBoxModel);
         this.recipeModifyButton = new JButton("Modify");
         this.recipeModifyButton.addActionListener(this);
         this.recipeSelectionComboBox.addActionListener(this);
@@ -45,11 +43,9 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     public void setAllRecipe() {
         try {
             ArrayList<Recipe> recipes = this.recipeController.getAllRecipe();
-            for (Recipe recipe : recipes) {
-                this.recipeSelectionComboBox.addItem(recipe);
-            }
-        } catch (AllRecipeException exception) {
-
+            this.recipeSelectionComboBoxModel.addAll(recipes);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -81,12 +77,36 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
+    public void setUtencilForRecipe() {
+        EquipementController equipementController = this.getEquipementController();
+        UtensilController utensilController = this.getUtensilController();
+        DefaultListModel<Utensil> utensilList = this.getUtensilListModel();
+        Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
+        try {
+            utensilList.removeAllElements();
+            ArrayList<Equipment> equipments = equipementController.getAllEquipementOf(selection.getCode());
+            ArrayList<Utensil> utensils = new ArrayList<Utensil>();
+            for (Equipment equipment : equipments) {
+                Utensil utensil = utensilController.getUtensil(equipment.getUtensil());
+                utensils.add(utensil);
+            }
+            utensilList.addAll(utensils);
+        } catch (Exception exception) {
+            System.out.printf(exception.getMessage());
+        }
+    }
+
+    public void setRecipeStepForRecipe() {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String source = e.getActionCommand();
         if (source.equals("comboBoxChanged")) {
             Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
             this.setGeneralRecipeRecipe(selection);
+            this.setUtencilForRecipe();
         } else if (source.equals("Modify")) {
 
         }
