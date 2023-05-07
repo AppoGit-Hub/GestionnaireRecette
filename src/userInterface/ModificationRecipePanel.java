@@ -1,9 +1,6 @@
 package userInterface;
 
-import controller.EquipementController;
-import controller.RecipeController;
-import controller.RecipeStepController;
-import controller.UtensilController;
+import controller.*;
 import exception.*;
 import model.*;
 
@@ -110,6 +107,24 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
+    public void setMenuTypeForRecipe() {
+        MenuTypeController menuTypeController = this.getMenuTypeController();
+        PeriodController periodController = this.getPeriodController();
+        DefaultListModel<MenuType> menuTypeListModel = this.getMenuTypeListModel();
+        Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
+        try {
+            menuTypeListModel.removeAllElements();
+            ArrayList<Period> periods = periodController.getAllPeriod(selection.getCode());
+            ArrayList<MenuType> menuTypes = new ArrayList<MenuType>();
+            for (Period period : periods) {
+                menuTypes.add(menuTypeController.getMenuType(period.getMenuType()));
+            }
+            menuTypeListModel.addAll(menuTypes);
+        } catch (Exception exception) {
+            System.out.printf(exception.getMessage());
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String source = e.getActionCommand();
@@ -118,6 +133,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
             this.setGeneralRecipeRecipe(selection);
             this.setUtencilForRecipe();
             this.setRecipeStepForRecipe();
+            this.setMenuTypeForRecipe();
         } else if (source.equals("Modify")) {
 
         }

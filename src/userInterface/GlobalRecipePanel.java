@@ -83,6 +83,7 @@ public class GlobalRecipePanel extends JPanel {
     private IngredientController ingredientController;
     private CountryController countryController;
     private PersonController personController;
+    private PeriodController periodController;
     private ArrayList<MealCategory> mealCategories;
     private ArrayList<Country> countries;
     private ArrayList<MenuType> menuTypes;
@@ -108,6 +109,7 @@ public class GlobalRecipePanel extends JPanel {
         this.countryController = new CountryController();
         this.personController = new PersonController();
         this.equipementController = new EquipementController();
+        this.periodController = new PeriodController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -517,11 +519,20 @@ public class GlobalRecipePanel extends JPanel {
     public RecipeStepController getRecipeStepController() {
         return this.recipeStepController;
     }
+    public MenuTypeController getMenuTypeController() {
+        return this.menuTypeController;
+    }
+    public PeriodController getPeriodController() {
+        return this.periodController;
+    }
     public DefaultListModel<Utensil> getUtensilListModel() {
         return utensilListModel;
     }
     public DefaultListModel<RecipeStep> getRecipeStepListModel() {
         return  recipeStepListModel;
+    }
+    public DefaultListModel<MenuType> getMenuTypeListModel() {
+        return menuTypeListModel;
     }
 }
 
