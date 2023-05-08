@@ -63,8 +63,8 @@ public class GlobalRecipePanel extends JPanel {
     private JLabel recipeStepErrorLabel;
     private JList<RecipeStep> recipeStepsList;
     private DefaultListModel<RecipeStep> recipeStepListModel;
-    private JList<Ingredient> ingredientList;
-    private DefaultListModel<Ingredient> ingredientListModel;
+    private JList<LineRecipe> lineRecipeList;
+    private DefaultListModel<LineRecipe> lineRecipeModel;
     private JButton addIngredientButton;
     private JButton removeIngredientButton;
     private JButton editIngredientButton;
@@ -85,6 +85,7 @@ public class GlobalRecipePanel extends JPanel {
     private CountryController countryController;
     private PersonController personController;
     private PeriodController periodController;
+    private LineRecipeController lineRecipeController;
     private ArrayList<MealCategory> mealCategories;
     private ArrayList<Country> countries;
     private ArrayList<MenuType> menuTypes;
@@ -112,6 +113,7 @@ public class GlobalRecipePanel extends JPanel {
         this.equipementController = new EquipementController();
         this.periodController = new PeriodController();
         this.orderTypeController = new OrderTypeController();
+        this.lineRecipeController = new LineRecipeController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -191,8 +193,8 @@ public class GlobalRecipePanel extends JPanel {
         this.recipeStepsList = new JList<RecipeStep>(recipeStepListModel);
         this.recipeStepErrorLabel = new JLabel();
 
-        this.ingredientListModel = new DefaultListModel<Ingredient>();
-        this.ingredientList = new JList<Ingredient>(ingredientListModel);
+        this.lineRecipeModel = new DefaultListModel<LineRecipe>();
+        this.lineRecipeList = new JList<LineRecipe>(lineRecipeModel);
         this.addIngredientButton = new JButton("Add");
         this.removeIngredientButton = new JButton("Remove");
         this.editIngredientButton = new JButton("Edit");
@@ -300,7 +302,7 @@ public class GlobalRecipePanel extends JPanel {
 
         ingredientPanel.add(ingredientNorthPanel, BorderLayout.NORTH);
         ingredientPanel.add(ingredientWestPanel, BorderLayout.WEST);
-        ingredientPanel.add(ingredientList, BorderLayout.CENTER);
+        ingredientPanel.add(lineRecipeList, BorderLayout.CENTER);
 
         this.setAllMenuType();
         this.setAllMenuCategory();
@@ -352,7 +354,7 @@ public class GlobalRecipePanel extends JPanel {
         return isRecipeStepsDescription.length() > DESCRIPTION_MIN_LENGTH && isRecipeStepsListValid;
     }
     public boolean isIngredientValid() {
-        return this.ingredientList.getModel().getSize() > 0;
+        return this.lineRecipeList.getModel().getSize() > 0;
     }
     public String getTitle() {
         return this.titleLabel.getText();
@@ -533,6 +535,12 @@ public class GlobalRecipePanel extends JPanel {
     public OrderTypeController getOrderTypeController() {
         return this.orderTypeController;
     }
+    public IngredientController getIngredientController() {
+        return this.ingredientController;
+    }
+    public LineRecipeController getLineRecipeController() {
+        return this.lineRecipeController;
+    }
     public DefaultListModel<Utensil> getUtensilListModel() {
         return this.utensilListModel;
     }
@@ -544,6 +552,9 @@ public class GlobalRecipePanel extends JPanel {
     }
     public DefaultListModel<MealCategory> getMealCategoryListModel() {
         return this.mealCategoryListModel;
+    }
+    public DefaultListModel<LineRecipe> getIngredientListModel() {
+        return this.lineRecipeModel;
     }
 }
 

@@ -44,4 +44,9 @@ public class LineRecipe {
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
+
+    @Override
+    public String toString() {
+        return ingredient + " " + quantity + " " + unit;
+    }
 }
