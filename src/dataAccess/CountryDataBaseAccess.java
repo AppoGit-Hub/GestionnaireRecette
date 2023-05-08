@@ -30,7 +30,7 @@ public class CountryDataBaseAccess implements CountryDataAccess {
             }
             return countries;
         } catch (SQLException exception) {
-            throw new AllCountryException();
+            throw new AllCountryException(exception.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class CountryDataBaseAccess implements CountryDataAccess {
             String name = data.getString("name");
             return new Country(id, name);
         } catch (SQLException exception) {
-            throw new CountryException();
+            throw new CountryException(exception.getMessage());
         }
     }
 }

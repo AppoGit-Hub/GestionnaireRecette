@@ -1,7 +1,7 @@
 package exception;
 
 public class AllMenuTypeException extends Exception {
-    public AllMenuTypeException() {
-        super("MenuType");
+    public AllMenuTypeException(String message) {
+        super(message);
     }
 }

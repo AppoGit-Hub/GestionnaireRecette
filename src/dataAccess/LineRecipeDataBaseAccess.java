@@ -32,7 +32,7 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             }
             return lineRecipes;
         } catch (SQLException exception) {
-            throw new LineRecipeException();
+            throw new LineRecipeException(exception.getMessage());
         }
     }
 }

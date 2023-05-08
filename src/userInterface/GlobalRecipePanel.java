@@ -8,6 +8,7 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GlobalRecipePanel extends JPanel {
     private JLabel titleLabel;
@@ -445,73 +446,57 @@ public class GlobalRecipePanel extends JPanel {
     public void setAllMenuCategory() {
         try {
             this.mealCategories = mealCategoryController.getAllMenuCategories();
-            for (MealCategory mealCategory : this.mealCategories) {
-                this.mealCategoryComboBox.addItem(mealCategory);
-            }
-        } catch (AllMealCategoryException exception) {
+            this.mealCategoryComboBoxModel.addAll(this.mealCategories);
+        } catch (Exception exception) {
             this.mealCategoryAccessErrorLabel.setText("Error Loading Menu Categories");
         }
     }
     public void setAllMenuType() {
         try {
             this.menuTypes = menuTypeController.getAllMenuTypes();
-            for (MenuType menuType : this.menuTypes) {
-                this.menuTypeComboBox.addItem(menuType);
-            }
-        } catch (AllMenuTypeException exception) {
+            this.menuTypeComboBoxModel.addAll(this.menuTypes);
+        } catch (Exception exception) {
             this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
         }
     }
     public void setAllUtensil() {
         try {
             this.utensils = utensilController.getAllUtensil();
-            for (Utensil utensil : this.utensils) {
-                this.utensilComboBox.addItem(utensil);
-            }
-        } catch (AllUtensilException exception) {
-
+            this.utensilComboBoxModel.addAll(this.utensils);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
         }
     }
     public void setAllIngredient() {
         try {
             this.ingredients = ingredientController.getAllIngredient();
-            for (Ingredient ingredient : this.ingredients) {
-                this.nameIngredientComboBox.addItem(ingredient);
-            }
-        } catch (AllIngredientException e) {
-
+            this.nameIngredientComboBoxModel.addAll(this.ingredients);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
         }
     }
     public void setAllUnit() {
-        Unit[] units = Unit.values();
-        for (Unit unit : units) {
-            this.unitIngredientComboBox.addItem(unit);
-        }
+        List<Unit> units = List.of(Unit.values());
+        this.unitIngredientComboBoxModel.addAll(units);
     }
     public void setAllCountry() {
         try {
             this.countries = countryController.getAllCountry();
-            for (Country country : this.countries) {
-                this.countryComboBox.addItem(country);
-            }
-        } catch (AllCountryException exception) {
-
+            this.countryComboBoxModel.addAll(this.countries);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
         }
     }
     public void setAllComplexity() {
-        Complexity[] complexities = Complexity.values();
-        for (Complexity complexity : complexities) {
-            this.complexityComboBox.addItem(complexity);
-        }
+        List<Complexity> complexities = List.of(Complexity.values());
+        this.complexityComboBoxModel.addAll(complexities);
     }
     public void setAllAuthor() {
         try {
             this.persons = personController.getAllPerson();
-            for (Person person : this.persons) {
-                this.authorComboBox.addItem(person);
-            }
-        } catch (AllPersonException exception) {
-
+            this.authorComboBoxModel.addAll(this.persons);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
         }
     }
     public EquipementController getEquipementController() {

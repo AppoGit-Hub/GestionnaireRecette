@@ -29,7 +29,7 @@ public class    UtensilDataBaseAccess implements UtensilDataAccess {
 
             return new Utensil(utensilName, isElectric, levelPrice);
         } catch (SQLException exception) {
-            throw new UtensilException();
+            throw new UtensilException(exception.getMessage());
         }
     }
 
@@ -49,7 +49,7 @@ public class    UtensilDataBaseAccess implements UtensilDataAccess {
             }
             return utensils;
         } catch (SQLException exception) {
-            throw new AllUtensilException();
+            throw new AllUtensilException(exception.getMessage());
         }
     }
 }

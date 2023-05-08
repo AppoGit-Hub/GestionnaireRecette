@@ -42,7 +42,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             data.next();
             return data.getInt("NEXT_CODE") + 1;
         } catch (SQLException exception) {
-            throw new NextCodeRecipeException();
+            throw new NextCodeRecipeException(exception.getMessage());
         }
     }
 
@@ -97,7 +97,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             }
             return recipes;
         } catch (SQLException exception) {
-            throw new AllRecipeException();
+            throw new AllRecipeException(exception.getMessage());
         }
     }
 }

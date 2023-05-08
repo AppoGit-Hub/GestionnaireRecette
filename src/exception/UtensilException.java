@@ -1,7 +1,7 @@
 package exception;
 
 public class UtensilException extends Exception {
-    public UtensilException() {
-        super("Utensil");
+    public UtensilException(String message) {
+        super(message);
     }
 }

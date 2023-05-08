@@ -34,7 +34,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             }
             return orderTypes;
         } catch (SQLException exception) {
-            throw new AllOrderTypeException();
+            throw new AllOrderTypeException(exception.getMessage());
         }
     }
 }

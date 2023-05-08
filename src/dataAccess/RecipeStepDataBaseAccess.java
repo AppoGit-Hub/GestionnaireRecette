@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
-
     @Override
     public ArrayList<RecipeStep> getAllRecipeStep(int recipeCode) throws AllRecipeStepException {
         try {
@@ -30,8 +29,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             }
             return recipeSteps;
         } catch (SQLException exception) {
-            System.out.printf(exception.getMessage());
-            throw new AllRecipeStepException();
+            throw new AllRecipeStepException(exception.getMessage());
         }
     }
 

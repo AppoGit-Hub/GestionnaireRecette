@@ -31,7 +31,7 @@ public class PersonDataBaseAccess implements PersonDataAccess {
             }
             return persons;
         } catch (SQLException exception) {
-            throw new AllPersonException();
+            throw new AllPersonException(exception.getMessage());
         }
     }
 
@@ -51,7 +51,7 @@ public class PersonDataBaseAccess implements PersonDataAccess {
             String password = data.getString("password");
             return new Person(id, firstname, lastname, birthday.toLocalDate(), password);
         } catch (SQLException exception) {
-            throw new PersonException();
+            throw new PersonException(exception.getMessage());
         }
     }
 }

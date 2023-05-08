@@ -25,7 +25,7 @@ public class MealCategoryDataBaseAccess implements MealCategoryDataAccess {
             }
             return menuCategories;
         } catch (SQLException exception) {
-            throw new AllMealCategoryException();
+            throw new AllMealCategoryException(exception.getMessage());
         }
     }
     @Override
@@ -41,7 +41,7 @@ public class MealCategoryDataBaseAccess implements MealCategoryDataAccess {
             String name = data.getString("name");
             return new MealCategory(id, name);
         } catch (Exception exception) {
-            throw new MealCategoryException();
+            throw new MealCategoryException(exception.getMessage());
         }
     }
 }

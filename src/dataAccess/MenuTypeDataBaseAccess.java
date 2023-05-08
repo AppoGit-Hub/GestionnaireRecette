@@ -25,7 +25,7 @@ public class MenuTypeDataBaseAccess implements MenuTypeDataAccess {
             }
             return menuTypes;
         } catch (SQLException exception) {
-            throw new AllMenuTypeException();
+            throw new AllMenuTypeException(exception.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class MenuTypeDataBaseAccess implements MenuTypeDataAccess {
             String name = data.getString("name");
             return new MenuType(id, name);
         } catch (SQLException exception) {
-            throw new MenuTypeException();
+            throw new MenuTypeException(exception.getMessage());
         }
     }
 }

@@ -32,7 +32,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             }
             return periods;
         } catch (SQLException exception) {
-            throw new AllPeriodException();
+            throw new AllPeriodException(exception.getMessage());
         }
     }
 }

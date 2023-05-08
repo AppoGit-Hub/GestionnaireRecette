@@ -30,7 +30,7 @@ public class IngredientDataBaseAccess implements IngredientDataAccess {
             Integer type = data.getInt("type");
             return new Ingredient(name, minTemp, maxTemp, season, type);
         } catch (SQLException exception) {
-            throw new IngredientException();
+            throw new IngredientException(exception.getMessage());
         }
     }
 
@@ -53,7 +53,7 @@ public class IngredientDataBaseAccess implements IngredientDataAccess {
             }
             return ingredients;
         } catch (SQLException exception) {
-            throw new AllIngredientException();
+            throw new AllIngredientException(exception.getMessage());
         }
     }
 }

@@ -28,7 +28,7 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             }
             return equipments;
         } catch (SQLException exception) {
-            throw new AllEquipementException();
+            throw new AllEquipementException(exception.getMessage());
         }
     }
 }
