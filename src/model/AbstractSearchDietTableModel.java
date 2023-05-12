@@ -20,7 +20,7 @@ public class AbstractSearchDietTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return 3;
+        return recipes.size();
     }
 
     @Override
