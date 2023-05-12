@@ -3,7 +3,7 @@ package userInterface;
 import controller.DietController;
 import controller.RecipeController;
 import exception.AllDietException;
-import model.AbstractSearchDietTableModel;
+import model.SearchDietTableModel;
 import model.Diet;
 import model.Recipe;
 
@@ -60,7 +60,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
     public void setDietRecipe(Diet diet) {
         // TODO: add search process
         ArrayList<Recipe> recipes = null;
-        this.dietTable.setModel(new AbstractSearchDietTableModel(recipes));
+        this.dietTable.setModel(new SearchDietTableModel(recipes));
     }
 
     @Override
