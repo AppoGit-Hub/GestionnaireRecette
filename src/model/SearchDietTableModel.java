@@ -3,11 +3,11 @@ import javax.swing.table.AbstractTableModel;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class AbstractSearchDietTableModel extends AbstractTableModel {
+public class SearchDietTableModel extends AbstractTableModel {
     private String[] columnNames;
     private ArrayList<Recipe> recipes;
 
-    public AbstractSearchDietTableModel(ArrayList<Recipe> recipes) {
+    public SearchDietTableModel(ArrayList<Recipe> recipes) {
         this.columnNames = new String[] {
                 "Title",
                 "Publication Date",
