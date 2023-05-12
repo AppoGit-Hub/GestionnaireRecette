@@ -40,6 +40,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
 
         JPanel dietNorthPanel = new JPanel();
         dietNorthPanel.setLayout(new FlowLayout());
+        dietNorthPanel.add(new JLabel("Diets:"));
         dietNorthPanel.add(dietComboBox);
         dietNorthPanel.add(dietSubmit);
 

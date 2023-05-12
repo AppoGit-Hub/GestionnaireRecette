@@ -53,7 +53,9 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
 
         JPanel recipeNorthPanel = new JPanel();
         recipeNorthPanel.setLayout(new FlowLayout());
+        recipeNorthPanel.add(new JLabel("Menu Types:"));
         recipeNorthPanel.add(menuTypeComboBox);
+        recipeNorthPanel.add(new JLabel("Ingredients:"));
         recipeNorthPanel.add(ingredientComboBox);
         recipeNorthPanel.add(recipeSumbitButton);
 

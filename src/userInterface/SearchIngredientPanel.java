@@ -40,8 +40,11 @@ public class SearchIngredientPanel extends JPanel {
 
         JPanel ingredientNorthPanel = new JPanel();
         ingredientNorthPanel.setLayout(new FlowLayout());
+        ingredientNorthPanel.add(new JLabel("Start Date:"));
         ingredientNorthPanel.add(startDate);
+        ingredientNorthPanel.add(new JLabel("End Date:"));
         ingredientNorthPanel.add(endDate);
+        ingredientNorthPanel.add(new JLabel("Ingredients:"));
         ingredientNorthPanel.add(ingredientComboBox);
         ingredientNorthPanel.add(ingredientSubmitButton);
 
