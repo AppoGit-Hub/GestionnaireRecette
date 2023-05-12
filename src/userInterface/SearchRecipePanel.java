@@ -81,7 +81,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
     }
 
     public void setRecipe(MenuType menuType, Ingredient ingredient) {
-        
+        // TODO: add search process
     }
 
     @Override
