@@ -16,11 +16,6 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     private JComboBox<Recipe> recipeSelectionComboBox;
     private DefaultComboBoxModel<Recipe> recipeSelectionComboBoxModel;
     private JButton recipeModifyButton;
-    private ArrayList<Equipment> equipments;
-    private ArrayList<RecipeStep> recipeSteps;
-    private ArrayList<Period> periods;
-    private ArrayList<OrderType> orderTypes;
-    private ArrayList<LineRecipe> lineRecipes;
 
     public ModificationRecipePanel() {
         super();
@@ -86,7 +81,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<Utensil> utensilList = this.getUtensilListModel();
         try {
             utensilList.removeAllElements();
-            this.equipments = equipementController.getAllEquipementOf(selection.getCode());
+            ArrayList<Equipment> equipments = equipementController.getAllEquipementOf(selection.getCode());
             ArrayList<Utensil> utensils = new ArrayList<Utensil>();
             for (Equipment equipment : equipments) {
                 Utensil utensil = utensilController.getUtensil(equipment.getUtensil());
@@ -103,7 +98,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<RecipeStep> recipeStepListModel = this.getRecipeStepListModel();
         try {
             recipeStepListModel.removeAllElements();
-            this.recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
+            ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
             recipeStepListModel.addAll(recipeSteps);
         } catch (Exception exception) {
             System.out.printf(exception.getMessage());
@@ -116,7 +111,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MenuType> menuTypeListModel = this.getMenuTypeListModel();
         try {
             menuTypeListModel.removeAllElements();
-            this.periods = periodController.getAllPeriod(selection.getCode());
+            ArrayList<Period> periods = periodController.getAllPeriod(selection.getCode());
             ArrayList<MenuType> menuTypes = new ArrayList<MenuType>();
             for (Period period : periods) {
                 menuTypes.add(menuTypeController.getMenuType(period.getMenuType()));
@@ -133,7 +128,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MealCategory> mealCategoryListModel = this.getMealCategoryListModel();
         try {
             mealCategoryListModel.removeAllElements();
-            this.orderTypes = orderTypeController.getAllOrderType(selection.getCode());
+            ArrayList<OrderType> orderTypes = orderTypeController.getAllOrderType(selection.getCode());
             ArrayList<MealCategory> mealCategories = new ArrayList<MealCategory>();
             for (OrderType orderType : orderTypes) {
                 mealCategories.add(mealCategoryController.getMealCategory(orderType.getMealCategory()));
@@ -149,7 +144,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<LineRecipe> ingredientListModel = this.getIngredientListModel();
         try {
             ingredientListModel.removeAllElements();
-            this.lineRecipes = lineRecipeController.getLineRecipeForRecipe(selection.getCode());
+            ArrayList<LineRecipe> lineRecipes = lineRecipeController.getLineRecipeForRecipe(selection.getCode());
             ingredientListModel.addAll(lineRecipes);
         } catch (Exception exception) {
             System.out.printf(exception.getMessage());
@@ -162,7 +157,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
 
         try {
             // TODO : do a better job at updating equipments values
-            for (Equipment equipment : this.equipments) {
+            ArrayList<Equipment> equipments = equipementController.getAllEquipementOf(selection.getCode());
+            for (Equipment equipment : equipments) {
                 equipementController.deleteEquipementFor(selection.getCode(), equipment.getUtensil());
             }
             Enumeration<Utensil> newUtensils =  utensilListModel.elements();
@@ -190,7 +186,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MenuType> menuTypeListModel = this.getMenuTypeListModel();
         try {
             // TODO : do a better job at updating menu types values
-            for (Period period : this.periods) {
+            ArrayList<Period> periods = periodController.getAllPeriod(selection.getCode());
+            for (Period period : periods) {
                 periodController.deletePeriod(selection.getCode(), period.getMenuType());
             }
             Enumeration<MenuType> newMenuTypes = menuTypeListModel.elements();
@@ -208,7 +205,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MealCategory> mealCategoryListModel = this.getMealCategoryListModel();
         try {
             // TODO : do a better job at updating meal categories values
-            for (OrderType orderType : this.orderTypes) {
+            ArrayList<OrderType> orderTypes = orderTypeController.getAllOrderType(selection.getCode());
+            for (OrderType orderType : orderTypes) {
                 orderTypeController.deleteOrderType(selection.getCode(), orderType.getMealCategory());
             }
             Enumeration<MealCategory> newMealCategries = mealCategoryListModel.elements();
@@ -226,7 +224,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<RecipeStep> recipeStepListModel = this.getRecipeStepListModel();
         try {
             // TODO : do a better job at updating recipe steps values
-            for (RecipeStep recipeStep : this.recipeSteps) {
+            ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
+            for (RecipeStep recipeStep : recipeSteps) {
                 recipeStepController.deleteRecipeStep(selection.getCode(), recipeStep.getNumber());
             }
             Enumeration<RecipeStep> newRecipeSteps = recipeStepListModel.elements();
@@ -243,7 +242,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<LineRecipe> ingredientListModel = this.getIngredientListModel();
         try {
             // TODO : do a better job at ingredient values
-            for (LineRecipe lineRecipe : this.lineRecipes) {
+            ArrayList<LineRecipe> lineRecipes = lineRecipeController.getLineRecipeForRecipe(selection.getCode());
+            for (LineRecipe lineRecipe : lineRecipes) {
                 lineRecipeController.deleteLineRecipe(lineRecipe.getIngredient(), selection.getCode());
             }
             Enumeration<LineRecipe> newLineRecipes = ingredientListModel.elements();
