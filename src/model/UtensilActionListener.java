@@ -23,6 +23,7 @@ public class UtensilActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        // TODO : maybe create a unique function because duplicate code accross ActionListeners ?
         String eventName = event.getActionCommand();
         Utensil selection = (Utensil) utensilComboBox.getSelectedItem();
         if (eventName.equals("Add")) {

@@ -65,17 +65,17 @@ public class GlobalRecipePanel extends JPanel {
     private JButton editRecipeStepsButton;
     private JButton saveRecipeStepsButton;
     private JLabel recipeStepErrorLabel;
-    private JList<RecipeStep> recipeStepsList;
-    private DefaultListModel<RecipeStep> recipeStepListModel;
-    private JList<LineRecipe> lineRecipeList;
-    private DefaultListModel<LineRecipe> lineRecipeModel;
+    private JList<String> recipeStepsList;
+    private DefaultListModel<String> recipeStepListModel;
+    private JList<LineRecipeDisplay> lineRecipeList;
+    private DefaultListModel<LineRecipeDisplay> lineRecipeModel;
     private JButton addIngredientButton;
     private JButton removeIngredientButton;
     private JButton editIngredientButton;
     private JButton saveIngredientButton;
     private JComboBox<Ingredient> nameIngredientComboBox;
     private DefaultComboBoxModel<Ingredient> nameIngredientComboBoxModel;
-    private JSpinner quantityIngredientComboBox;
+    private JSpinner quantityIngredientSpinner;
     private JComboBox<Unit> unitIngredientComboBox;
     private DefaultComboBoxModel<Unit> unitIngredientComboBoxModel;
     private JTabbedPane tabs;
@@ -179,44 +179,73 @@ public class GlobalRecipePanel extends JPanel {
         utensilActionListener.setUtensilListModel(utensilListModel);
         utensilActionListener.setUtensilList(utensilList);
 
+        MenuTypeActionListener menuTypeActionListener = new MenuTypeActionListener();
         this.addMenuTypeButton = new JButton("Add");
+        this.addMenuTypeButton.addActionListener(menuTypeActionListener);
         this.removeMenuTypeButton = new JButton("Remove");
-
+        this.removeMenuTypeButton.addActionListener(menuTypeActionListener);
         this.menuTypeListModel = new DefaultListModel<MenuType>();
         this.menuTypeList = new JList<MenuType>(menuTypeListModel);
         this.menuTypeAccessErrorLabel = new JLabel();
         this.menuTypeComboBoxModel = new DefaultComboBoxModel<MenuType>();
         this.menuTypeComboBox = new JComboBox<MenuType>(menuTypeComboBoxModel);
+        menuTypeActionListener.setMenuTypeComboBoxModel(menuTypeComboBoxModel);
+        menuTypeActionListener.setMenuTypeListModel(menuTypeListModel);
+        menuTypeActionListener.setMenuTypeList(menuTypeList);
 
+        MealCategoryActionListener mealCategoryActionListener = new MealCategoryActionListener();
         this.addMealCategoryButton = new JButton("Add");
+        this.addMealCategoryButton.addActionListener(mealCategoryActionListener);
         this.removeMealCategoryButton = new JButton("Remove");
+        this.removeMealCategoryButton.addActionListener(mealCategoryActionListener);
         this.mealCategoryComboBoxModel = new DefaultComboBoxModel<MealCategory>();
         this.mealCategoryComboBox = new JComboBox<MealCategory>(mealCategoryComboBoxModel);
         this.mealCategoryListModel = new DefaultListModel<MealCategory>();
         this.mealCategoryList = new JList<MealCategory>(mealCategoryListModel);
         this.mealCategoryAccessErrorLabel = new JLabel();
+        mealCategoryActionListener.setMealCategoryComboxModel(mealCategoryComboBoxModel);
+        mealCategoryActionListener.setMealCategoryListModel(mealCategoryListModel);
+        mealCategoryActionListener.setMealCategoryList(mealCategoryList);
 
+        RecipeStepActionListener recipeStepActionListener = new RecipeStepActionListener();
         this.recipeStepsTextArea = new JTextArea(10, 20);
         this.addRecipeStepsButton = new JButton("Add");
+        addRecipeStepsButton.addActionListener(recipeStepActionListener);
         this.removeRecipeStepsButton = new JButton("Remove");
+        removeRecipeStepsButton.addActionListener(recipeStepActionListener);
         this.editRecipeStepsButton = new JButton("Edit");
+        editRecipeStepsButton.addActionListener(recipeStepActionListener);
         this.saveRecipeStepsButton = new JButton("Save");
-        this.recipeStepListModel = new DefaultListModel<RecipeStep>();
-        this.recipeStepsList = new JList<RecipeStep>(recipeStepListModel);
+        saveRecipeStepsButton.addActionListener(recipeStepActionListener);
+        this.recipeStepListModel = new DefaultListModel<String>();
+        this.recipeStepsList = new JList<String>(recipeStepListModel);
         this.recipeStepErrorLabel = new JLabel();
+        recipeStepActionListener.setRecipeStepTextArea(recipeStepsTextArea);
+        recipeStepActionListener.setRecipeStepListModel(recipeStepListModel);
+        recipeStepActionListener.setRecipeStepsList(recipeStepsList);
 
-        this.lineRecipeModel = new DefaultListModel<LineRecipe>();
-        this.lineRecipeList = new JList<LineRecipe>(lineRecipeModel);
+        IngredientActionListener ingredientActionListener = new IngredientActionListener();
+        this.lineRecipeModel = new DefaultListModel<LineRecipeDisplay>();
+        this.lineRecipeList = new JList<LineRecipeDisplay>(lineRecipeModel);
         this.addIngredientButton = new JButton("Add");
+        addIngredientButton.addActionListener(ingredientActionListener);
         this.removeIngredientButton = new JButton("Remove");
+        removeIngredientButton.addActionListener(ingredientActionListener);
         this.editIngredientButton = new JButton("Edit");
+        editIngredientButton.addActionListener(ingredientActionListener);
         this.saveIngredientButton = new JButton("Save");
+        saveIngredientButton.addActionListener(ingredientActionListener);
         this.nameIngredientComboBoxModel = new DefaultComboBoxModel<Ingredient>();
         this.nameIngredientComboBox = new JComboBox<Ingredient>(nameIngredientComboBoxModel);
         SpinnerNumberModel quantityIngredientModel = new SpinnerNumberModel(1, QUANTITY_MIN, QUANTITY_MAX, 1);
-        this.quantityIngredientComboBox = new JSpinner(quantityIngredientModel);
+        this.quantityIngredientSpinner = new JSpinner(quantityIngredientModel);
         this.unitIngredientComboBoxModel = new DefaultComboBoxModel<Unit>();
         this.unitIngredientComboBox = new JComboBox<Unit>(unitIngredientComboBoxModel);
+        ingredientActionListener.setNameIngredientComboBoxModel(nameIngredientComboBoxModel);
+        ingredientActionListener.setQuantityIngredientSpinner(quantityIngredientSpinner);
+        ingredientActionListener.setUnitIngredientComboBox(unitIngredientComboBox);
+        ingredientActionListener.setLineRecipeModel(lineRecipeModel);
+        ingredientActionListener.setLineRecipeList(lineRecipeList);
 
         //TODO : Resolve the scaling problem
         JPanel generalPanel = new FormBuilder()
@@ -309,7 +338,7 @@ public class GlobalRecipePanel extends JPanel {
         JPanel ingredientNorthPanel = new JPanel();
         ingredientNorthPanel.setLayout(new GridLayout());
         ingredientNorthPanel.add(nameIngredientComboBox);
-        ingredientNorthPanel.add(quantityIngredientComboBox);
+        ingredientNorthPanel.add(quantityIngredientSpinner);
         ingredientNorthPanel.add(unitIngredientComboBox);
 
         ingredientPanel.add(ingredientNorthPanel, BorderLayout.NORTH);
@@ -372,6 +401,7 @@ public class GlobalRecipePanel extends JPanel {
         this.authorComboBox.setSelectedItem(person);
     }
     public void setAuthor(int authorID) {
+        // TODO : maybe there is a better way to do this ?
         int index = 0;
         while (index < this.persons.size() && this.persons.get(index).getId() != authorID) {
             index++;
@@ -386,6 +416,7 @@ public class GlobalRecipePanel extends JPanel {
         this.countryComboBox.setSelectedItem(country);
     }
     public void setCountry(int countryID) {
+        // TODO : maybe there is a better way to do this ?
         int index = 0;
         while (index < this.countries.size() && this.countries.get(index).getId() != countryID) {
             index++;
@@ -541,7 +572,7 @@ public class GlobalRecipePanel extends JPanel {
     public DefaultListModel<Utensil> getUtensilListModel() {
         return this.utensilListModel;
     }
-    public DefaultListModel<RecipeStep> getRecipeStepListModel() {
+    public DefaultListModel<String> getRecipeStepListModel() {
         return this.recipeStepListModel;
     }
     public DefaultListModel<MenuType> getMenuTypeListModel() {
@@ -550,7 +581,7 @@ public class GlobalRecipePanel extends JPanel {
     public DefaultListModel<MealCategory> getMealCategoryListModel() {
         return this.mealCategoryListModel;
     }
-    public DefaultListModel<LineRecipe> getIngredientListModel() {
+    public DefaultListModel<LineRecipeDisplay> getIngredientListModel() {
         return this.lineRecipeModel;
     }
 }

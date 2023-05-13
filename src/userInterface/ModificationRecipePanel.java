@@ -95,11 +95,15 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
 
     public void setRecipeStepForRecipe(Recipe selection) {
         RecipeStepController recipeStepController = this.getRecipeStepController();
-        DefaultListModel<RecipeStep> recipeStepListModel = this.getRecipeStepListModel();
+        DefaultListModel<String> recipeStepListModel = this.getRecipeStepListModel();
         try {
             recipeStepListModel.removeAllElements();
             ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
-            recipeStepListModel.addAll(recipeSteps);
+            ArrayList<String> recipeStepsDescription = new ArrayList<String>();
+            for (RecipeStep recipeStep : recipeSteps) {
+                recipeStepsDescription.add(recipeStep.getDescription());
+            }
+            recipeStepListModel.addAll(recipeStepsDescription);
         } catch (Exception exception) {
             System.out.printf(exception.getMessage());
         }
@@ -141,11 +145,15 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
 
     public void setIngredientForRecipe(Recipe selection) {
         LineRecipeController lineRecipeController = this.getLineRecipeController();
-        DefaultListModel<LineRecipe> ingredientListModel = this.getIngredientListModel();
+        DefaultListModel<LineRecipeDisplay> ingredientListModel = this.getIngredientListModel();
         try {
             ingredientListModel.removeAllElements();
             ArrayList<LineRecipe> lineRecipes = lineRecipeController.getLineRecipeForRecipe(selection.getCode());
-            ingredientListModel.addAll(lineRecipes);
+            ArrayList<LineRecipeDisplay> lineRecipeDisplays = new ArrayList<>();
+            for (LineRecipe lineRecipe : lineRecipes) {
+                lineRecipeDisplays.add(new LineRecipeDisplay(lineRecipe.getIngredient(), lineRecipe.getQuantity(), lineRecipe.getUnit()));
+            }
+            ingredientListModel.addAll(lineRecipeDisplays);
         } catch (Exception exception) {
             System.out.printf(exception.getMessage());
         }
@@ -221,16 +229,19 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
 
     public void updateRecipeSteps(Recipe selection) {
         RecipeStepController recipeStepController = this.getRecipeStepController();
-        DefaultListModel<RecipeStep> recipeStepListModel = this.getRecipeStepListModel();
+        DefaultListModel<String> recipeStepListModel = this.getRecipeStepListModel();
         try {
             // TODO : do a better job at updating recipe steps values
             ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
             for (RecipeStep recipeStep : recipeSteps) {
                 recipeStepController.deleteRecipeStep(selection.getCode(), recipeStep.getNumber());
             }
-            Enumeration<RecipeStep> newRecipeSteps = recipeStepListModel.elements();
-            while (newRecipeSteps.hasMoreElements()) {
-                recipeStepController.createRecipeStep(newRecipeSteps.nextElement());
+            Enumeration<String> newRecipeStepsDescription = recipeStepListModel.elements();
+            int index = 0;
+            while (newRecipeStepsDescription.hasMoreElements()) {
+                String recipeStepDescription = newRecipeStepsDescription.nextElement();
+                recipeStepController.createRecipeStep(new RecipeStep(selection.getCode(), index, recipeStepDescription));
+                index++;
             }
         } catch (Exception exception) {
             System.out.printf(exception.getMessage());
@@ -239,16 +250,17 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
 
     public void updateIngredient(Recipe selection) {
         LineRecipeController lineRecipeController = this.getLineRecipeController();
-        DefaultListModel<LineRecipe> ingredientListModel = this.getIngredientListModel();
+        DefaultListModel<LineRecipeDisplay> ingredientListModel = this.getIngredientListModel();
         try {
             // TODO : do a better job at ingredient values
             ArrayList<LineRecipe> lineRecipes = lineRecipeController.getLineRecipeForRecipe(selection.getCode());
             for (LineRecipe lineRecipe : lineRecipes) {
                 lineRecipeController.deleteLineRecipe(lineRecipe.getIngredient(), selection.getCode());
             }
-            Enumeration<LineRecipe> newLineRecipes = ingredientListModel.elements();
+            Enumeration<LineRecipeDisplay> newLineRecipes = ingredientListModel.elements();
             while (newLineRecipes.hasMoreElements()) {
-                lineRecipeController.createLineRecipe(newLineRecipes.nextElement());
+                LineRecipeDisplay lineRecipeDisplay = newLineRecipes.nextElement();
+                lineRecipeController.createLineRecipe(new LineRecipe(lineRecipeDisplay.getIngredient(), selection.getCode(), lineRecipeDisplay.getQuantity(), lineRecipeDisplay.getUnit()));
             }
         } catch (Exception exception) {
             System.out.printf(exception.getMessage());
