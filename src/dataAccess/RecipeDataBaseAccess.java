@@ -3,6 +3,7 @@ package dataAccess;
 import exception.AllPeriodException;
 import exception.AllRecipeException;
 import exception.NextCodeRecipeException;
+import exception.UpdateRecipeException;
 import interfaceAccess.RecipeDataAccess;
 import model.Complexity;
 import model.Period;
@@ -23,8 +24,28 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
     }
 
     @Override
-    public void update(Recipe recipe) {
-
+    public void update(Recipe recipe) throws UpdateRecipeException {
+        String query =
+            "UPDATE recipe SET title = ?, isHot = ?, publicationDate = ?, description = ?, timePreparation = ?, notAuthor = ?, isSalted = ?, numberPeople = ?, complexityLevel = ?, speciality = ?, author = ? WHERE code = ?;";
+        try {
+            Connection connection = SingletonConnexion.getInstance();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, recipe.getTitle());
+            statement.setBoolean(2, recipe.getIsHot());
+            statement.setDate(3, java.sql.Date.valueOf(recipe.getPublicationDate()));
+            statement.setString(4, recipe.getDescription());
+            statement.setInt(5, recipe.getTimePreparation());
+            statement.setInt(6, recipe.getNoteAuthor());
+            statement.setBoolean(7, recipe.getIsSalted());
+            statement.setInt(8, recipe.getNumberPeopleConcerned());
+            statement.setInt(9, recipe.getComplexity().getComplexity());
+            statement.setInt(10, recipe.getSpeciality());
+            statement.setInt(11, recipe.getPerson());
+            statement.setInt(12, recipe.getCode());
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new UpdateRecipeException();
+        }
     }
 
     @Override

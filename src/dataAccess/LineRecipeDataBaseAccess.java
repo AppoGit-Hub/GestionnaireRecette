@@ -1,5 +1,7 @@
 package dataAccess;
 
+import exception.CreateLineRecipeException;
+import exception.DeleteRecipeStepException;
 import exception.IngredientException;
 import exception.LineRecipeException;
 import interfaceAccess.LineRecipeDataAccess;
@@ -18,7 +20,7 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
     public ArrayList<LineRecipe> getLineRecipeForRecipe(int recipe) throws LineRecipeException  {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query = "SELECT * FROM linerecipe WHERE recipeOrigin = ?";
+            String query = "SELECT * FROM linerecipe WHERE recipeOrigin = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipe);
             ResultSet data = statement.executeQuery();
@@ -28,11 +30,41 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
                 int recipeOrigin = data.getInt("recipeOrigin");
                 int quantity = data.getInt("quantity");
                 String unit = data.getString("unit");
-                lineRecipes.add(new LineRecipe(ingredient, recipeOrigin, quantity, Unit.valueOf(unit)));
+                lineRecipes.add(new LineRecipe(ingredient, recipeOrigin, quantity, Unit.valueOf(unit.toUpperCase())));
             }
             return lineRecipes;
         } catch (SQLException exception) {
             throw new LineRecipeException(exception.getMessage());
+        }
+    }
+
+    @Override
+    public void createLineRecipe(LineRecipe lineRecipe) throws CreateLineRecipeException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "INSERT INTO linerecipe VALUES (?, ?, ?, ?);";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setString(1, lineRecipe.getIngredient());
+            statement.setInt(2, lineRecipe.getRecipe());
+            statement.setInt(3, lineRecipe.getQuantity());
+            statement.setString(4, lineRecipe.getUnit().getUnit());
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new CreateLineRecipeException();
+        }
+    }
+
+    @Override
+    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteRecipeStepException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "DELETE FROM linerecipe WHERE ingredient = ? AND recipeOrigin = ?;";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setString(1, ingredient);
+            statement.setInt(2, recipeOrigin);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new DeleteRecipeStepException();
         }
     }
 }

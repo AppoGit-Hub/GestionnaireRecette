@@ -2,6 +2,8 @@ package controller;
 
 import business.RecipeStepManager;
 import exception.AllRecipeStepException;
+import exception.CreateRecipeStepException;
+import exception.DeleteRecipeStepException;
 import model.RecipeStep;
 
 import java.util.ArrayList;
@@ -19,5 +21,12 @@ public class RecipeStepController {
 
     public ArrayList<RecipeStep> getAllRecipeStep(int recipeCode) throws AllRecipeStepException {
         return manager.getAllRecipeStep(recipeCode);
+    }
+
+    public void deleteRecipeStep(int recipeCode, int number) throws DeleteRecipeStepException {
+        this.manager.deleteRecipeStep(recipeCode, number);
+    }
+    public void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException {
+        this.manager.createRecipeStep(recipeStep);
     }
 }

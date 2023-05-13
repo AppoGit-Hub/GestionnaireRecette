@@ -1,6 +1,9 @@
 package dataAccess;
 
 import exception.AllEquipementException;
+import exception.CreateEquipementForException;
+import exception.DeleteEquipementException;
+import exception.IsEquipementExistException;
 import interfaceAccess.EquipementDataAccess;
 import model.Equipment;
 
@@ -29,6 +32,33 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             return equipments;
         } catch (SQLException exception) {
             throw new AllEquipementException(exception.getMessage());
+        }
+    }
+    @Override
+    public void createEquipementFor(int recipeCode, String utensilName) throws CreateEquipementForException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "INSERT INTO equipment VALUES (?, ?)";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setString(1, utensilName);
+            statement.setInt(2, recipeCode);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new CreateEquipementForException();
+        }
+    }
+
+    @Override
+    public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "DELETE FROM equipment WHERE ustensil = ? AND inRecipe = ?;";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setString(1, utensilName);
+            statement.setInt(2, recipeCode);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new DeleteEquipementException();
         }
     }
 }

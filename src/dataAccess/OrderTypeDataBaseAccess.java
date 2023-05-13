@@ -1,6 +1,8 @@
 package dataAccess;
 
 import exception.AllOrderTypeException;
+import exception.CreateOrderTypeException;
+import exception.DeleteOrderTypeException;
 import interfaceAccess.OrderTypeDataAccess;
 import model.OrderType;
 
@@ -11,12 +13,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
-
     @Override
-    public void setOrderType(OrderType order) {
-
+    public void createOrderType(int recipeCode, int mealCategory) throws CreateOrderTypeException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "INSERT INTO ordertype VALUES (?, ?)";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, recipeCode);
+            statement.setInt(2, mealCategory);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new CreateOrderTypeException();
+        }
     }
-
+    @Override
+    public void deleteOrderType(int recipeCode, int mealCategory) throws DeleteOrderTypeException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "DELETE FROM ordertype WHERE fromRecipe = ? AND mealCategory = ?";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, recipeCode);
+            statement.setInt(2, mealCategory);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new DeleteOrderTypeException();
+        }
+    }
     @Override
     public ArrayList<OrderType> getAllOrderType(int recipeCode) throws AllOrderTypeException {
         try {

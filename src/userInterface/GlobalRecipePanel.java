@@ -7,6 +7,9 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +90,7 @@ public class GlobalRecipePanel extends JPanel {
     private PersonController personController;
     private PeriodController periodController;
     private LineRecipeController lineRecipeController;
+    private RecipeController recipeController;
     private ArrayList<MealCategory> mealCategories;
     private ArrayList<Country> countries;
     private ArrayList<MenuType> menuTypes;
@@ -115,6 +119,7 @@ public class GlobalRecipePanel extends JPanel {
         this.periodController = new PeriodController();
         this.orderTypeController = new OrderTypeController();
         this.lineRecipeController = new LineRecipeController();
+        this.recipeController = new RecipeController();
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
@@ -161,12 +166,18 @@ public class GlobalRecipePanel extends JPanel {
         this.descriptionTextArea = new JTextArea(10, 10);
         this.descriptionTextArea.setLineWrap(true);
 
+        UtensilActionListener utensilActionListener = new UtensilActionListener();
         this.addUtensilButton = new JButton("Add");
+        this.addUtensilButton.addActionListener(utensilActionListener);
         this.removeUtensilButton = new JButton("Remove");
+        this.removeUtensilButton.addActionListener(utensilActionListener);
         this.utensilComboBoxModel = new DefaultComboBoxModel<Utensil>();
         this.utensilComboBox = new JComboBox<Utensil>(utensilComboBoxModel);
         this.utensilListModel = new DefaultListModel<Utensil>();
         this.utensilList = new JList<Utensil>(utensilListModel);
+        utensilActionListener.setUtensilComboBox(utensilComboBoxModel);
+        utensilActionListener.setUtensilListModel(utensilListModel);
+        utensilActionListener.setUtensilList(utensilList);
 
         this.addMenuTypeButton = new JButton("Add");
         this.removeMenuTypeButton = new JButton("Remove");
@@ -326,39 +337,8 @@ public class GlobalRecipePanel extends JPanel {
 
         this.add(this.tabs, BorderLayout.CENTER);
     }
-    public boolean isTitleValid() {
-        String titleText = titleField.getText();
-        return titleText.length() > TITLE_MIN_LENGTH;
-    }
-    public boolean isTemperatureValid() {
-        return this.isHot.isSelected() || this.isCold.isSelected();
-    }
-    public boolean isSpiceValid() {
-        return this.isSalty.isSelected() || this.isSweet.isSelected();
-    }
-    public boolean isDescriptionValid() {
-        String descriptionText = this.descriptionTextArea.getText();
-        return descriptionText.length() >= DESCRIPTION_MIN_LENGTH;
-    }
-    public boolean isUtensilValid() {
-        return this.utensilList.getModel().getSize() > 0;
-    }
-    public boolean isMenuTypeValid() {
-        return this.menuTypeList.getModel().getSize() > 0;
-    }
-    public boolean isMealCategoryValid() {
-        return this.mealCategoryList.getModel().getSize() > 0;
-    }
-    public boolean isRecipeStepsValid() {
-        boolean isRecipeStepsListValid = this.recipeStepsList.getModel().getSize() > 0;
-        String isRecipeStepsDescription = this.recipeStepsTextArea.getText();
-        return isRecipeStepsDescription.length() > DESCRIPTION_MIN_LENGTH && isRecipeStepsListValid;
-    }
-    public boolean isIngredientValid() {
-        return this.lineRecipeList.getModel().getSize() > 0;
-    }
     public String getTitle() {
-        return this.titleLabel.getText();
+        return this.titleField.getText();
     }
     public void setTitle(String title) {
         if (title.length() > TITLE_MIN_LENGTH) {
@@ -443,6 +423,37 @@ public class GlobalRecipePanel extends JPanel {
     public void setDescription(String description) {
         this.descriptionTextArea.setText(description);
     }
+    public Recipe getRecipe(int code) {
+        String title = this.getTitle();
+        boolean isHot = this.getIsHot();
+        LocalDate publicationDate = LocalDate.now();
+        boolean isSalty = this.getIsSalty();
+        Person author = this.getAuthor();
+        Country country = this.getCountry();
+        Complexity complexity = this.getComplexity();
+        int person = this.getPeople();
+        int note = this.getNote();
+        int time = this.getTime();
+        String description = this.getDescription();
+
+        Recipe recipe = new Recipe(
+            code,
+            title,
+            isHot,
+            publicationDate,
+            time,
+            isSalty,
+            person,
+            complexity,
+            author.getId()
+        );
+
+        recipe.setSpeciality(country.getId());
+        recipe.setNoteAuthor(note);
+        recipe.setDescription(description);
+
+        return recipe;
+    }
     public void setAllMenuCategory() {
         try {
             this.mealCategories = mealCategoryController.getAllMenuCategories();
@@ -523,6 +534,7 @@ public class GlobalRecipePanel extends JPanel {
     public IngredientController getIngredientController() {
         return this.ingredientController;
     }
+    public RecipeController getRecipeController() { return this.recipeController; }
     public LineRecipeController getLineRecipeController() {
         return this.lineRecipeController;
     }

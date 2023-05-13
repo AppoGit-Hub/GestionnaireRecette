@@ -3,6 +3,7 @@ package business;
 import dataAccess.RecipeDataBaseAccess;
 import exception.AllRecipeException;
 import exception.NextCodeRecipeException;
+import exception.UpdateRecipeException;
 import interfaceAccess.RecipeDataAccess;
 import model.Recipe;
 
@@ -25,5 +26,9 @@ public class RecipeManager {
 
     public ArrayList<Recipe> getAllRecipe() throws AllRecipeException {
         return this.recipeAccess.getAllRecipe();
+    }
+
+    public void updateRecipe(Recipe recipe) throws UpdateRecipeException {
+        this.recipeAccess.update(recipe);
     }
 }

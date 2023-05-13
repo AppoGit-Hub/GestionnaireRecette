@@ -2,11 +2,11 @@ package model;
 
 public enum Unit {
     NONE("None"),
-    GRAM("gram"),
+    GRAM("Gram"),
     KILOGRAM("Kilogram"),
     POUND("Pound"),
-    OUNCE("ounce"),
-    TONNE("tonne"),
+    OUNCE("Ounce"),
+    TONNE("Tonne"),
     LITER("Liter"),
     MILLILITER("Milliliter"),
     GALLON("Gallon"),

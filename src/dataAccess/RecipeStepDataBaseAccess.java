@@ -1,6 +1,8 @@
 package dataAccess;
 
 import exception.AllRecipeStepException;
+import exception.CreateRecipeStepException;
+import exception.DeleteRecipeStepException;
 import interfaceAccess.RecipeStepDataAccess;
 import model.Recipe;
 import model.RecipeStep;
@@ -34,7 +36,31 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
     }
 
     @Override
-    public void setRecipeStep(Recipe recipe, RecipeStep recipeStep) {
+    public void deleteRecipeStep(int recipeCode, int number) throws DeleteRecipeStepException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "DELETE FROM recipestep WHERE baseRecipe = ? AND number = ?;";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, recipeCode);
+            statement.setInt(2, number);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new DeleteRecipeStepException();
+        }
+    }
 
+    @Override
+    public void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "INSERT INTO recipestep VALUES (?, ?, ?);";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, recipeStep.getRecipe());
+            statement.setInt(2, recipeStep.getNumber());
+            statement.setString(3, recipeStep.getDescription());
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new CreateRecipeStepException();
+        }
     }
 }
