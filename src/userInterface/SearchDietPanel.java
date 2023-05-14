@@ -33,7 +33,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
         this.dietError = new JLabel();
         this.dietSubmit = new JButton("Submit");
         this.dietSubmit.addActionListener(this);
-
+        
         this.setAllDiet();
 
         this.setLayout(new BorderLayout());
