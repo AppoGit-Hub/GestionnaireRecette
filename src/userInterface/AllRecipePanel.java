@@ -40,7 +40,7 @@ public class AllRecipePanel extends AbstractTableModel {
     }
     public int getRowCount() {
         try {
-            return recipeController.getNextCode() + 1;
+            return recipeController.getNextCode();
         } catch (NextCodeRecipeException exception) {
             System.out.printf(exception.getMessage());
             return 0;
