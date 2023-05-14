@@ -103,7 +103,9 @@ public class GlobalRecipePanel extends JPanel {
     private static final int TIME_MAX = 1000;
     private static final int QUANTITY_MIN = 1;
     private static final int QUANTITY_MAX = 1000;
+
     public GlobalRecipePanel() {
+        //Pour avoir acces à la base de données
         this.menuTypeController = new MenuTypeController();
         this.mealCategoryController = new MealCategoryController();
         this.recipeStepController = new RecipeStepController();
@@ -118,12 +120,16 @@ public class GlobalRecipePanel extends JPanel {
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
-
+        //JRadioButton c'est un bouton pour etre coché
         this.isHot = new JRadioButton("Hot");
         this.isCold = new JRadioButton("Cold");
+        //en les mettant dans un ButtonGroup cela fait que un seul des boutons peut être cocher
+        //et pas deux en même temps
         this.temperatureGroup = new ButtonGroup();
         temperatureGroup.add(isHot);
         temperatureGroup.add(isCold);
+        //setSelected utilisé pour mettre un des deux boutons cochés, moins de problème comme cela
+        // aucune chance d'en avoir un de non cocher
         this.temperatureGroup.setSelected(this.isHot.getModel(), true);
 
         this.isSalty = new JRadioButton("Salty");
@@ -134,6 +140,7 @@ public class GlobalRecipePanel extends JPanel {
         this.spiceGroup.setSelected(this.isSalty.getModel(), true);
 
         this.authorLabel = new JLabel("Author");
+        //permet de remplir la jcombbox avec des éléments specifiés, la person sinon elle serait vide,mais je suis pas sure que cela soit suffisant
         this.authorComboBoxModel = new DefaultComboBoxModel<Person>();
         this.authorComboBox = new JComboBox<Person>(authorComboBoxModel);
 
@@ -144,7 +151,8 @@ public class GlobalRecipePanel extends JPanel {
         this.complexityLabel = new JLabel("Complexity");
         this.complexityComboBoxModel = new DefaultComboBoxModel<Complexity>();
         this.complexityComboBox = new JComboBox<Complexity>(complexityComboBoxModel);
-
+        //le JSpiner correspond a un chiffre qu'on peut mettre directement ou le modifier avec des flèches
+        //le JSipnerModel defini au JSpiner de quoi il est contituer
         this.peopleLabel = new JLabel("People For");
         SpinnerNumberModel peopleSpinnerModel = new SpinnerNumberModel(1, PEOPLE_MIN, PEOPLE_MAX, 1);
         this.peopleSpinner = new JSpinner(peopleSpinnerModel);
@@ -159,7 +167,7 @@ public class GlobalRecipePanel extends JPanel {
 
         this.descriptionLabel = new JLabel("Description");
         this.descriptionTextArea = new JTextArea(10, 10);
-        this.descriptionTextArea.setLineWrap(true);
+        this.descriptionTextArea.setLineWrap(true);//cela à avoir avec les retours à la ligne je pense que cela les permets, quand depasement du cadre cela fait cela par defaut mais ce n'est qu'une supposisiton
 
         this.addUtensilButton = new JButton("Add");
         this.removeUtensilButton = new JButton("Remove");
@@ -183,6 +191,7 @@ public class GlobalRecipePanel extends JPanel {
         this.mealCategoryComboBox = new JComboBox<MealCategory>(mealCategoryComboBoxModel);
         this.mealCategoryListModel = new DefaultListModel<MealCategory>();
         this.mealCategoryList = new JList<MealCategory>(mealCategoryListModel);
+        //je ne comprend pas pourquoi faire à la fois une liste et une comboxBox de la même chose mealCategory
         this.mealCategoryAccessErrorLabel = new JLabel();
 
         this.recipeStepsTextArea = new JTextArea(10, 20);
@@ -190,26 +199,32 @@ public class GlobalRecipePanel extends JPanel {
         this.removeRecipeStepsButton = new JButton("Remove");
         this.editRecipeStepsButton = new JButton("Edit");
         this.saveRecipeStepsButton = new JButton("Save");
+        //juste une liste des differents stepRecipes
         this.recipeStepListModel = new DefaultListModel<RecipeStep>();
         this.recipeStepsList = new JList<RecipeStep>(recipeStepListModel);
         this.recipeStepErrorLabel = new JLabel();
-
+        //les linesRecipe sont le truc qui geres la quantités d'un ingrédients données
         this.lineRecipeModel = new DefaultListModel<LineRecipe>();
         this.lineRecipeList = new JList<LineRecipe>(lineRecipeModel);
         this.addIngredientButton = new JButton("Add");
         this.removeIngredientButton = new JButton("Remove");
         this.editIngredientButton = new JButton("Edit");
         this.saveIngredientButton = new JButton("Save");
+        //pour afficher l'ensemble des ingrédients
         this.nameIngredientComboBoxModel = new DefaultComboBoxModel<Ingredient>();
         this.nameIngredientComboBox = new JComboBox<Ingredient>(nameIngredientComboBoxModel);
         SpinnerNumberModel quantityIngredientModel = new SpinnerNumberModel(1, QUANTITY_MIN, QUANTITY_MAX, 1);
         this.quantityIngredientComboBox = new JSpinner(quantityIngredientModel);
+        //encore une comboBox pour afficher l'unité
         this.unitIngredientComboBoxModel = new DefaultComboBoxModel<Unit>();
         this.unitIngredientComboBox = new JComboBox<Unit>(unitIngredientComboBoxModel);
 
         //TODO : Resolve the scaling problem
+        //formBuilder semble etre utilisé pour créer des formulaires
         JPanel generalPanel = new FormBuilder()
                 .addLabelAnd(titleLabel, titleField)
+                //afficher sur la même ligne deux boutons tous dans le componentGroup
+                // gridabonstraints.WEST c'est pour mettre le component de façon à ce que cela soit à gauche centré verticalement
                 .addOnSameLine(new ComponentGroup(GridBagConstraints.WEST, isHot, isCold))
                 .addOnSameLine(new ComponentGroup(GridBagConstraints.WEST, isSalty, isSweet))
                 .addLabelAnd(authorLabel, authorComboBox)
@@ -219,7 +234,7 @@ public class GlobalRecipePanel extends JPanel {
                 .addLabelAnd(noteLabel, noteSpinner)
                 .addLabelAnd(timeLabel, timeSpinner)
                 .addLabelAnd(descriptionLabel, descriptionTextArea)
-                .build();
+                .build();//bizarre fasson de faire cela mais bon soit
 
 
         JPanel utensilPanel = new JPanel();
@@ -304,7 +319,7 @@ public class GlobalRecipePanel extends JPanel {
         ingredientPanel.add(ingredientNorthPanel, BorderLayout.NORTH);
         ingredientPanel.add(ingredientWestPanel, BorderLayout.WEST);
         ingredientPanel.add(lineRecipeList, BorderLayout.CENTER);
-
+        //je ne sais pas à quoi cela sert mais il ne semble pas exister sous cette forme donc je ne sais pas
         this.setAllMenuType();
         this.setAllMenuCategory();
         this.setAllUtensil();
@@ -440,6 +455,7 @@ public class GlobalRecipePanel extends JPanel {
     public String getDescription() {
         return this.descriptionTextArea.getText();
     }
+    //c'est methodes serve à renplire les combobox avec des acces en base de données
     public void setDescription(String description) {
         this.descriptionTextArea.setText(description);
     }
@@ -499,6 +515,7 @@ public class GlobalRecipePanel extends JPanel {
             System.out.println(exception.getMessage());
         }
     }
+    // je ne sais pas quand c'est utile
     public EquipementController getEquipementController() {
         return this.equipementController;
     }

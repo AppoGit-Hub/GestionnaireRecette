@@ -8,8 +8,8 @@ public class SingletonConnexion {
     private static Connection connection;
     public static Connection getInstance() throws SQLException {
         if (connection == null) {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GestionnaireRecette", "root", "239a_qtti");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GestionnaireRecette", "root", "thruthVerity1@");
         }
         return connection;
-    }
+    }//  TODO : c'est pas comme le singleton du cours ?
 }
