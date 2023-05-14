@@ -64,7 +64,7 @@ public class AllRecipePanel extends AbstractTableModel {
                 break;
             case 3 :
                 object = ((recipe.getPublicationDate() != null) ?
-                    object = java.util.Date.from(recipe.getPublicationDate().atStartOfDay(ZoneId.systemDefault()).toInstant())
+                        java.util.Date.from(recipe.getPublicationDate().atStartOfDay(ZoneId.systemDefault()).toInstant())
                 : null);
                 break;
             case 4 :
@@ -89,23 +89,23 @@ public class AllRecipePanel extends AbstractTableModel {
         return object;
     }
     public Class getColumnClass(int column){
-        Class classe;
+        Class aClass;
         if(column == 0 || column == 5 || column == 6|| column == 8 || column == 9 || column == 4)
-            classe = Integer.class;
+            aClass = Integer.class;
         else{
             if (column == 1 ) {
-                classe = String.class;
+                aClass = String.class;
             }
             else {
                 if(column == 2 || column == 7){
-                    classe = Boolean.class;
+                    aClass = Boolean.class;
                 }
                 else{
-                    classe = Date.class;
+                    aClass = Date.class;
                 }
             }
         }
-        return classe;
+        return aClass;
     }
 
 }
