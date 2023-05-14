@@ -236,13 +236,7 @@ public class GlobalRecipePanel extends JPanel {
         IngredientActionListener ingredientActionListener = new IngredientActionListener();
         this.lineRecipeModel = new DefaultListModel<LineRecipeDisplay>();
         this.lineRecipeList = new JList<LineRecipeDisplay>(lineRecipeModel);
-        //juste une liste des differents stepRecipes
-        this.recipeStepListModel = new DefaultListModel<RecipeStep>();
-        this.recipeStepsList = new JList<RecipeStep>(recipeStepListModel);
         this.recipeStepErrorLabel = new JLabel();
-        //les linesRecipe sont le truc qui geres la quantités d'un ingrédients données
-        this.lineRecipeModel = new DefaultListModel<LineRecipe>();
-        this.lineRecipeList = new JList<LineRecipe>(lineRecipeModel);
         this.addIngredientButton = new JButton("Add");
         addIngredientButton.addActionListener(ingredientActionListener);
         this.removeIngredientButton = new JButton("Remove");
@@ -255,12 +249,6 @@ public class GlobalRecipePanel extends JPanel {
         this.nameIngredientComboBox = new JComboBox<Ingredient>(nameIngredientComboBoxModel);
         SpinnerNumberModel quantityIngredientModel = new SpinnerNumberModel(1, QUANTITY_MIN, QUANTITY_MAX, 1);
         this.quantityIngredientSpinner = new JSpinner(quantityIngredientModel);
-        //pour afficher l'ensemble des ingrédients
-        this.nameIngredientComboBoxModel = new DefaultComboBoxModel<Ingredient>();
-        this.nameIngredientComboBox = new JComboBox<Ingredient>(nameIngredientComboBoxModel);
-        SpinnerNumberModel quantityIngredientModel = new SpinnerNumberModel(1, QUANTITY_MIN, QUANTITY_MAX, 1);
-        this.quantityIngredientComboBox = new JSpinner(quantityIngredientModel);
-        //encore une comboBox pour afficher l'unité
         this.unitIngredientComboBoxModel = new DefaultComboBoxModel<Unit>();
         this.unitIngredientComboBox = new JComboBox<Unit>(unitIngredientComboBoxModel);
         ingredientActionListener.setNameIngredientComboBoxModel(nameIngredientComboBoxModel);

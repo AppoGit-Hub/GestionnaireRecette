@@ -4,16 +4,16 @@ import javax.swing.*;
 import javax.swing.table.TableColumn;
 
 public class ListingRecipePanel extends JPanel {
-    private JScrollPane jScrollPane;
     private AllRecipePanel allRecipePanel;
+    private JScrollPane jScrollPane;
     private JTable jTable;
     public ListingRecipePanel(){
-        allRecipePanel = new AllRecipePanel();
-        jTable = new JTable(allRecipePanel);
+        this.allRecipePanel = new AllRecipePanel();
+        this.jTable = new JTable(allRecipePanel);
+        jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TableColumn column = jTable.getColumnModel().getColumn(3);
         column.setPreferredWidth(1000);
-        jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        jScrollPane = new JScrollPane(jTable);
-        add(jScrollPane);
+        this.jScrollPane = new JScrollPane(jTable);
+        this.add(jScrollPane);
     }
 }

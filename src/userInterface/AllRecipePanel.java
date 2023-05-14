@@ -2,6 +2,7 @@ package userInterface;
 
 import controller.RecipeController;
 import exception.AllRecipeException;
+import exception.NextCodeRecipeException;
 import model.Recipe;
 
 import javax.swing.*;
@@ -12,39 +13,41 @@ import java.util.Date;
 
 public class AllRecipePanel extends AbstractTableModel {
     private RecipeController recipeController;
-    private ArrayList<String> columnName;
+    private String[] columnName;
     private ArrayList<Recipe> contentRecipe;
-    public AllRecipePanel(){
+    public AllRecipePanel() {
+        this.columnName = new String[] {
+                "Identifiant",
+                "Titre",
+                "Chaux",
+                "Date de publication",
+                "num auteur",
+                "Temps de préparation",
+                "Note de l'auteur",
+                "Salé",
+                "Pour combien de personne",
+                "Niveau de complexité"
+        };
+        this.recipeController = new RecipeController();
         try {
-            columnName = new ArrayList<>();
-            contentRecipe = new ArrayList<>();
-            recipeController = new RecipeController();
-            contentRecipe = recipeController.getAllRecipe();
-            columnName.add("Identifiant");
-            columnName.add("Titre");
-            columnName.add("Chaux");
-            columnName.add("Date de publication");
-            columnName.add("num auteur");
-            columnName.add("Temps de préparation");
-            columnName.add("Note de l'auteur");
-            columnName.add("Salé");
-            columnName.add("Pour combien de personne");
-            columnName.add("Niveau de complexité");
-        }catch(Exception exception){
-            System.out.println(exception.getMessage()+"niveau allRecipePanel");// je deteste les exceptions merde de merde
+            this.contentRecipe = recipeController.getAllRecipe();
+        } catch(Exception exception) {
+            System.out.println(exception.getMessage() + "niveau allRecipePanel");
         }
     }
-    public int getColumnCount(){return columnName.size();}//là encore je ne sais pas si c'est mieux de trouver un fonction de mysql qui donner le nombre de colonne de la table ou simple de donner directement le nombre de colonne attendue
+    public int getColumnCount() {
+        return columnName.length;
+    }
     public int getRowCount() {
         try {
-            return recipeController.getNextCode();//si cela commence à un alors ça vas sinon faire plus un
-        } catch (Exception exception) {
-            System.exit(0);// normalement l'instruction après ne fonctionnera jamais
-            return 10;//je ne sais pas comment faire pour que le return ne renvoie rien et que le code s'arrete juste
+            return recipeController.getNextCode() + 1;
+        } catch (NextCodeRecipeException exception) {
+            System.out.printf(exception.getMessage());
+            return 0;
         }
     }
     public String getColumnName(int col){
-        return columnName.get(col);
+        return columnName[col];
     }
     public Object getValueAt(int row,int col){
         Recipe recipe = contentRecipe.get(row);
@@ -60,7 +63,7 @@ public class AllRecipePanel extends AbstractTableModel {
                 object = recipe.getIsHot();
                 break;
             case 3 :
-                object = ((recipe.getPublicationDate() != null)?
+                object = ((recipe.getPublicationDate() != null) ?
                     object = java.util.Date.from(recipe.getPublicationDate().atStartOfDay(ZoneId.systemDefault()).toInstant())
                 : null);
                 break;
@@ -85,7 +88,7 @@ public class AllRecipePanel extends AbstractTableModel {
         }
         return object;
     }
-    public Class getColumnClass(int column){//je ne suis plus sur si column commence à 0 ou 1 donc on verra youppie !!!
+    public Class getColumnClass(int column){
         Class classe;
         if(column == 0 || column == 5 || column == 6|| column == 8 || column == 9 || column == 4)
             classe = Integer.class;
@@ -101,7 +104,7 @@ public class AllRecipePanel extends AbstractTableModel {
                     classe = Date.class;
                 }
             }
-        }//truc sert à dire quelle type est la column pour l'affichage
+        }
         return classe;
     }
 

@@ -19,13 +19,9 @@ public class PublishRecipePanel extends GlobalRecipePanel {
     public int getNextRecipeCode() {
         try {
             return this.recipeController.getNextCode() + 1;
-        }  catch (NextCodeRecipeException exception) {
+        } catch (NextCodeRecipeException exception) {
 
         }
         return -1;
-    private RecipeController recipeController;
-    private JScrollPane jScrollPane;
-    public PublishRecipePanel() {
-            recipeController = new RecipeController();//comme cela je me 'branche au controller'
     }
 }
