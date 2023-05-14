@@ -42,7 +42,7 @@ public class CountryDataBaseAccess implements CountryDataAccess {
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, country);
             ResultSet data = statement.executeQuery();
-            data.next();
+            data.next();// TODO : cela sert à quoi ? pour passer à la ligne suivante mais il n'y a qu'une ligne alors à quoi bon le faire ?
             int id = data.getInt("id");
             String name = data.getString("name");
             return new Country(id, name);

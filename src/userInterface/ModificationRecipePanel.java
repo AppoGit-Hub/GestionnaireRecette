@@ -18,7 +18,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     private JButton recipeModifyButton;
 
     public ModificationRecipePanel() {
-        super();
+        super();//pour afficher tout ce qui vient du globalPanel, le truc immense,mais il faut tout modifier par rapport à la
+        //recette choisie pour afficher ce qu'il y reste.
         BorderLayout layout = (BorderLayout) this.getLayout();
 
         this.recipeSelectionComboBoxModel = new DefaultComboBoxModel<Recipe>();

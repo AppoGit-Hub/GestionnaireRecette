@@ -23,5 +23,9 @@ public class PublishRecipePanel extends GlobalRecipePanel {
 
         }
         return -1;
+    private RecipeController recipeController;
+    private JScrollPane jScrollPane;
+    public PublishRecipePanel() {
+            recipeController = new RecipeController();//comme cela je me 'branche au controller'
     }
 }

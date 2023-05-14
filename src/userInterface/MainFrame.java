@@ -33,7 +33,7 @@ public class MainFrame extends JFrame implements ActionListener {
         JMenuItem recipeModification = this.createMenuItem("Modification de Recette", this.modificationRecipePanel);
         JMenuItem recipeElimination = this.createMenuItem("Elimination de Recette", this.eliminationRecipePanel);
         JMenuItem recipeListing = this.createMenuItem("Liste des Recettes", this.listingRecipePanel);
-
+        System.out.println("mainframe : après la création : liste des recettes");
         crud.add(recipePublication);
         crud.add(recipeModification);
         crud.add(recipeElimination);
@@ -59,7 +59,7 @@ public class MainFrame extends JFrame implements ActionListener {
             (SCREEN_RESOLUTION_Y / 2) - (WINDOWS_RESOLUTION_Y / 2),
             WINDOWS_RESOLUTION_X,
             WINDOWS_RESOLUTION_Y
-        );
+        );//todo : je ne sais pas ce que cela veux dire
         this.setVisible(true);
     }
 
