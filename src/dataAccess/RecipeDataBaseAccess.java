@@ -1,9 +1,6 @@
 package dataAccess;
 
-import exception.AllPeriodException;
-import exception.AllRecipeException;
-import exception.NextCodeRecipeException;
-import exception.UpdateRecipeException;
+import exception.*;
 import interfaceAccess.RecipeDataAccess;
 import model.Complexity;
 import model.Period;
@@ -21,7 +18,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
     @Override
     public Recipe read() {
         return null;
-    }//écrit null just pour éviter de mettre en faute le module
+    }//ce truc ne sert à rien non ?
 
     @Override
     public void update(Recipe recipe) throws UpdateRecipeException {
@@ -48,9 +45,19 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
         }
     }
 
-    @Override
-    public void delete(Recipe recipe) {
 
+    public void delete(int codeRecipe) throws DeleteRecipeException{
+        String query = "DELETE FROM recipe WHERE code = ?";
+        try{
+            Connection connection = SingletonConnexion.getInstance();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,codeRecipe);
+            statement.executeUpdate();
+            //juste pour élimine la recette en elle même pas encore le reste
+
+        }catch(SQLException exception){
+            throw new DeleteRecipeException();
+        }
     }
 
     @Override
@@ -58,6 +65,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT MAX(code) AS 'NEXT_CODE' FROM recipe;";
+            // il faut separer le partie connaitre le nombre de ligne et la partie connaitre l'identifiant
             PreparedStatement statement = connexion.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             data.next();
@@ -66,7 +74,19 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             throw new NextCodeRecipeException(exception.getMessage());
         }
     }//je pense que c'est pour l'identifiant pour la création d'une nouvelle recette, sinon je ne vois pas
-
+    public int getNumberRecipe() throws NumberRecipeException {
+        try{
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "SELECT COUNT(*) AS 'NUMBER_RECIPE' FROM recipe;";
+            // il faut separer le partie connaitre le nombre de ligne et la partie connaitre l'identifiant
+            PreparedStatement statement = connexion.prepareStatement(query);
+            ResultSet data = statement.executeQuery();
+            data.next();
+            return data.getInt("NUMBER_RECIPE");
+        }catch(SQLException exception){
+            throw new NumberRecipeException();
+        }
+    }
     @Override
     public ArrayList<Recipe> getAllRecipe() throws AllRecipeException {
         try {

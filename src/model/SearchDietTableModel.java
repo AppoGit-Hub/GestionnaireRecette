@@ -24,12 +24,13 @@ public class SearchDietTableModel extends AbstractTableModel {
     public int getRowCount() {
         return searchDietResults.size();
     }
-
     @Override
     public int getColumnCount() {
         return this.columnNames.length;
     }
-
+    public String getColumnName(int col){
+        return columnNames[col];
+    }
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object object;

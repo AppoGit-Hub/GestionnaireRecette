@@ -1,9 +1,7 @@
 package controller;
 
 import business.RecipeManager;
-import exception.AllRecipeException;
-import exception.NextCodeRecipeException;
-import exception.UpdateRecipeException;
+import exception.*;
 import model.Recipe;
 
 import java.util.ArrayList;
@@ -22,6 +20,9 @@ public class RecipeController {
     public int getNextCode() throws NextCodeRecipeException {
         return this.manager.getNextCode();
     }
+    public int  getNumberRecipe() throws NumberRecipeException {
+        return this.manager.getNumberRecipe();
+    }
 
     public ArrayList<Recipe> getAllRecipe() throws AllRecipeException {
         return this.manager.getAllRecipe();
@@ -29,5 +30,8 @@ public class RecipeController {
 
     public void updateRecipe(Recipe recipe) throws UpdateRecipeException {
         this.manager.updateRecipe(recipe);
+    }
+    public void deleteRecipe(int codeRecipe) throws DeleteRecipeException {
+        this.manager.deleteRecipe(codeRecipe);
     }
 }

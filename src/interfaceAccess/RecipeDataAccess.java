@@ -1,8 +1,6 @@
 package interfaceAccess;
 
-import exception.AllRecipeException;
-import exception.NextCodeRecipeException;
-import exception.UpdateRecipeException;
+import exception.*;
 import model.Recipe;
 
 import java.sql.SQLException;
@@ -12,8 +10,8 @@ public interface RecipeDataAccess {
     void create(Recipe recipe);
     Recipe read();
     void update(Recipe recipe) throws UpdateRecipeException;
-    void delete(Recipe recipe);
-
+    void delete(int codeRecipe) throws DeleteRecipeException;
+    int getNumberRecipe() throws NumberRecipeException;
     int getNextCode() throws NextCodeRecipeException;
     ArrayList<Recipe> getAllRecipe() throws AllRecipeException;
 }

@@ -3,6 +3,7 @@ package userInterface;
 import controller.RecipeController;
 import exception.AllRecipeException;
 import exception.NextCodeRecipeException;
+import exception.NumberRecipeException;
 import model.Recipe;
 
 import javax.swing.*;
@@ -40,9 +41,9 @@ public class AllRecipePanel extends AbstractTableModel {
     }
     public int getRowCount() {
         try {
-            return recipeController.getNextCode();
-        } catch (NextCodeRecipeException exception) {
-            System.out.printf(exception.getMessage());
+            return recipeController.getNumberRecipe();
+        }catch (NumberRecipeException exception){
+            System.out.println("erreur : getnumberRecipe");
             return 0;
         }
     }
