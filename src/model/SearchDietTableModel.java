@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class SearchDietTableModel extends AbstractTableModel {
     private String[] columnNames;
-    private ArrayList<Recipe> recipes;
+    private ArrayList<SearchDietResult> searchDietResults;
 
-    public SearchDietTableModel(ArrayList<Recipe> recipes) {
+    public SearchDietTableModel(ArrayList<SearchDietResult> searchDietResults) {
         this.columnNames = new String[] {
                 "Title",
                 "Publication Date",
@@ -15,12 +15,12 @@ public class SearchDietTableModel extends AbstractTableModel {
                 "Complexitu Level",
                 "Author"
         };
-        setRecipes(recipes);
+        setSearchDietResults(searchDietResults);
     }
 
     @Override
     public int getRowCount() {
-        return recipes.size();
+        return searchDietResults.size();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SearchDietTableModel extends AbstractTableModel {
         return null;
     }
 
-    public void setRecipes(ArrayList<Recipe> recipes) {
-        this.recipes = recipes;
+    public void setSearchDietResults(ArrayList<SearchDietResult> searchDietResults) {
+        this.searchDietResults = searchDietResults;
     }
 }

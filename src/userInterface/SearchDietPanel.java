@@ -2,7 +2,10 @@ package userInterface;
 
 import controller.DietController;
 import controller.RecipeController;
+import controller.SearchController;
 import exception.AllDietException;
+import exception.SearchDietException;
+import model.SearchDietResult;
 import model.SearchDietTableModel;
 import model.Diet;
 import model.Recipe;
@@ -21,12 +24,11 @@ public class SearchDietPanel extends JPanel implements ActionListener {
     private JTable dietTable;
     private JButton dietSubmit;
     private DietController dietController;
-    private RecipeController recipeController;
-
+    private SearchController searchController;
 
     public SearchDietPanel() {
         this.dietController = new DietController();
-        this.recipeController = new RecipeController();
+        this.searchController = new SearchController();
         this.dietComboBoxModel = new DefaultComboBoxModel<Diet>();
         this.dietComboBox = new JComboBox<Diet>(this.dietComboBoxModel);
         this.dietTable = new JTable();
@@ -59,9 +61,12 @@ public class SearchDietPanel extends JPanel implements ActionListener {
     }
 
     public void setDietRecipe(Diet diet) {
-        // TODO: add search process
-        ArrayList<Recipe> recipes = null;
-        this.dietTable.setModel(new SearchDietTableModel(recipes));
+        try {
+            ArrayList<SearchDietResult> searchDietResults = this.searchController.searchDiet(diet.getId());
+            this.dietTable.setModel(new SearchDietTableModel(searchDietResults));
+        } catch (SearchDietException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     @Override
