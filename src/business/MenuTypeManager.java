@@ -22,7 +22,6 @@ public class MenuTypeManager {
     public ArrayList<MenuType> getAllMenuTypes() throws AllMenuTypeException {
         return menuTypeAccess.getAllMenuTypes();
     }
-
     public MenuType getMenuType(int menuType) throws MenuTypeException {
         return menuTypeAccess.getMenuType(menuType);
     }
