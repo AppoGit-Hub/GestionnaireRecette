@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static javax.swing.JOptionPane.OK_OPTION;
+
 public class ListingRecipePanel extends JPanel implements ActionListener {
     private AllRecipePanel allRecipePanel;
     private JScrollPane jScrollPane;
@@ -58,7 +60,17 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
                     recipeController.deleteRecipe(codeRecipe);
                     this.repaint();
                     this.revalidate();// j'ai lu un truc qui dit que les deux c'est mieux
+                    int confirmation = JOptionPane.showConfirmDialog(
+                            null,
+                            "voulez vous éliminez les différentes informations lié à cette recette(recommandé)",
+                            "confirmation : élimination : données lié à une recette déjà éliminé",
+                            JOptionPane.YES_NO_OPTION);
+                    // todo : c'est quoi le parentComponent de JOption
+                    if(confirmation == OK_OPTION ){
+                        //ici on élimine les différentes informations liée à la recette
+                        // j'imagine que je vais faire plain de delete pour chaque truc qui doit être éliminé
 
+                    }
                 }
             }catch(DeleteRecipeException exception){
                 System.out.println("erreur au niveau de l'elimination d'une recipe");

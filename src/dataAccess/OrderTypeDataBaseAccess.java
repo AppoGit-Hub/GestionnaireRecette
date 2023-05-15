@@ -39,6 +39,17 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             throw new DeleteOrderTypeException();
         }
     }
+    public void deleteRecipeAllOrderType(int recipeCode) throws DeleteOrderTypeException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "DELETE FROM ordertype WHERE fromRecipe = ?";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, recipeCode);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new DeleteOrderTypeException();
+        }
+    }//todo : changer interface et exception
     @Override
     public ArrayList<OrderType> getAllOrderType(int recipeCode) throws AllOrderTypeException {
         try {

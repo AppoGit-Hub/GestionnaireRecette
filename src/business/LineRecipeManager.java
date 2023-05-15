@@ -2,6 +2,7 @@ package business;
 
 import dataAccess.LineRecipeDataBaseAccess;
 import exception.CreateLineRecipeException;
+import exception.DeleteRecipeAllLinerecipeException;
 import exception.DeleteRecipeStepException;
 import exception.LineRecipeException;
 import interfaceAccess.LineRecipeDataAccess;
@@ -30,5 +31,8 @@ public class LineRecipeManager {
 
     public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteRecipeStepException {
         this.lineRecipeAccess.deleteLineRecipe(ingredient, recipeOrigin);
+    }
+    public void deleteRecipeAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException {
+        this.lineRecipeAccess.deleteRecipeAllLineRecipe(recipeOrigin);
     }
 }

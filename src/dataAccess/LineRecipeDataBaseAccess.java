@@ -1,9 +1,6 @@
 package dataAccess;
 
-import exception.CreateLineRecipeException;
-import exception.DeleteRecipeStepException;
-import exception.IngredientException;
-import exception.LineRecipeException;
+import exception.*;
 import interfaceAccess.LineRecipeDataAccess;
 import model.Ingredient;
 import model.LineRecipe;
@@ -67,4 +64,16 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             throw new DeleteRecipeStepException();
         }
     }
+    public void deleteRecipeAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "DELETE FROM linerecipe WHERE recipeOrigin = ?;";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, recipeOrigin);
+            statement.executeUpdate();
+        }catch(SQLException exception){
+            throw new DeleteRecipeAllLinerecipeException();
+        }//todo : changer l'interface
+    }
+
 }

@@ -40,6 +40,17 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             throw new DeletePeriodException();
         }
     }
+    public void deleteRecipeAllPeriod(int periodRecipe) throws DeletePeriodException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "DELETE FROM period WHERE periodRecipe = ? ;";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, periodRecipe);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new DeletePeriodException();
+        }
+    }//todo : changer l'interface et l'exception
 
     @Override
     public ArrayList<Period> getAllPeriod(int recipeCode) throws AllPeriodException {

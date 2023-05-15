@@ -12,4 +12,5 @@ public interface PeriodDataAccess {
     void createPeriod(int periodRecipe, int menuType) throws CreatePeriodException;
     void deletePeriod(int periodRecipe, int menuType) throws DeletePeriodException;
     ArrayList<Period> getAllPeriod(int recipeCode) throws AllPeriodException;
+    void deleteRecipeAllPeriod(int periodRecipe) throws DeletePeriodException;
 }

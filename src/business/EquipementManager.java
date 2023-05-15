@@ -31,4 +31,7 @@ public class EquipementManager {
     public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
         this.equipementAccess.deleteEquipementFor(recipeCode, utensilName);
     }
+    public void deleteRecipeAllEquipement(int recipeCode) throws DeleteEquipementException{
+        this.equipementAccess.deleteRecipeAllEquipement(recipeCode);
+    }
 }

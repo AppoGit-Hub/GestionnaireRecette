@@ -2,6 +2,7 @@ package business;
 
 import exception.AllRecipeStepException;
 import exception.CreateRecipeStepException;
+import exception.DeleteAllOfOneRecipeException;
 import exception.DeleteRecipeStepException;
 import interfaceAccess.RecipeStepDataAccess;
 import dataAccess.RecipeStepDataBaseAccess;
@@ -28,5 +29,8 @@ public class RecipeStepManager {
     }
     public void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException {
         this.recipeStepAccess.createRecipeStep(recipeStep);
+    }
+    public void deleteRecipeAllStepRecipe(int recipeCode) throws DeleteAllOfOneRecipeException {
+        this.recipeStepAccess.deleteRecipeAllRecipeStep(recipeCode);
     }
 }

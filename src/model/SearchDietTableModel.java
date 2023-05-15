@@ -24,7 +24,6 @@ public class SearchDietTableModel extends AbstractTableModel {
     public String getColumnName(int col){
         return this.columnNames[col];
     }
-
     @Override
     public int getRowCount() {
         return searchDietResults.size();
@@ -32,9 +31,6 @@ public class SearchDietTableModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return this.columnNames.length;
-    }
-    public String getColumnName(int col){
-        return columnNames[col];
     }
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
