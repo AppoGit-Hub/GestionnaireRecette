@@ -1,18 +1,23 @@
 package model;
 
+import controller.PersonController;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
 public class CommetViewTableModel extends AbstractTableModel {
     private String[] columnNames;
     private ArrayList<Comment> comments;
+    private PersonController personController;
 
     public CommetViewTableModel(ArrayList<Comment> comments) {
+        this.personController = new PersonController();
         this.columnNames = new String[] {
                 "Title",
                 "Message",
                 "Rating",
-                "Author ID"
+                "Author FirstName",
+                "Author LastName"
         };
         setComments(comments);
     }
@@ -43,7 +48,19 @@ public class CommetViewTableModel extends AbstractTableModel {
             case 2:
                 return comment.getRating();
             case 3:
-                return comment.getPerson();
+                try {
+                    Person author = personController.getPerson(comment.getPerson());
+                    return author.getFirstname();
+                } catch (Exception exception) {
+                    System.out.printf(exception.getMessage());
+                }
+            case 4:
+                try {
+                    Person author = personController.getPerson(comment.getPerson());
+                    return author.getLastname();
+                } catch (Exception exception) {
+                    System.out.printf(exception.getMessage());
+                }
         }
         return null;
     }
