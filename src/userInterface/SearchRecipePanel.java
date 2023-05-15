@@ -71,7 +71,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
             ArrayList<MenuType> menuTypes = this.menuTypeController.getAllMenuTypes();
             this.menuTypeComboBoxModel.addAll(menuTypes);
         } catch (AllMenuTypeException exception) {
-            this.recipeErrorLabel.setText("Error loading all menu types");
+            JOptionPane.showMessageDialog(null, "Failed to load menu types", "Failed to Load Menu Types", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -80,7 +80,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
             ArrayList<Ingredient> ingredients = this.ingredientController.getAllIngredient();
             this.ingredientComboBoxModel.addAll(ingredients);
         } catch (AllIngredientException exception) {
-            this.recipeErrorLabel.setText("Error loading all ingredient types");
+            JOptionPane.showMessageDialog(null, "Failed to load ingredients", "Failed to Load Ingredients", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -89,7 +89,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
             ArrayList<SearchRecipeResult> searchRecipeResults = this.searchController.searchRecipe(ingredient.getName(), isHot, menuType.getId());
             this.recipeTable.setModel(new SearchRecipeTableModel(searchRecipeResults));
         } catch (SearchRecipeException exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to display recipes", "Failed to Display Recipes", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -100,7 +100,15 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
             MenuType menuTypeSelected = (MenuType) this.menuTypeComboBox.getSelectedItem();
             Ingredient ingredientSelected = (Ingredient) this.ingredientComboBox.getSelectedItem();
             boolean isHot = this.isHotButton.isSelected();
-            this.setRecipe(menuTypeSelected, ingredientSelected, isHot);
+            if (menuTypeSelected != null) {
+                if (ingredientSelected != null) {
+                    this.setRecipe(menuTypeSelected, ingredientSelected, isHot);
+                } else {
+                    JOptionPane.showMessageDialog(null, "You must select an ingredient", "Select an Ingredient", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "You must select an menu type", "Select a Menu Type", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }
