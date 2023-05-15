@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static javax.swing.JOptionPane.OK_OPTION;
 
 public class EliminationRecipePanel extends JPanel implements ActionListener {
-    private AllRecipePanel allRecipePanel;
+    private ListingRecipeTableModel allRecipePanel;
     private JScrollPane jScrollPane;
     private JTable jTable;
     private JPanel jNorthBottonPanel;
@@ -32,17 +32,10 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         deleteButton = new JButton("Elimination");
         this.deleteButton.addActionListener(this);
-        /*this.deleteButton.setActionCommand("delete recipe");//on donne un string au event
-        addButton = new JButton("Ajout");
-        changeButton = new JButton("Modifier");
-        this.changeButton.addActionListener(this);
-        this.changeButton.setActionCommand("change recipe");
-        jNorthBottonPanel.add(addButton);
-        jNorthBottonPanel.add(changeButton);
-        jNorthBottonPanel.add(deleteButton);*/
+
         this.add(deleteButton, BorderLayout.NORTH);
 
-        this.allRecipePanel = new AllRecipePanel();
+        this.allRecipePanel = new ListingRecipeTableModel();
         this.jTable = new JTable(allRecipePanel);
         jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);//je ne suis pas sûr de ce que cela veut dire
@@ -95,11 +88,16 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
 
             }catch(DeleteRecipeException exception ){
                System.out.println("erreur au niveau de l'elimination d'une recipe");
-            } catch(AllRecipeException exception){
+            } catch(AllRecipeException | DeleteAllEquipementException exception){
                 System.out.println("erreur : getAllRecipe");
-            } catch (DeleteAllOfOneRecipeException | DeletePeriodException | DeleteOrderTypeException | DeleteAllCommentException | DeleteEquipementException | DeleteRecipeAllLinerecipeException ex) {
-               ex.printStackTrace();
+            } catch (DeleteAllOfOneRecipeException | DeleteAllCommentException | DeleteAllLineRecipeException ex) {
+               System.out.println("eliminationRecipePanel : erreur ");
             }  // todo : faire un truc pour les exceptions, un get message peut être ?
+            catch (DeleteAllPeriodException ex) {
+                ex.printStackTrace();
+            } catch (DeleteAllOrderTypeException ex) {
+                ex.printStackTrace();
+            }
 
         }
         else{
