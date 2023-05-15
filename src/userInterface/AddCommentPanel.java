@@ -68,7 +68,7 @@ public class AddCommentPanel extends JPanel implements ActionListener {
 
         JPanel commentViewPanel = new JPanel();
         commentViewPanel.setLayout(new BorderLayout());
-        commentViewPanel.add(commentTable, BorderLayout.CENTER);
+        commentViewPanel.add(new JScrollPane(commentTable), BorderLayout.CENTER);
 
         this.setAllRecipe();
         this.setAllAuthor();
@@ -101,7 +101,7 @@ public class AddCommentPanel extends JPanel implements ActionListener {
 
     private void setCommentForRecipe(int recipeCode) throws GetAllCommentException {
         ArrayList<Comment> commentsFromRecipe = this.commentController.getAllComment(recipeCode);
-        this.commentTable.setModel(new CommetViewTableModel(commentsFromRecipe));
+        this.commentTable.setModel(new CommentViewTableModel(commentsFromRecipe));
     }
 
     @Override

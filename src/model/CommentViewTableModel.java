@@ -5,12 +5,12 @@ import controller.PersonController;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class CommetViewTableModel extends AbstractTableModel {
+public class CommentViewTableModel extends AbstractTableModel {
     private String[] columnNames;
     private ArrayList<Comment> comments;
     private PersonController personController;
 
-    public CommetViewTableModel(ArrayList<Comment> comments) {
+    public CommentViewTableModel(ArrayList<Comment> comments) {
         this.personController = new PersonController();
         this.columnNames = new String[] {
                 "Title",
