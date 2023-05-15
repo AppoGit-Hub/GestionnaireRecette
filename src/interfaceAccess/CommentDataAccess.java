@@ -1,11 +1,9 @@
 package interfaceAccess;
 
-import exception.DeleteRecipeAllCommentException;
+import exception.DeleteAllCommentException;
 import model.Comment;
 import model.Recipe;
 
 public interface CommentDataAccess {
-    Comment getComment(Recipe recipe);
-    void setComment(Comment comment, Recipe recipe);
-    void deleteRecipeAllComment(int codeRecipe) throws DeleteRecipeAllCommentException;
+    void deleteAllComment(int codeRecipe) throws DeleteAllCommentException;
 }
