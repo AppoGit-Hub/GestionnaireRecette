@@ -46,7 +46,7 @@ public class Comment {
     }
 
     public void setMessage(String message) {
-        if (message.length() > 0) {
+        if (message != null && message.length() > 0) {
             this.message = message;
         } else {
             // throw exception ?
@@ -70,7 +70,7 @@ public class Comment {
     }
 
     public void setTitle(String title) {
-        if (this.title.length() > 0) {
+        if (title != null && title.length() > 0) {
             this.title = title;
         } else {
             // throw exception ?

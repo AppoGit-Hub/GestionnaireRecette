@@ -43,7 +43,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             statement.setInt(2, number);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteRecipeStepException();
+            throw new DeleteRecipeStepException(exception.getMessage());
         }
     }
     public void deleteAllRecipeStep(int recipeCode) throws DeleteAllOfOneRecipeException {
@@ -54,7 +54,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
         }catch(SQLException exception){
-            throw new DeleteAllOfOneRecipeException();
+            throw new DeleteAllOfOneRecipeException(exception.getMessage());
         }
     }//todo : changer l'exception
 
@@ -69,7 +69,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             statement.setString(3, recipeStep.getDescription());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreateRecipeStepException();
+            throw new CreateRecipeStepException(exception.getMessage());
         }
     }
 }

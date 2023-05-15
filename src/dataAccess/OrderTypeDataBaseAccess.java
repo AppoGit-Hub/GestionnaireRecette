@@ -2,6 +2,7 @@ package dataAccess;
 
 import exception.AllOrderTypeException;
 import exception.CreateOrderTypeException;
+import exception.DeleteAllOrderTypeException;
 import exception.DeleteOrderTypeException;
 import interfaceAccess.OrderTypeDataAccess;
 import model.OrderType;
@@ -23,7 +24,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             statement.setInt(2, mealCategory);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreateOrderTypeException();
+            throw new CreateOrderTypeException(exception.getMessage());
         }
     }
     @Override
@@ -36,10 +37,10 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             statement.setInt(2, mealCategory);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteOrderTypeException();
+            throw new DeleteOrderTypeException(exception.getMessage());
         }
     }
-    public void deleteAllOrderType(int recipeCode) throws DeleteOrderTypeException {
+    public void deleteAllOrderType(int recipeCode) throws DeleteAllOrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM orderType WHERE fromRecipe = ?;";
@@ -47,8 +48,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
-            throw new DeleteOrderTypeException();
+            throw new DeleteAllOrderTypeException(exception.getMessage());
         }
     }//todo : changer interface et exception
     @Override

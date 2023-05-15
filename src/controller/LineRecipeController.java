@@ -1,10 +1,7 @@
 package controller;
 
 import business.LineRecipeManager;
-import exception.CreateLineRecipeException;
-import exception.DeleteRecipeAllLinerecipeException;
-import exception.DeleteRecipeStepException;
-import exception.LineRecipeException;
+import exception.*;
 import model.LineRecipe;
 
 import java.util.ArrayList;
@@ -28,10 +25,10 @@ public class LineRecipeController {
         this.manager.createLineRecipe(lineRecipe);
     }
 
-    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteRecipeStepException {
+    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteLineRecipeException {
         this.manager.deleteLineRecipe(ingredient, recipeOrigin);
     }
-    public void deleteAllLineRecip(int recipeCode) throws DeleteRecipeAllLinerecipeException {
+    public void deleteAllLineRecip(int recipeCode) throws DeleteAllLineRecipeException {
         this.manager.deleteAllLineRecipe(recipeCode);
     }
 }

@@ -41,7 +41,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             statement.setInt(12, recipe.getCode());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new UpdateRecipeException();
+            throw new UpdateRecipeException(exception.getMessage());
         }
     }
 
@@ -56,8 +56,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             statement.executeUpdate();//l'erreur se fait au niveau de l'élimination d'une recette
 
         }catch(SQLException exception){
-            System.out.println(exception.getMessage());
-            throw new DeleteRecipeException();
+            throw new DeleteRecipeException(exception.getMessage());
         }
     }
 
@@ -85,7 +84,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             data.next();
             return data.getInt("NUMBER_RECIPE");
         }catch(SQLException exception){
-            throw new NumberRecipeException();
+            throw new NumberRecipeException(exception.getMessage());
         }
     }
     @Override

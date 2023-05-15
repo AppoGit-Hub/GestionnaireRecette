@@ -2,7 +2,6 @@ package dataAccess;
 
 import exception.*;
 import interfaceAccess.LineRecipeDataAccess;
-import model.Ingredient;
 import model.LineRecipe;
 import model.Unit;
 
@@ -47,12 +46,12 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             statement.setString(4, lineRecipe.getUnit().getUnit());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreateLineRecipeException();
+            throw new CreateLineRecipeException(exception.getMessage());
         }
     }
 
     @Override
-    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteRecipeStepException {
+    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteLineRecipeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM linerecipe WHERE ingredient = ? AND recipeOrigin = ?;";
@@ -61,10 +60,10 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             statement.setInt(2, recipeOrigin);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteRecipeStepException();
+            throw new DeleteLineRecipeException(exception.getMessage());
         }
     }
-    public void deleteAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException {
+    public void deleteAllLineRecipe(int recipeOrigin) throws DeleteAllLineRecipeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM linerecipe WHERE recipeOrigin = ?;";
@@ -72,7 +71,7 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             statement.setInt(1, recipeOrigin);
             statement.executeUpdate();
         }catch(SQLException exception){
-            throw new DeleteRecipeAllLinerecipeException();
+            throw new DeleteAllLineRecipeException(exception.getMessage());
         }//todo : changer l'interface
     }
 

@@ -2,6 +2,7 @@ package dataAccess;
 
 import exception.AllPeriodException;
 import exception.CreatePeriodException;
+import exception.DeleteAllPeriodException;
 import exception.DeletePeriodException;
 import interfaceAccess.PeriodDataAccess;
 import model.Period;
@@ -23,7 +24,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             statement.setInt(2, menuType);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreatePeriodException();
+            throw new CreatePeriodException(exception.getMessage());
         }
     }
 
@@ -37,10 +38,10 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             statement.setInt(2, menuType);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeletePeriodException();
+            throw new DeletePeriodException(exception.getMessage());
         }
     }
-    public void deleteAllPeriod(int periodRecipe) throws DeletePeriodException {
+    public void deleteAllPeriod(int periodRecipe) throws DeleteAllPeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM period WHERE periodRecipe = ? ;";
@@ -48,7 +49,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             statement.setInt(1, periodRecipe);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeletePeriodException();
+            throw new DeleteAllPeriodException(exception.getMessage());
         }
     }//todo : changer l'interface et l'exception
 
