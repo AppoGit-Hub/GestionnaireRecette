@@ -1,4 +1,8 @@
-package model;
+package userInterface;
+
+import model.Ingredient;
+import model.LineRecipeDisplay;
+import model.Unit;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

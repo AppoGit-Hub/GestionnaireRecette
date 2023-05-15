@@ -1,6 +1,8 @@
-package model;
+package userInterface;
 
 import controller.PersonController;
+import model.Comment;
+import model.Person;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;

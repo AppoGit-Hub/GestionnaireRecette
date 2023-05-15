@@ -1,4 +1,6 @@
-package model;
+package userInterface;
+import model.SearchDietResult;
+
 import javax.swing.table.AbstractTableModel;
 import java.lang.reflect.Array;
 import java.time.ZoneId;

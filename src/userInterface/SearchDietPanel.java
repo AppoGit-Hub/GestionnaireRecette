@@ -1,14 +1,11 @@
 package userInterface;
 
 import controller.DietController;
-import controller.RecipeController;
 import controller.SearchController;
 import exception.AllDietException;
 import exception.SearchDietException;
 import model.SearchDietResult;
-import model.SearchDietTableModel;
 import model.Diet;
-import model.Recipe;
 
 import javax.swing.*;
 import java.awt.*;

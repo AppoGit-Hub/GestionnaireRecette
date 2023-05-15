@@ -6,7 +6,6 @@ import exception.AllIngredientException;
 import exception.SearchIngredientException;
 import model.Ingredient;
 import model.SearchIngredientResult;
-import model.SearchIngredientTableModel;
 
 import javax.swing.*;
 import java.awt.*;

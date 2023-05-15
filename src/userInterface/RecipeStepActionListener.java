@@ -1,4 +1,4 @@
-package model;
+package userInterface;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

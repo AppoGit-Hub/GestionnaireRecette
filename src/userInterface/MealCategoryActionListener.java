@@ -1,4 +1,6 @@
-package model;
+package userInterface;
+
+import model.MealCategory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

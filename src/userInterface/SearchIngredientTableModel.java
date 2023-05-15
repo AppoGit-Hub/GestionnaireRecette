@@ -1,4 +1,6 @@
-package model;
+package userInterface;
+
+import model.SearchIngredientResult;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;

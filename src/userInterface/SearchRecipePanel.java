@@ -2,11 +2,9 @@ package userInterface;
 
 import controller.IngredientController;
 import controller.MenuTypeController;
-import controller.RecipeController;
 import controller.SearchController;
 import exception.AllIngredientException;
 import exception.AllMenuTypeException;
-import exception.SearchDietException;
 import exception.SearchRecipeException;
 import model.*;
 
