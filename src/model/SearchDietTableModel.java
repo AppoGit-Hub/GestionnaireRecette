@@ -11,11 +11,11 @@ public class SearchDietTableModel extends AbstractTableModel {
 
     public SearchDietTableModel(ArrayList<SearchDietResult> searchDietResults) {
         this.columnNames = new String[] {
-                "Title",
-                "Publication Date",
-                "Number People",
-                "Complexity Level",
-                "Author"
+            "Title",
+            "Publication Date",
+            "Number People",
+            "Complexity Level",
+            "Author"
         };
         setSearchDietResults(searchDietResults);
     }

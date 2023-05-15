@@ -3,11 +3,12 @@ package userInterface;
 import controller.IngredientController;
 import controller.MenuTypeController;
 import controller.RecipeController;
+import controller.SearchController;
 import exception.AllIngredientException;
 import exception.AllMenuTypeException;
-import model.Ingredient;
-import model.MenuType;
-import model.SearchRecipeTableModel;
+import exception.SearchDietException;
+import exception.SearchRecipeException;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,12 +27,12 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
     private JLabel recipeErrorLabel;
     private JTable recipeTable;
 
-    private RecipeController recipeController;
+    private SearchController searchController;
     private MenuTypeController menuTypeController;
     private IngredientController ingredientController;
 
     public SearchRecipePanel() {
-        this.recipeController = new RecipeController();
+        this.searchController = new SearchController();
         this.menuTypeController = new MenuTypeController();
         this.ingredientController = new IngredientController();
 
@@ -53,6 +54,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
 
         JPanel recipeNorthPanel = new JPanel();
         recipeNorthPanel.setLayout(new FlowLayout());
+        recipeNorthPanel.add(isHotButton);
         recipeNorthPanel.add(new JLabel("Menu Types:"));
         recipeNorthPanel.add(menuTypeComboBox);
         recipeNorthPanel.add(new JLabel("Ingredients:"));
@@ -82,8 +84,13 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void setRecipe(MenuType menuType, Ingredient ingredient) {
-        // TODO: add search process
+    public void setRecipe(MenuType menuType, Ingredient ingredient, boolean isHot) {
+        try {
+            ArrayList<SearchRecipeResult> searchRecipeResults = this.searchController.searchRecipe(ingredient.getName(), isHot, menuType.getId());
+            this.recipeTable.setModel(new SearchRecipeTableModel(searchRecipeResults));
+        } catch (SearchRecipeException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     @Override
@@ -92,7 +99,8 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
         if (selection.equals("Submit")) {
             MenuType menuTypeSelected = (MenuType) this.menuTypeComboBox.getSelectedItem();
             Ingredient ingredientSelected = (Ingredient) this.ingredientComboBox.getSelectedItem();
-            this.setRecipe(menuTypeSelected, ingredientSelected);
+            boolean isHot = this.isHotButton.isSelected();
+            this.setRecipe(menuTypeSelected, ingredientSelected, isHot);
         }
     }
 }

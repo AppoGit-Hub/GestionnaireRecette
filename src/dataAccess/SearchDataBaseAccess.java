@@ -2,14 +2,12 @@ package dataAccess;
 
 import exception.CreatePeriodException;
 import exception.SearchDietException;
+import exception.SearchIngredientException;
 import exception.SearchRecipeException;
 import interfaceAccess.SearchDataAcces;
 import model.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -137,6 +135,56 @@ public class SearchDataBaseAccess implements SearchDataAcces {
             return searchRecipeResults;
         } catch (SQLException exception) {
             throw new SearchRecipeException();
+        }
+    }
+
+    public ArrayList<SearchIngredientResult> searchIngredient(String ingredient, LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query =
+                    """
+                    SELECT
+                        recipe.code,
+                        recipe.title,
+                        ingredient.name AS "ingredient",
+                        foodcategory.name AS "foodcategory",
+                        productionperiod.dateBegining,
+                        productionperiod.dateEnding,
+                        linerecipe.quantity
+                    FROM
+                        recipe
+                            INNER JOIN
+                        linerecipe ON recipe.code = linerecipe.recipeOrigin
+                            INNER JOIN
+                        ingredient ON linerecipe.ingredient = ingredient.name
+                            INNER JOIN
+                        foodcategory ON foodcategory.id = ingredient.type
+                            INNER JOIN
+                        productionperiod ON productionperiod.id = ingredient.season
+                    WHERE
+                        ingredient.name = ?
+                            AND recipe.publicationDate BETWEEN ? AND ?
+                    ORDER BY foodcategory.name                        
+                    """;
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setString(1, ingredient);
+            statement.setDate(2, Date.valueOf(dateBeginning));
+            statement.setDate(3, Date.valueOf(dateEnding));
+            ResultSet data = statement.executeQuery();
+            ArrayList<SearchIngredientResult> searchIngredientResults = new ArrayList<>();
+            while (data.next()) {
+                int recipeCode = data.getInt("code");
+                String recipeTitle = data.getString("title");
+                String ingredientName = data.getString("ingredient");
+                String foodCategoryName = data.getString("foodcategory");
+                LocalDate producitonDateBegining = data.getDate("dateBegining").toLocalDate();
+                LocalDate producitonDateEnding = data.getDate("dateEnding").toLocalDate();
+                int lineRecipeQuantity =data.getInt("quantity");
+                searchIngredientResults.add(new SearchIngredientResult(recipeCode, recipeTitle, ingredientName, foodCategoryName, producitonDateBegining, producitonDateEnding, lineRecipeQuantity));
+            }
+            return searchIngredientResults;
+        } catch (SQLException exception) {
+            throw new SearchIngredientException();
         }
     }
 }
