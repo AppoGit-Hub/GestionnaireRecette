@@ -1,7 +1,6 @@
 package userInterface;
 
 import controller.*;
-import exception.*;
 import model.Recipe;
 
 import javax.swing.*;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import static javax.swing.JOptionPane.OK_OPTION;
 
 public class ListingRecipePanel extends JPanel implements ActionListener {
-    private AllRecipePanel allRecipePanel;
+    private ListingRecipeTableModel listingRecipeTableModel;
     private JScrollPane jScrollPane;
     private JTable jTable;
     private JPanel jNorthBottonPanel;
@@ -45,8 +44,8 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
         jNorthBottonPanel.add(deleteButton);
         this.add(jNorthBottonPanel, BorderLayout.NORTH);
 
-        this.allRecipePanel = new AllRecipePanel();
-        this.jTable = new JTable(allRecipePanel);
+        this.listingRecipeTableModel = new ListingRecipeTableModel();
+        this.jTable = new JTable(listingRecipeTableModel);
         jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//pour ne permettre que une seul selectionµ
         this.listSelectionModelRecipe = jTable.getSelectionModel( );
@@ -71,7 +70,7 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
                             "confirmation : élimination : données lié à une recette déjà éliminé",
                             JOptionPane.YES_NO_OPTION);
                     // todo : c'est quoi le parentComponent de JOption
-                    if(confirmation == OK_OPTION ){
+                    if(confirmation == OK_OPTION ) {
                         recipeStepController = new RecipeStepController();
                         lineRecipeController = new LineRecipeController();
                         equipementController = new EquipementController();
