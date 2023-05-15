@@ -3,16 +3,6 @@ package model;
 import java.time.LocalDate;
 
 public class SearchIngredientResult {
-/*
-    int recipeCode = data.getInt("code");
-    String recipeTitle = data.getString("title");
-    String ingredientName = data.getString("ingredient");
-    String foodCategoryName = data.getString("foodcategory");
-    LocalDate producitonDateBegining = data.getDate("dateBegining").toLocalDate();
-    LocalDate producitonDateEnding = data.getDate("dateEnding").toLocalDate();
-    int lineRecipeQuantity =data.getInt("quantity");
- */
-
     private int recipeCode;
     private String recipeTitle;
     private String ingredient;

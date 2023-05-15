@@ -35,7 +35,7 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
         jNorthBottonPanel.setLayout(new FlowLayout());
         deleteButton = new JButton("Elimination");
         this.deleteButton.addActionListener(this);
-        this.deleteButton.setActionCommand("delete recipe");//on donne un string au event
+        this.deleteButton.setActionCommand("delete recipe");
         addButton = new JButton("Ajout");
         changeButton = new JButton("Modifier");
         this.changeButton.addActionListener(this);
@@ -48,7 +48,7 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
         this.allRecipePanel = new AllRecipePanel();
         this.jTable = new JTable(allRecipePanel);
         jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//pour ne permettre que une seul selectionµ
+        jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.listSelectionModelRecipe = jTable.getSelectionModel( );
         TableColumn column = jTable.getColumnModel().getColumn(3);
         column.setPreferredWidth(100);
@@ -58,7 +58,7 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
     }
     public void actionPerformed (ActionEvent e){
         String source = e.getActionCommand();
-        int indexRecipeSelection = this.listSelectionModelRecipe.getMinSelectionIndex();//renvoie le plus petit index selectionner ou -1 si aucun
+        int indexRecipeSelection = this.listSelectionModelRecipe.getMinSelectionIndex();
         if(indexRecipeSelection != -1){
             try{
                 this.recipeController = new RecipeController();
@@ -70,7 +70,6 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
                             "voulez vous éliminez les différentes informations lié à cette recette(recommandé)",
                             "confirmation : élimination : données lié à une recette déjà éliminé",
                             JOptionPane.YES_NO_OPTION);
-                    // todo : c'est quoi le parentComponent de JOption
                     if(confirmation == OK_OPTION ){
                         recipeStepController = new RecipeStepController();
                         lineRecipeController = new LineRecipeController();
@@ -85,10 +84,9 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
                         commentController.deleteAllComment(codeRecipe);
                         periodController.deleteAllPeriod(codeRecipe);
                         orderTypeController.deleteAllOrder(codeRecipe);
-                        //on elimine dabord les trucs qui lui sont liées puis la recette ?j'espère
                         recipeController.deleteRecipe(codeRecipe);
                         this.repaint();
-                        this.revalidate();// todo : voir c'est quoi la différence entre les deux repaint et revalidate
+                        this.revalidate();
 
                     }
                 }

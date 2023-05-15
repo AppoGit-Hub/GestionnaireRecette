@@ -45,6 +45,5 @@ public class IngredientActionListener implements ActionListener {
                 lineRecipeModel.removeElement(selection);
             }
         }
-        // is edit and save even relevant in the sub menu ???
     }
 }
