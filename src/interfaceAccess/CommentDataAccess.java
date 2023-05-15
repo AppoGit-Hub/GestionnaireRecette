@@ -1,6 +1,6 @@
 package interfaceAccess;
 
-import exception.DeleteRecipeAllCommentException;
+import exception.DeleteAllCommentException;
 import model.Comment;
 import model.Recipe;
 
