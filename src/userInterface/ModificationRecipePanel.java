@@ -290,6 +290,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 this.updateRecipeSteps(selection);
                 this.updateIngredient(selection);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "You must select an recipe", "Select A Recipe", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
