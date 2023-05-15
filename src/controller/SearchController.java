@@ -2,10 +2,13 @@ package controller;
 
 import business.SearchManager;
 import exception.SearchDietException;
+import exception.SearchIngredientException;
 import exception.SearchRecipeException;
 import model.SearchDietResult;
+import model.SearchIngredientResult;
 import model.SearchRecipeResult;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SearchController {
@@ -25,5 +28,9 @@ public class SearchController {
 
     public ArrayList<SearchRecipeResult> searchRecipe(String ingredient, boolean isHot, int menuType) throws SearchRecipeException {
         return this.manager.searchRecipe(ingredient, isHot, menuType);
+    }
+
+    public ArrayList<SearchIngredientResult> searchIngredient(String ingredient, LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
+        return this.manager.searchIngredient(ingredient, dateBeginning, dateEnding);
     }
 }
