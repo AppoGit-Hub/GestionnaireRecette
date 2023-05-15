@@ -9,8 +9,8 @@ public class MainFrame extends JFrame implements ActionListener {
     private JMenuBar menuBar = new JMenuBar();
     private PublishRecipePanel publishRecipePanel;
     private ModificationRecipePanel modificationRecipePanel = new ModificationRecipePanel();
-    private EliminationRecipePanel eliminationRecipePanel = new EliminationRecipePanel();
     private ListingRecipePanel listingRecipePanel = new ListingRecipePanel();
+    private EliminationRecipePanel eliminationRecipePanel = new EliminationRecipePanel();
 
     private SearchIngredientPanel searchIngredientPanel = new SearchIngredientPanel();
     private SearchDietPanel searchDietPanel = new SearchDietPanel();
@@ -33,8 +33,8 @@ public class MainFrame extends JFrame implements ActionListener {
         JMenu crud = new JMenu("CRUD");
         JMenuItem recipePublication = this.createMenuItem("Publication de Recette", this.publishRecipePanel);
         JMenuItem recipeModification = this.createMenuItem("Modification de Recette", this.modificationRecipePanel);
-        JMenuItem recipeElimination = this.createMenuItem("Elimination de Recette", this.eliminationRecipePanel);
-        JMenuItem recipeListing = this.createMenuItem("Liste des Recettes", this.listingRecipePanel);
+        JMenuItem recipeElimination = this.createMenuItem("Listing des Recettes", this.listingRecipePanel);
+        JMenuItem recipeListing = this.createMenuItem("Elimination de recette", this.eliminationRecipePanel);
             crud.add(recipePublication);
         crud.add(recipeModification);
         crud.add(recipeElimination);
