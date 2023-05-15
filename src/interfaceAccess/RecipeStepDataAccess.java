@@ -13,5 +13,5 @@ public interface RecipeStepDataAccess {
     ArrayList<RecipeStep> getAllRecipeStep(int recipeCode) throws AllRecipeStepException;
     void deleteRecipeStep(int recipeCode, int number) throws DeleteRecipeStepException;
     void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException;
-    void deleteRecipeAllRecipeStep(int recipeCode) throws DeleteAllOfOneRecipeException;
+    void deleteAllRecipeStep(int recipeCode) throws DeleteAllOfOneRecipeException;
 }

@@ -15,5 +15,5 @@ public interface LineRecipeDataAccess {
     ArrayList<LineRecipe> getLineRecipeForRecipe(int recipe) throws LineRecipeException;
     void createLineRecipe(LineRecipe lineRecipe) throws CreateLineRecipeException;
     void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteRecipeStepException;
-    void deleteRecipeAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException;
+    void deleteAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException;
 }
