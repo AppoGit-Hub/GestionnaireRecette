@@ -16,6 +16,8 @@ public class MainFrame extends JFrame implements ActionListener {
     private SearchDietPanel searchDietPanel = new SearchDietPanel();
     private SearchRecipePanel searchRecipePanel = new SearchRecipePanel();
 
+    private AddCommentPanel addCommentPanel = new AddCommentPanel();
+
     private JPanel currentPanel;
     private HashMap<String, JPanel> menus = new HashMap<>();
 
@@ -38,17 +40,23 @@ public class MainFrame extends JFrame implements ActionListener {
         crud.add(recipeElimination);
         crud.add(recipeListing);
 
-        JMenu recherche = new JMenu("Recherches");
+        JMenu search = new JMenu("Recherches");
         JMenuItem ingredient = this.createMenuItem("Ingredient", this.searchIngredientPanel);
         JMenuItem diet = this.createMenuItem("Regime Alimentaire", this.searchDietPanel);
         JMenuItem recipe = this.createMenuItem("Recette", this.searchRecipePanel);
 
-        recherche.add(ingredient);
-        recherche.add(diet);
-        recherche.add(recipe);
+        search.add(ingredient);
+        search.add(diet);
+        search.add(recipe);
+
+        JMenu jobTask = new JMenu("Tache Metier");
+        JMenuItem comment = this.createMenuItem("Ajout Commentaire", this.addCommentPanel);
+
+        jobTask.add(comment);
 
         this.menuBar.add(crud);
-        this.menuBar.add(recherche);
+        this.menuBar.add(search);
+        this.menuBar.add(jobTask);
 
         this.setJMenuBar(this.menuBar);
         this.addWindowListener(new MainFrameListener());
@@ -58,7 +66,7 @@ public class MainFrame extends JFrame implements ActionListener {
             (SCREEN_RESOLUTION_Y / 2) - (WINDOWS_RESOLUTION_Y / 2),
             WINDOWS_RESOLUTION_X,
             WINDOWS_RESOLUTION_Y
-        );//todo : je ne sais pas ce que cela veux dire
+        );
         this.setVisible(true);
     }
 
@@ -77,8 +85,7 @@ public class MainFrame extends JFrame implements ActionListener {
         }
         this.currentPanel = this.menus.get(action);
         this.add(this.currentPanel);
+        this.repaint();
         this.revalidate();
-
-        System.out.println(action);
     }
 }
