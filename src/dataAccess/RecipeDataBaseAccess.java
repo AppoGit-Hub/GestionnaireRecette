@@ -18,7 +18,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
     @Override
     public Recipe read() {
         return null;
-    }
+    }//ce truc ne sert à rien non ?
 
     @Override
     public void update(Recipe recipe) throws UpdateRecipeException {
@@ -53,7 +53,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,codeRecipe);
             System.out.println("accesdata : recipe : delete : partie 3");
-            statement.executeUpdate();
+            statement.executeUpdate();//l'erreur se fait au niveau de l'élimination d'une recette
 
         }catch(SQLException exception){
             throw new DeleteRecipeException(exception.getMessage());
@@ -65,6 +65,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT MAX(code) AS 'NEXT_CODE' FROM recipe;";
+            // il faut separer le partie connaitre le nombre de ligne et la partie connaitre l'identifiant
             PreparedStatement statement = connexion.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             data.next();
@@ -72,11 +73,12 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
         } catch (SQLException exception) {
             throw new NextCodeRecipeException(exception.getMessage());
         }
-    }
+    }//je pense que c'est pour l'identifiant pour la création d'une nouvelle recette, sinon je ne vois pas
     public int getNumberRecipe() throws NumberRecipeException {
         try{
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT COUNT(*) AS 'NUMBER_RECIPE' FROM recipe;";
+            // il faut separer le partie connaitre le nombre de ligne et la partie connaitre l'identifiant
             PreparedStatement statement = connexion.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             data.next();
@@ -94,17 +96,17 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             ResultSet data = statement.executeQuery();
             ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
-            while (data.next()) {
+            while (data.next()) {// le truc commence au 1 puis fait plus 1 jusqu'a ce qu'il n'en reste plus
                 int code = data.getInt("code");
                 String title = data.getString("title");
                 boolean isHot = data.getBoolean("isHot");
                 Date publicationDate = data.getDate("publicationDate");
                 int timePreparation = data.getInt("timePreparation");
-                int noteAuthor = data.getInt("notAuthor");
-                boolean isSalted = data.getBoolean("isSalted");
+                int noteAuthor = data.getInt("notAuthor");//putain j'ai mis un int là ou c'est un string merde
+                boolean isSalted = data.getBoolean("isSalted");// 0 pour faut , 1 pour vrai
                 int numberPeopleConcerned = data.getInt("numberPeople");
                 Complexity complexity = Complexity.values()[data.getInt("complexityLevel")];
-                int person = data.getInt("author");
+                int person = data.getInt("author"); //todo : il faudra le remplace par un string et faire une requete SQL approprié
 
                 Recipe recipe = new Recipe(
                     code,
