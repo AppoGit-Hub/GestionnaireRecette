@@ -29,7 +29,7 @@ public class DietDataBaseAcces implements DietDataAccess {
             }
             return diets;
         } catch (SQLException exception) {
-            throw new AllDietException();
+            throw new AllDietException(exception.getMessage());
         }
 
     }

@@ -3,6 +3,7 @@ package controller;
 import business.EquipementManager;
 import exception.AllEquipementException;
 import exception.CreateEquipementForException;
+import exception.DeleteAllEquipementException;
 import exception.DeleteEquipementException;
 import model.Equipment;
 
@@ -30,7 +31,7 @@ public class EquipementController {
     public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
         this.manager.deleteEquipementFor(recipeCode, utensilName);
     }
-    public void deleteAllEquipement(int recipeCode) throws DeleteEquipementException {
+    public void deleteAllEquipement(int recipeCode) throws DeleteAllEquipementException {
         this.manager.deleteAllEquipement(recipeCode);
     }
 }

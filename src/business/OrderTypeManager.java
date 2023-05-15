@@ -3,6 +3,7 @@ package business;
 import dataAccess.OrderTypeDataBaseAccess;
 import exception.AllOrderTypeException;
 import exception.CreateOrderTypeException;
+import exception.DeleteAllOrderTypeException;
 import exception.DeleteOrderTypeException;
 import interfaceAccess.OrderTypeDataAccess;
 import model.OrderType;
@@ -31,7 +32,7 @@ public class OrderTypeManager {
     public void deleteOrderType(int recipeCode, int mealCategory) throws DeleteOrderTypeException {
         this.orderTypeAccess.deleteOrderType(recipeCode, mealCategory);
     }
-    public void deleteAllOrder(int recipeCode) throws DeleteOrderTypeException {
+    public void deleteAllOrder(int recipeCode) throws DeleteAllOrderTypeException {
         this.orderTypeAccess.deleteAllOrderType(recipeCode);
     }
 }

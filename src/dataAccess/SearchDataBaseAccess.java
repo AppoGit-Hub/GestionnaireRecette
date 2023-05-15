@@ -77,7 +77,7 @@ public class SearchDataBaseAccess implements SearchDataAcces {
             }
             return searchDietResults;
         } catch (SQLException exception) {
-            throw new SearchDietException();
+            throw new SearchDietException(exception.getMessage());
         }
     }
 
@@ -134,7 +134,7 @@ public class SearchDataBaseAccess implements SearchDataAcces {
             }
             return searchRecipeResults;
         } catch (SQLException exception) {
-            throw new SearchRecipeException();
+            throw new SearchRecipeException(exception.getMessage());
         }
     }
 
@@ -184,7 +184,7 @@ public class SearchDataBaseAccess implements SearchDataAcces {
             }
             return searchIngredientResults;
         } catch (SQLException exception) {
-            throw new SearchIngredientException();
+            throw new SearchIngredientException(exception.getMessage());
         }
     }
 }

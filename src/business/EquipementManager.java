@@ -1,6 +1,7 @@
 package business;
 
 import exception.CreateEquipementForException;
+import exception.DeleteAllEquipementException;
 import exception.DeleteEquipementException;
 import interfaceAccess.EquipementDataAccess;
 import dataAccess.EquipementDataBaseAccess;
@@ -31,7 +32,7 @@ public class EquipementManager {
     public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
         this.equipementAccess.deleteEquipementFor(recipeCode, utensilName);
     }
-    public void deleteAllEquipement(int recipeCode) throws DeleteEquipementException{
+    public void deleteAllEquipement(int recipeCode) throws DeleteAllEquipementException {
         this.equipementAccess.deleteAllEquipement(recipeCode);
     }
 }

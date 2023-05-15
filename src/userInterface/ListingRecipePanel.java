@@ -92,14 +92,9 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
 
                     }
                 }
-            }catch(DeleteRecipeException exception){
-                System.out.println("erreur au niveau de l'elimination d'une recipe");
-            }catch(AllRecipeException exception){
-                System.out.println("erreur : getAllRecipe");
-            } catch (DeleteAllOfOneRecipeException | DeletePeriodException | DeleteOrderTypeException | DeleteAllCommentException | DeleteEquipementException | DeleteRecipeAllLinerecipeException ex) {
-                ex.printStackTrace();
-            }  // todo : faire un truc pour les exceptions, un get message peut être ?
-
+            } catch (Exception exception) {
+                System.out.printf(exception.getMessage());
+            }
         }
         else{
             System.out.println("il faut selectionner pour changer");

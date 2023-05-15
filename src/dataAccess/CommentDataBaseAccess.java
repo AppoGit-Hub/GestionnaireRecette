@@ -23,7 +23,7 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
         } catch(SQLException exception) {
-            throw new DeleteAllCommentException();
+            throw new DeleteAllCommentException(exception.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             data.next();
             return data.getInt("number");
         } catch (SQLException exception) {
-            throw new GetNumberCommentException();
+            throw new GetNumberCommentException(exception.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             }
             return comments;
         } catch (SQLException exception) {
-            throw new GetAllCommentException();
+            throw new GetAllCommentException(exception.getMessage());
         }
     }
     public void createComment(Comment comment) throws CreateCommentException {
@@ -77,7 +77,7 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             statement.setInt(6, comment.getPerson());
             statement.executeUpdate();
         } catch(SQLException exception) {
-            throw new CreateCommentException();
+            throw new CreateCommentException(exception.getMessage());
         }
     }
 

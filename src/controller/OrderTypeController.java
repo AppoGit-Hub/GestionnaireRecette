@@ -3,6 +3,7 @@ package controller;
 import business.OrderTypeManager;
 import exception.AllOrderTypeException;
 import exception.CreateOrderTypeException;
+import exception.DeleteAllOrderTypeException;
 import exception.DeleteOrderTypeException;
 import model.OrderType;
 
@@ -30,7 +31,7 @@ public class OrderTypeController {
     public void deleteOrderType(int recipeCode, int mealCategory) throws DeleteOrderTypeException {
         this.manager.deleteOrderType(recipeCode, mealCategory);
     }
-    public void deleteAllOrder(int recipeCode) throws DeleteOrderTypeException {
+    public void deleteAllOrder(int recipeCode) throws DeleteAllOrderTypeException {
         this.manager.deleteAllOrder(recipeCode);
     }
 }

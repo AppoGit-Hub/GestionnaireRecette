@@ -2,6 +2,7 @@ package business;
 
 import exception.AllPeriodException;
 import exception.CreatePeriodException;
+import exception.DeleteAllPeriodException;
 import exception.DeletePeriodException;
 import interfaceAccess.PeriodDataAccess;
 import dataAccess.PeriodDataBaseAccess;
@@ -30,7 +31,7 @@ public class PeriodManager {
     public void deletePeriod(int periodRecipe, int menuType) throws DeletePeriodException {
         this.periodAccess.deletePeriod(periodRecipe, menuType);
     }
-    public void deleteAllPeriod(int periodRecipe) throws DeletePeriodException  {
+    public void deleteAllPeriod(int periodRecipe) throws DeleteAllPeriodException {
         this.periodAccess.deleteAllPeriod(periodRecipe);
     }
 }
