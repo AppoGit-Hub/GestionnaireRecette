@@ -1,22 +1,19 @@
 package userInterface;
 
 import controller.RecipeController;
-import exception.AllRecipeException;
-import exception.NextCodeRecipeException;
 import exception.NumberRecipeException;
 import model.Recipe;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AllRecipePanel extends AbstractTableModel {
+public class ListingRecipeTableModel extends AbstractTableModel {
     private RecipeController recipeController;
     private String[] columnName;
     private ArrayList<Recipe> contentRecipe;
-    public AllRecipePanel() {
+    public ListingRecipeTableModel() {
         this.columnName = new String[] {
                 "Identifiant",
                 "Titre",

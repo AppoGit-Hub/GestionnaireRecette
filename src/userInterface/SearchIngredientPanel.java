@@ -6,7 +6,6 @@ import exception.AllIngredientException;
 import exception.SearchIngredientException;
 import model.Ingredient;
 import model.SearchIngredientResult;
-import model.SearchIngredientTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +63,7 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
 
     public boolean isStartBeforeEnd() {
         int startYear = (int) this.startDate.getValue();
-        int endYear = (int) this.startDate.getValue();
+        int endYear = (int) this.endDate.getValue();
         return startYear <= endYear;
     }
 
@@ -73,7 +72,8 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
             ArrayList<Ingredient> ingredients = this.ingredientController.getAllIngredient();
             this.ingredientComboBoxModel.addAll(ingredients);
         } catch (AllIngredientException exception) {
-            this.ingredientErrorLabel.setText("Error loading ingredients");
+            JOptionPane.showMessageDialog(null, "Failed to load ingredients", "Failed to Load ingredients", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -82,19 +82,25 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
             ArrayList<SearchIngredientResult> searchIngredientResults = this.searchManager.searchIngredient(ingredient.getName(), dateBeginning, dateEnding);
             this.ingredientTable.setModel(new SearchIngredientTableModel(searchIngredientResults));
         } catch (SearchIngredientException exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to display ingredients", "Failed to Display Ingredients", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         String selection = event.getActionCommand();
-        if (selection.equals("Submit") && isStartBeforeEnd()) {
-            Ingredient ingredient = (Ingredient) this.ingredientComboBox.getSelectedItem();
-            if (ingredient != null) {
-                LocalDate dateBeginning = LocalDate.of((int) this.startDate.getValue(), 1, 1);
-                LocalDate dateEnding = LocalDate.of((int) this.endDate.getValue(), 12, 31);
-                this.setIngredientRecipe(ingredient, dateBeginning, dateEnding);
+        if (selection.equals("Submit")) {
+            if (isStartBeforeEnd()) {
+                Ingredient ingredient = (Ingredient) this.ingredientComboBox.getSelectedItem();
+                if (ingredient != null) {
+                    LocalDate dateBeginning = LocalDate.of((int) this.startDate.getValue(), 1, 1);
+                    LocalDate dateEnding = LocalDate.of((int) this.endDate.getValue(), 12, 31);
+                    this.setIngredientRecipe(ingredient, dateBeginning, dateEnding);
+                } else {
+                    JOptionPane.showMessageDialog(null, "You must select an ingredient", "Select an ingredient", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "The start year must be before the end year", "Correct The Years", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
