@@ -32,7 +32,7 @@ public class LineRecipeManager {
     public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteRecipeStepException {
         this.lineRecipeAccess.deleteLineRecipe(ingredient, recipeOrigin);
     }
-    public void deleteRecipeAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException {
-        this.lineRecipeAccess.deleteRecipeAllLineRecipe(recipeOrigin);
+    public void deleteAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException {
+        this.lineRecipeAccess.deleteAllLineRecipe(recipeOrigin);
     }
 }

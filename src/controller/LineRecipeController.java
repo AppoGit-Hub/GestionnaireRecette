@@ -2,6 +2,7 @@ package controller;
 
 import business.LineRecipeManager;
 import exception.CreateLineRecipeException;
+import exception.DeleteRecipeAllLinerecipeException;
 import exception.DeleteRecipeStepException;
 import exception.LineRecipeException;
 import model.LineRecipe;
@@ -29,5 +30,8 @@ public class LineRecipeController {
 
     public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteRecipeStepException {
         this.manager.deleteLineRecipe(ingredient, recipeOrigin);
+    }
+    public void deleteAllLineRecip(int recipeCode) throws DeleteRecipeAllLinerecipeException {
+        this.manager.deleteAllLineRecipe(recipeCode);
     }
 }

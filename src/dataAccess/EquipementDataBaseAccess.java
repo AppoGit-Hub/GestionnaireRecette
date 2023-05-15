@@ -61,7 +61,7 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             throw new DeleteEquipementException();
         }
     }
-    public void deleteRecipeAllEquipement(int recipeCode) throws DeleteEquipementException {
+    public void deleteAllEquipement(int recipeCode) throws DeleteEquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM equipment WHERE inRecipe = ?;";

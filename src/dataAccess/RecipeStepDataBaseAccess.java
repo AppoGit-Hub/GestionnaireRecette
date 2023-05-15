@@ -46,7 +46,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             throw new DeleteRecipeStepException();
         }
     }
-    public void deleteRecipeAllRecipeStep(int recipeCode) throws DeleteAllOfOneRecipeException {
+    public void deleteAllRecipeStep(int recipeCode) throws DeleteAllOfOneRecipeException {
         try{
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM recipestep WHERE baseRecipe = ? ;";

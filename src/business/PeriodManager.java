@@ -30,7 +30,7 @@ public class PeriodManager {
     public void deletePeriod(int periodRecipe, int menuType) throws DeletePeriodException {
         this.periodAccess.deletePeriod(periodRecipe, menuType);
     }
-    public void deleteRecipeAllPeriod(int periodRecipe) throws DeletePeriodException  {
-        this.periodAccess.deleteRecipeAllPeriod(periodRecipe);
+    public void deleteAllPeriod(int periodRecipe) throws DeletePeriodException  {
+        this.periodAccess.deleteAllPeriod(periodRecipe);
     }
 }

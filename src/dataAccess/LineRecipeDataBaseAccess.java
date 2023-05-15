@@ -64,7 +64,7 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             throw new DeleteRecipeStepException();
         }
     }
-    public void deleteRecipeAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException {
+    public void deleteAllLineRecipe(int recipeOrigin) throws DeleteRecipeAllLinerecipeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM linerecipe WHERE recipeOrigin = ?;";

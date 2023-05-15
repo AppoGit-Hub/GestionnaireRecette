@@ -21,4 +21,6 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             throw new DeleteAllCommentException();
         }
     }
+    public Comment getComment(Recipe recipe){return null;}
+    public void setComment(Comment comment, Recipe recipe){}
 }

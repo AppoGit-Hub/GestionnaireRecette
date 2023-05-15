@@ -1,8 +1,7 @@
 package userInterface;
 
-import controller.RecipeController;
-import exception.AllRecipeException;
-import exception.DeleteRecipeException;
+import controller.*;
+import exception.*;
 import model.Recipe;
 
 import javax.swing.*;
@@ -22,10 +21,18 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
     private JButton deleteButton,addButton,changeButton;
     private ListSelectionModel listSelectionModelRecipe;
     private RecipeController recipeController;
+    private RecipeStepController recipeStepController;
+    private LineRecipeController lineRecipeController;
+    private EquipementController equipementController;
+    private CommentController commentController;
+    private PeriodController periodController;
+    private OrderTypeController orderTypeController;
     private ArrayList<Recipe> setRecipe;
 
     public ListingRecipePanel(){
+        this.setLayout(new BorderLayout());
         jNorthBottonPanel = new JPanel();
+        jNorthBottonPanel.setLayout(new FlowLayout());
         deleteButton = new JButton("Elimination");
         this.deleteButton.addActionListener(this);
         this.deleteButton.setActionCommand("delete recipe");//on donne un string au event
@@ -40,26 +47,24 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
 
         this.allRecipePanel = new AllRecipePanel();
         this.jTable = new JTable(allRecipePanel);
-        jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//pour ne permettre que une seul selectionµ
         this.listSelectionModelRecipe = jTable.getSelectionModel( );
         TableColumn column = jTable.getColumnModel().getColumn(3);
         column.setPreferredWidth(100);
         jScrollPane = new JScrollPane(jTable);
-        this.add(jScrollPane);
+        this.add(jScrollPane,BorderLayout.CENTER);
 
     }
     public void actionPerformed (ActionEvent e){
         String source = e.getActionCommand();
         int indexRecipeSelection = this.listSelectionModelRecipe.getMinSelectionIndex();//renvoie le plus petit index selectionner ou -1 si aucun
         if(indexRecipeSelection != -1){
-            try{this.recipeController = new RecipeController();
+            try{
+                this.recipeController = new RecipeController();
                 if(source.equals("delete recipe")){
                     this.setRecipe = recipeController.getAllRecipe();
                     int codeRecipe = setRecipe.get(indexRecipeSelection).getCode();
-                    recipeController.deleteRecipe(codeRecipe);
-                    this.repaint();
-                    this.revalidate();// j'ai lu un truc qui dit que les deux c'est mieux
                     int confirmation = JOptionPane.showConfirmDialog(
                             null,
                             "voulez vous éliminez les différentes informations lié à cette recette(recommandé)",
@@ -67,8 +72,23 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
                             JOptionPane.YES_NO_OPTION);
                     // todo : c'est quoi le parentComponent de JOption
                     if(confirmation == OK_OPTION ){
-                        //ici on élimine les différentes informations liée à la recette
-                        // j'imagine que je vais faire plain de delete pour chaque truc qui doit être éliminé
+                        recipeStepController = new RecipeStepController();
+                        lineRecipeController = new LineRecipeController();
+                        equipementController = new EquipementController();
+                        commentController = new CommentController();
+                        periodController = new PeriodController();
+                        orderTypeController = new OrderTypeController();
+
+                        recipeStepController.deleteAllStepRecipe(codeRecipe);
+                        lineRecipeController.deleteAllLineRecip(codeRecipe);
+                        equipementController.deleteAllEquipement(codeRecipe);
+                        commentController.deleteAllComment(codeRecipe);
+                        periodController.deleteAllPeriod(codeRecipe);
+                        orderTypeController.deleteAllOrder(codeRecipe);
+                        //on elimine dabord les trucs qui lui sont liées puis la recette ?j'espère
+                        recipeController.deleteRecipe(codeRecipe);
+                        this.repaint();
+                        this.revalidate();// todo : voir c'est quoi la différence entre les deux repaint et revalidate
 
                     }
                 }
@@ -76,7 +96,10 @@ public class ListingRecipePanel extends JPanel implements ActionListener {
                 System.out.println("erreur au niveau de l'elimination d'une recipe");
             }catch(AllRecipeException exception){
                 System.out.println("erreur : getAllRecipe");
-            }
+            } catch (DeleteAllOfOneRecipeException | DeletePeriodException | DeleteOrderTypeException | DeleteAllCommentException | DeleteEquipementException | DeleteRecipeAllLinerecipeException ex) {
+                ex.printStackTrace();
+            }  // todo : faire un truc pour les exceptions, un get message peut être ?
+
         }
         else{
             System.out.println("il faut selectionner pour changer");

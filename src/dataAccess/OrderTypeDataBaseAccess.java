@@ -17,7 +17,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
     public void createOrderType(int recipeCode, int mealCategory) throws CreateOrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query = "INSERT INTO ordertype VALUES (?, ?)";
+            String query = "INSERT INTO 'order' VALUES (?, ?)";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             statement.setInt(2, mealCategory);
@@ -30,7 +30,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
     public void deleteOrderType(int recipeCode, int mealCategory) throws DeleteOrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query = "DELETE FROM ordertype WHERE fromRecipe = ? AND mealCategory = ?";
+            String query = "DELETE FROM orderType WHERE fromRecipe = ? AND mealCategory = ?";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             statement.setInt(2, mealCategory);
@@ -39,14 +39,15 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             throw new DeleteOrderTypeException();
         }
     }
-    public void deleteRecipeAllOrderType(int recipeCode) throws DeleteOrderTypeException {
+    public void deleteAllOrderType(int recipeCode) throws DeleteOrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query = "DELETE FROM ordertype WHERE fromRecipe = ?";
+            String query = "DELETE FROM orderType WHERE fromRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
         } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
             throw new DeleteOrderTypeException();
         }
     }//todo : changer interface et exception

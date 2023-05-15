@@ -30,4 +30,7 @@ public class OrderTypeController {
     public void deleteOrderType(int recipeCode, int mealCategory) throws DeleteOrderTypeException {
         this.manager.deleteOrderType(recipeCode, mealCategory);
     }
+    public void deleteAllOrder(int recipeCode) throws DeleteOrderTypeException {
+        this.manager.deleteAllOrder(recipeCode);
+    }
 }

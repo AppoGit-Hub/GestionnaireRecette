@@ -40,7 +40,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             throw new DeletePeriodException();
         }
     }
-    public void deleteRecipeAllPeriod(int periodRecipe) throws DeletePeriodException {
+    public void deleteAllPeriod(int periodRecipe) throws DeletePeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM period WHERE periodRecipe = ? ;";

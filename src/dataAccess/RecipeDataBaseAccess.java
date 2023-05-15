@@ -47,15 +47,16 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
 
 
     public void delete(int codeRecipe) throws DeleteRecipeException{
-        String query = "DELETE FROM recipe WHERE code = ?";
         try{
             Connection connection = SingletonConnexion.getInstance();
+            String query = "DELETE FROM recipe WHERE code = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,codeRecipe);
-            statement.executeUpdate();
-            //juste pour élimine la recette en elle même pas encore le reste
+            System.out.println("accesdata : recipe : delete : partie 3");
+            statement.executeUpdate();//l'erreur se fait au niveau de l'élimination d'une recette
 
         }catch(SQLException exception){
+            System.out.println(exception.getMessage());
             throw new DeleteRecipeException();
         }
     }

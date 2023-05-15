@@ -30,4 +30,7 @@ public class EquipementController {
     public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
         this.manager.deleteEquipementFor(recipeCode, utensilName);
     }
+    public void deleteAllEquipement(int recipeCode) throws DeleteEquipementException {
+        this.manager.deleteAllEquipement(recipeCode);
+    }
 }

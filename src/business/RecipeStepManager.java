@@ -30,7 +30,7 @@ public class RecipeStepManager {
     public void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException {
         this.recipeStepAccess.createRecipeStep(recipeStep);
     }
-    public void deleteRecipeAllStepRecipe(int recipeCode) throws DeleteAllOfOneRecipeException {
-        this.recipeStepAccess.deleteRecipeAllRecipeStep(recipeCode);
+    public void deleteAllStepRecipe(int recipeCode) throws DeleteAllOfOneRecipeException {
+        this.recipeStepAccess.deleteAllRecipeStep(recipeCode);
     }
 }

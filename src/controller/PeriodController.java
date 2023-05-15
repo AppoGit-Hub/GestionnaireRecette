@@ -28,4 +28,7 @@ public class PeriodController {
     public void deletePeriod(int periodRecipe, int menuType) throws DeletePeriodException {
         this.manager.deletePeriod(periodRecipe, menuType);
     }
+    public void deleteAllPeriod(int periodRecipe) throws DeletePeriodException {
+        this.manager.deleteAllPeriod(periodRecipe);
+    }
 }

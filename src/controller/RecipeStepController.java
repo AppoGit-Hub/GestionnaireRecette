@@ -3,6 +3,7 @@ package controller;
 import business.RecipeStepManager;
 import exception.AllRecipeStepException;
 import exception.CreateRecipeStepException;
+import exception.DeleteAllOfOneRecipeException;
 import exception.DeleteRecipeStepException;
 import model.RecipeStep;
 
@@ -28,5 +29,8 @@ public class RecipeStepController {
     }
     public void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException {
         this.manager.createRecipeStep(recipeStep);
+    }
+    public void deleteAllStepRecipe(int recipeCode) throws DeleteAllOfOneRecipeException {
+        this.manager.deleteAllStepRecipe(recipeCode);
     }
 }

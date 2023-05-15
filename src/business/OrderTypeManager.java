@@ -32,6 +32,6 @@ public class OrderTypeManager {
         this.orderTypeAccess.deleteOrderType(recipeCode, mealCategory);
     }
     public void deleteAllOrder(int recipeCode) throws DeleteOrderTypeException {
-        this.orderTypeAccess.deleteRecipeAllOrderType(recipeCode);
+        this.orderTypeAccess.deleteAllOrderType(recipeCode);
     }
 }
