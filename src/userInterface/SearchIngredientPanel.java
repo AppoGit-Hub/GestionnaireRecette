@@ -63,7 +63,7 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
 
     public boolean isStartBeforeEnd() {
         int startYear = (int) this.startDate.getValue();
-        int endYear = (int) this.startDate.getValue();
+        int endYear = (int) this.endDate.getValue();
         return startYear <= endYear;
     }
 
