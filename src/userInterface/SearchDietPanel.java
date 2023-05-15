@@ -56,7 +56,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
             ArrayList<Diet> diets = dietController.getAllDiet();
             this.dietComboBoxModel.addAll(diets);
         } catch (AllDietException exception) {
-            this.dietError.setText("Error Loading all diets");
+            JOptionPane.showMessageDialog(null, "Failed to load diets", "Failed to Load Diets", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -65,7 +65,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
             ArrayList<SearchDietResult> searchDietResults = this.searchController.searchDiet(diet.getId());
             this.dietTable.setModel(new SearchDietTableModel(searchDietResults));
         } catch (SearchDietException exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to display diets", "Failed to Display Diets", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -74,7 +74,11 @@ public class SearchDietPanel extends JPanel implements ActionListener {
         String selection = event.getActionCommand();
         if (selection.equals("Submit")) {
             Diet dietSelected = (Diet) this.dietComboBox.getSelectedItem();
-            this.setDietRecipe(dietSelected);
+            if (dietSelected != null) {
+                this.setDietRecipe(dietSelected);
+            } else {
+                JOptionPane.showMessageDialog(null, "You must select a diet", "Select a Diet", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }
