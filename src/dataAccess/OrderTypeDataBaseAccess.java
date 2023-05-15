@@ -18,7 +18,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
     public void createOrderType(int recipeCode, int mealCategory) throws CreateOrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query = "INSERT INTO 'order' VALUES (?, ?)";
+            String query = "INSERT INTO orderType VALUES (?, ?);";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             statement.setInt(2, mealCategory);
