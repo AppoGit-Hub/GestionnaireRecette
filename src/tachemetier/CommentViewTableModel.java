@@ -1,4 +1,4 @@
-package userInterface;
+package tachemetier;
 
 import controller.PersonController;
 import model.Comment;
