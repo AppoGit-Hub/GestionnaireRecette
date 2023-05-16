@@ -1,5 +1,7 @@
 package userInterface;
 
+import tachemetier.AddCommentPanel;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

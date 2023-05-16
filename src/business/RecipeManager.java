@@ -32,8 +32,11 @@ public class RecipeManager {
         this.recipeAccess.delete(codeRecipe);
     }
 
-
     public void updateRecipe(Recipe recipe) throws UpdateRecipeException {
         this.recipeAccess.update(recipe);
+    }
+
+    public void createRecipe(Recipe recipe) throws CreateRecipeException {
+        this.recipeAccess.createRecipe(recipe);
     }
 }

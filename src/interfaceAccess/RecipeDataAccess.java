@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RecipeDataAccess {
-    void create(Recipe recipe);
+    void createRecipe(Recipe recipe) throws CreateRecipeException;
     Recipe read();
     void update(Recipe recipe) throws UpdateRecipeException;
     void delete(int codeRecipe) throws DeleteRecipeException;

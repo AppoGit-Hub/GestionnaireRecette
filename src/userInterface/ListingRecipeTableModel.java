@@ -47,7 +47,7 @@ public class ListingRecipeTableModel extends AbstractTableModel {
     public String getColumnName(int col){
         return columnName[col];
     }
-    public Object getValueAt(int row,int col){
+    public Object getValueAt(int row, int col){
         Recipe recipe = contentRecipe.get(row);
         Object object;
         switch(col){

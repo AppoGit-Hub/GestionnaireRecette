@@ -1,6 +1,7 @@
 package userInterface;
 
 import controller.*;
+import exception.*;
 import model.*;
 
 import javax.swing.*;
@@ -105,7 +106,6 @@ public class GlobalRecipePanel extends JPanel {
     private static final int QUANTITY_MAX = 1000;
 
     public GlobalRecipePanel() {
-        //Pour avoir acces à la base de données
         this.menuTypeController = new MenuTypeController();
         this.mealCategoryController = new MealCategoryController();
         this.recipeStepController = new RecipeStepController();
@@ -121,16 +121,13 @@ public class GlobalRecipePanel extends JPanel {
 
         this.titleLabel = new JLabel("Title");
         this.titleField = new JTextField();
-        //JRadioButton c'est un bouton pour etre coché
+
         this.isHot = new JRadioButton("Hot");
         this.isCold = new JRadioButton("Cold");
-        //en les mettant dans un ButtonGroup cela fait que un seul des boutons peut être cocher
-        //et pas deux en même temps
+
         this.temperatureGroup = new ButtonGroup();
         temperatureGroup.add(isHot);
         temperatureGroup.add(isCold);
-        //setSelected utilisé pour mettre un des deux boutons cochés, moins de problème comme cela
-        // aucune chance d'en avoir un de non cocher
         this.temperatureGroup.setSelected(this.isHot.getModel(), true);
 
         this.isSalty = new JRadioButton("Salty");
@@ -141,7 +138,6 @@ public class GlobalRecipePanel extends JPanel {
         this.spiceGroup.setSelected(this.isSalty.getModel(), true);
 
         this.authorLabel = new JLabel("Author");
-        //permet de remplir la jcombbox avec des éléments specifiés, la person sinon elle serait vide,mais je suis pas sure que cela soit suffisant
         this.authorComboBoxModel = new DefaultComboBoxModel<Person>();
         this.authorComboBox = new JComboBox<Person>(authorComboBoxModel);
 
@@ -152,8 +148,6 @@ public class GlobalRecipePanel extends JPanel {
         this.complexityLabel = new JLabel("Complexity");
         this.complexityComboBoxModel = new DefaultComboBoxModel<Complexity>();
         this.complexityComboBox = new JComboBox<Complexity>(complexityComboBoxModel);
-        //le JSpiner correspond a un chiffre qu'on peut mettre directement ou le modifier avec des flèches
-        //le JSipnerModel defini au JSpiner de quoi il est contituer
         this.peopleLabel = new JLabel("People For");
         SpinnerNumberModel peopleSpinnerModel = new SpinnerNumberModel(1, PEOPLE_MIN, PEOPLE_MAX, 1);
         this.peopleSpinner = new JSpinner(peopleSpinnerModel);
@@ -168,7 +162,7 @@ public class GlobalRecipePanel extends JPanel {
 
         this.descriptionLabel = new JLabel("Description");
         this.descriptionTextArea = new JTextArea(10, 10);
-        this.descriptionTextArea.setLineWrap(true);//cela à avoir avec les retours à la ligne je pense que cela les permets, quand depasement du cadre cela fait cela par defaut mais ce n'est qu'une supposisiton
+        this.descriptionTextArea.setLineWrap(true);
 
         UtensilActionListener utensilActionListener = new UtensilActionListener();
         this.addUtensilButton = new JButton("Add");
@@ -206,7 +200,6 @@ public class GlobalRecipePanel extends JPanel {
         this.mealCategoryComboBox = new JComboBox<MealCategory>(mealCategoryComboBoxModel);
         this.mealCategoryListModel = new DefaultListModel<MealCategory>();
         this.mealCategoryList = new JList<MealCategory>(mealCategoryListModel);
-        //je ne comprend pas pourquoi faire à la fois une liste et une comboxBox de la même chose mealCategory
         this.mealCategoryAccessErrorLabel = new JLabel();
         mealCategoryActionListener.setMealCategoryComboxModel(mealCategoryComboBoxModel);
         mealCategoryActionListener.setMealCategoryListModel(mealCategoryListModel);
@@ -254,11 +247,8 @@ public class GlobalRecipePanel extends JPanel {
         ingredientActionListener.setLineRecipeList(lineRecipeList);
 
         //TODO : Resolve the scaling problem
-        //formBuilder semble etre utilisé pour créer des formulaires
         JPanel generalPanel = new FormBuilder()
                 .addLabelAnd(titleLabel, titleField)
-                //afficher sur la même ligne deux boutons tous dans le componentGroup
-                // gridabonstraints.WEST c'est pour mettre le component de façon à ce que cela soit à gauche centré verticalement
                 .addOnSameLine(new ComponentGroup(GridBagConstraints.WEST, isHot, isCold))
                 .addOnSameLine(new ComponentGroup(GridBagConstraints.WEST, isSalty, isSweet))
                 .addLabelAnd(authorLabel, authorComboBox)
@@ -268,7 +258,7 @@ public class GlobalRecipePanel extends JPanel {
                 .addLabelAnd(noteLabel, noteSpinner)
                 .addLabelAnd(timeLabel, timeSpinner)
                 .addLabelAnd(descriptionLabel, descriptionTextArea)
-                .build();//bizarre fasson de faire cela mais bon soit
+                .build();
 
 
         JPanel utensilPanel = new JPanel();
@@ -353,7 +343,7 @@ public class GlobalRecipePanel extends JPanel {
         ingredientPanel.add(ingredientNorthPanel, BorderLayout.NORTH);
         ingredientPanel.add(ingredientWestPanel, BorderLayout.WEST);
         ingredientPanel.add(lineRecipeList, BorderLayout.CENTER);
-        //je ne sais pas à quoi cela sert mais il ne semble pas exister sous cette forme donc je ne sais pas
+
         this.setAllMenuType();
         this.setAllMenuCategory();
         this.setAllUtensil();
@@ -379,9 +369,7 @@ public class GlobalRecipePanel extends JPanel {
         return this.titleField.getText();
     }
     public void setTitle(String title) {
-        if (title.length() > TITLE_MIN_LENGTH) {
-            this.titleField.setText(title);
-        }
+        this.titleField.setText(title);
     }
     public boolean getIsHot() {
         return this.isHot.getModel().isSelected();
@@ -460,47 +448,63 @@ public class GlobalRecipePanel extends JPanel {
     public String getDescription() {
         return this.descriptionTextArea.getText();
     }
-    //c'est methodes serve à renplire les combobox avec des acces en base de données
     public void setDescription(String description) {
         this.descriptionTextArea.setText(description);
     }
     public Recipe getRecipe(int code) {
         String title = this.getTitle();
-        boolean isHot = this.getIsHot();
-        LocalDate publicationDate = LocalDate.now();
-        boolean isSalty = this.getIsSalty();
-        Person author = this.getAuthor();
-        Country country = this.getCountry();
-        Complexity complexity = this.getComplexity();
-        int person = this.getPeople();
-        int note = this.getNote();
-        int time = this.getTime();
-        String description = this.getDescription();
+        if (title != null && title.length() > 0) {
+            Person author = this.getAuthor();
+            if (author != null) {
+                Country country = this.getCountry();
+                if (country != null) {
+                    Complexity complexity = this.getComplexity();
+                    if (complexity != null) {
+                        boolean isHot = this.getIsHot();
+                        LocalDate publicationDate = LocalDate.now();
+                        boolean isSalty = this.getIsSalty();
+                        int person = this.getPeople();
+                        int note = this.getNote();
+                        int time = this.getTime();
+                        String description = this.getDescription();
 
-        Recipe recipe = new Recipe(
-            code,
-            title,
-            isHot,
-            publicationDate,
-            time,
-            isSalty,
-            person,
-            complexity,
-            author.getId()
-        );
+                        Recipe recipe = new Recipe(
+                                code,
+                                title,
+                                isHot,
+                                publicationDate,
+                                time,
+                                isSalty,
+                                person,
+                                complexity,
+                                author.getId()
+                        );
 
-        recipe.setSpeciality(country.getId());
-        recipe.setNoteAuthor(note);
-        recipe.setDescription(description);
+                        recipe.setSpeciality(country.getId());
+                        recipe.setNoteAuthor(note);
+                        recipe.setDescription(description);
 
-        return recipe;
+                        return recipe;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Select an complexity", "Recipe Complexity Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Select an country", "Recipe Country Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Select an author", "Recipe Author Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Recipe title must exist", "Recipe Title Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
     }
     public void setAllMenuCategory() {
         try {
             this.mealCategories = mealCategoryController.getAllMenuCategories();
             this.mealCategoryComboBoxModel.addAll(this.mealCategories);
         } catch (Exception exception) {
-            this.mealCategoryAccessErrorLabel.setText("Error Loading Menu Categories");
+            JOptionPane.showMessageDialog(null, "Failed to load menus categories", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllMenuType() {
@@ -508,7 +512,7 @@ public class GlobalRecipePanel extends JPanel {
             this.menuTypes = menuTypeController.getAllMenuTypes();
             this.menuTypeComboBoxModel.addAll(this.menuTypes);
         } catch (Exception exception) {
-            this.menuTypeAccessErrorLabel.setText("Error Loading Menu Types");
+            JOptionPane.showMessageDialog(null, "Failed to load menus types", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllUtensil() {
@@ -516,7 +520,7 @@ public class GlobalRecipePanel extends JPanel {
             this.utensils = utensilController.getAllUtensil();
             this.utensilComboBoxModel.addAll(this.utensils);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to load utensils", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllIngredient() {
@@ -524,7 +528,7 @@ public class GlobalRecipePanel extends JPanel {
             this.ingredients = ingredientController.getAllIngredient();
             this.nameIngredientComboBoxModel.addAll(this.ingredients);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to load ingredients", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllUnit() {
@@ -536,7 +540,7 @@ public class GlobalRecipePanel extends JPanel {
             this.countries = countryController.getAllCountry();
             this.countryComboBoxModel.addAll(this.countries);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to load countrys", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllComplexity() {
@@ -548,10 +552,9 @@ public class GlobalRecipePanel extends JPanel {
             this.persons = personController.getAllPerson();
             this.authorComboBoxModel.addAll(this.persons);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to load authors", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }
     }
-    // je ne sais pas quand c'est utile
     public EquipementController getEquipementController() {
         return this.equipementController;
     }

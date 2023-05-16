@@ -24,7 +24,7 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
     private CommentController commentController;
     private PeriodController periodController;
     private OrderTypeController orderTypeController;
-    public EliminationRecipePanel(){
+    public EliminationRecipePanel() {
         this.setLayout(new BorderLayout());
 
         this.recipeStepController = new RecipeStepController();

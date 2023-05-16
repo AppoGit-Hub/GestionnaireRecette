@@ -183,11 +183,15 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
 
     public void updateRecipe(Recipe selection) {
         RecipeController recipeController = this.getRecipeController();
-        Recipe recipe = this.getRecipe(selection.getCode());
         try {
-            recipeController.updateRecipe(recipe);
+            Recipe recipe = this.getRecipe(selection.getCode());
+            if (recipe != null) {
+                recipeController.updateRecipe(recipe);
+            }
+        } catch (UpdateRecipeException exception) {
+            JOptionPane.showMessageDialog(null, "Failed to update recipe", "Recipe Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to update recipes", "Failed To Update Recipes", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Recipe Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -1,5 +1,7 @@
 package model;
 
+import exception.*;
+
 import java.time.LocalDate;
 
 public class Recipe {
@@ -13,19 +15,29 @@ public class Recipe {
     private boolean isSalted;
     private int numberPeopleConcerned;
     private Complexity complexity;
-    private int speciality;
+    private Integer speciality;
     private int person;
 
-    public Recipe(int code, String title, boolean isHot, LocalDate publicationDate, int timePreparation, boolean isSalted, int numberPeopleConcerned, Complexity complexity, int person) {
-        setCode(code);
-        setTitle(title);
-        setIsHot(isHot);
-        setPublicationDate(publicationDate);
-        setTimePreparation(timePreparation);
-        setIsSalted(isSalted);
-        setNumberPeopleConcerned(numberPeopleConcerned);
-        setComplexity(complexity);
-        setPerson(person);
+    public Recipe(
+        int code,
+        String title,
+        boolean isHot,
+        LocalDate publicationDate,
+        int timePreparation,
+        boolean isSalted,
+        int numberPeopleConcerned,
+        Complexity complexity,
+        int person
+    ) {
+        this.setCode(code);
+        this.setTitle(title);
+        this.setIsHot(isHot);
+        this.setPublicationDate(publicationDate);
+        this.setTimePreparation(timePreparation);
+        this.setIsSalted(isSalted);
+        this.setNumberPeopleConcerned(numberPeopleConcerned);
+        this.setComplexity(complexity);
+        this.setPerson(person);
     }
 
     public int getCode() {
@@ -72,7 +84,7 @@ public class Recipe {
         return complexity;
     }
 
-    public int getSpeciality() {
+    public Integer getSpeciality() {
         return speciality;
     }
 
@@ -89,7 +101,7 @@ public class Recipe {
     }
 
     public void setIsHot(boolean hot) {
-        isHot = hot;
+        this.isHot = hot;
     }
 
     public void setPublicationDate(LocalDate publicationDate) {
@@ -120,7 +132,7 @@ public class Recipe {
         this.description = description;
     }
 
-    public void setSpeciality(int speciality) {
+    public void setSpeciality(Integer speciality) {
         this.speciality = speciality;
     }
 

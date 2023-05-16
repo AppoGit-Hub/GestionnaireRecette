@@ -11,21 +11,59 @@ import java.util.ArrayList;
 
 public class RecipeDataBaseAccess implements RecipeDataAccess {
     @Override
-    public void create(Recipe recipe) {
-
+    public void createRecipe(Recipe recipe) throws CreateRecipeException {
+        try {
+            Connection connection = SingletonConnexion.getInstance();
+            String query =
+                """
+                INSERT INTO recipe
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """;
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, recipe.getCode());
+            statement.setString(2, recipe.getTitle());
+            statement.setBoolean(3, recipe.getIsHot());
+            statement.setDate(4, Date.valueOf(recipe.getPublicationDate()));
+            statement.setString(5, recipe.getDescription());
+            statement.setInt(6, recipe.getTimePreparation());
+            statement.setInt(7, recipe.getNoteAuthor());
+            statement.setBoolean(8, recipe.getIsSalted());
+            statement.setInt(9, recipe.getNumberPeopleConcerned());
+            statement.setInt(10, recipe.getComplexity().getComplexity());
+            statement.setInt(11, recipe.getSpeciality());
+            statement.setInt(12, recipe.getPerson());
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new CreateRecipeException(exception.getMessage());
+        }
     }
 
     @Override
     public Recipe read() {
         return null;
-    }//ce truc ne sert à rien non ?
+    }
 
     @Override
     public void update(Recipe recipe) throws UpdateRecipeException {
-        String query =
-            "UPDATE recipe SET title = ?, isHot = ?, publicationDate = ?, description = ?, timePreparation = ?, notAuthor = ?, isSalted = ?, numberPeople = ?, complexityLevel = ?, speciality = ?, author = ? WHERE code = ?;";
         try {
             Connection connection = SingletonConnexion.getInstance();
+            String query =
+                """
+                UPDATE recipe 
+                SET 
+                    title = ?, 
+                    isHot = ?, 
+                    publicationDate = ?, 
+                    description = ?, 
+                    timePreparation = ?, 
+                    notAuthor = ?, 
+                    isSalted = ?, 
+                    numberPeople = ?, 
+                    complexityLevel = ?, 
+                    speciality = ?, 
+                    author = ? 
+                WHERE code = ?;
+                """;
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, recipe.getTitle());
             statement.setBoolean(2, recipe.getIsHot());
@@ -53,7 +91,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,codeRecipe);
             System.out.println("accesdata : recipe : delete : partie 3");
-            statement.executeUpdate();//l'erreur se fait au niveau de l'élimination d'une recette
+            statement.executeUpdate();
 
         }catch(SQLException exception){
             throw new DeleteRecipeException(exception.getMessage());
@@ -65,7 +103,6 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT MAX(code) AS 'NEXT_CODE' FROM recipe;";
-            // il faut separer le partie connaitre le nombre de ligne et la partie connaitre l'identifiant
             PreparedStatement statement = connexion.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             data.next();
@@ -73,12 +110,11 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
         } catch (SQLException exception) {
             throw new NextCodeRecipeException(exception.getMessage());
         }
-    }//je pense que c'est pour l'identifiant pour la création d'une nouvelle recette, sinon je ne vois pas
+    }
     public int getNumberRecipe() throws NumberRecipeException {
         try{
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT COUNT(*) AS 'NUMBER_RECIPE' FROM recipe;";
-            // il faut separer le partie connaitre le nombre de ligne et la partie connaitre l'identifiant
             PreparedStatement statement = connexion.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             data.next();
@@ -96,46 +132,48 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             ResultSet data = statement.executeQuery();
             ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
-            while (data.next()) {// le truc commence au 1 puis fait plus 1 jusqu'a ce qu'il n'en reste plus
+            while (data.next()) {
                 int code = data.getInt("code");
                 String title = data.getString("title");
                 boolean isHot = data.getBoolean("isHot");
                 Date publicationDate = data.getDate("publicationDate");
                 int timePreparation = data.getInt("timePreparation");
-                int noteAuthor = data.getInt("notAuthor");//putain j'ai mis un int là ou c'est un string merde
-                boolean isSalted = data.getBoolean("isSalted");// 0 pour faut , 1 pour vrai
+                boolean isSalted = data.getBoolean("isSalted");
                 int numberPeopleConcerned = data.getInt("numberPeople");
                 Complexity complexity = Complexity.values()[data.getInt("complexityLevel")];
-                int person = data.getInt("author"); //todo : il faudra le remplace par un string et faire une requete SQL approprié
+                int person = data.getInt("author");
 
-                Recipe recipe = new Recipe(
-                    code,
-                    title,
-                    isHot,
-                    publicationDate.toLocalDate(),
-                    timePreparation,
-                    isSalted,
-                    numberPeopleConcerned,
-                    complexity,
-                    person
-                );
+                try {
+                    Recipe recipe = new Recipe(
+                            code,
+                            title,
+                            isHot,
+                            publicationDate.toLocalDate(),
+                            timePreparation,
+                            isSalted,
+                            numberPeopleConcerned,
+                            complexity,
+                            person
+                    );
 
-                String description = data.getString("description");
-                if (!data.wasNull()) {
-                    recipe.setDescription(description);
+                    String description = data.getString("description");
+                    if (!data.wasNull()) {
+                        recipe.setDescription(description);
+                    }
+
+                    int notAuthor = data.getInt("notAuthor");
+                    if (!data.wasNull()) {
+                        recipe.setNoteAuthor(notAuthor);
+                    }
+
+                    int speciality = data.getInt("speciality");
+                    if (!data.wasNull()) {
+                        recipe.setSpeciality(speciality);
+                    }
+                    recipes.add(recipe);
+                } catch (Exception exception){
+                    throw new AllRecipeException(exception.getMessage());
                 }
-
-                int notAuthor = data.getInt("notAuthor");
-                if (!data.wasNull()) {
-                    recipe.setNoteAuthor(notAuthor);
-                }
-
-                int speciality = data.getInt("speciality");
-                if (!data.wasNull()) {
-                    recipe.setSpeciality(speciality);
-                }
-                System.out.println("niveau acces : recipe");
-                recipes.add(recipe);
             }
             return recipes;
         } catch (SQLException exception) {

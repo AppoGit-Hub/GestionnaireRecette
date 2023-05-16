@@ -34,4 +34,8 @@ public class RecipeController {
     public void deleteRecipe(int codeRecipe) throws DeleteRecipeException {
         this.manager.deleteRecipe(codeRecipe);
     }
+
+    public void createRecipe(Recipe recipe) throws CreateRecipeException {
+        this.manager.createRecipe(recipe);
+    }
 }
