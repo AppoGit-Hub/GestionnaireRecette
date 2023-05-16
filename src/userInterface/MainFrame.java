@@ -13,7 +13,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private ModificationRecipePanel modificationRecipePanel = new ModificationRecipePanel();
     private ListingRecipePanel listingRecipePanel = new ListingRecipePanel();
     private EliminationRecipePanel eliminationRecipePanel = new EliminationRecipePanel();
-
+    // si on les mets là  alors il seront crée une fois et ne changerons pas, on fait une fonction pour cela ?
     private SearchIngredientPanel searchIngredientPanel = new SearchIngredientPanel();
     private SearchDietPanel searchDietPanel = new SearchDietPanel();
     private SearchRecipePanel searchRecipePanel = new SearchRecipePanel();

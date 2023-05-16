@@ -51,6 +51,6 @@ public class SearchRecipeTableModel extends AbstractTableModel {
             case 3:
                 return resultRecipe.getCountryName();
         }
-        return null;
+        return null;//todo : ce n'est pas mieux de mettre un default dans le switch et retirer le return null
     }
 }

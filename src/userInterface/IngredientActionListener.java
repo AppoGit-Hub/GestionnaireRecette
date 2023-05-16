@@ -37,7 +37,7 @@ public class IngredientActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         String eventName = event.getActionCommand();
-        if (eventName.equals("Add")) {
+        if (eventName.equals("Add") && nameIngredientComboBoxModel.getSelectedItem() != null) {
             Ingredient ingredient = (Ingredient) nameIngredientComboBoxModel.getSelectedItem();
             int ingredientCount = (int) quantityIngredientSpinner.getValue();
             Unit ingredientUnit = (Unit) unitIngredientComboBox.getSelectedItem();

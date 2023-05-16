@@ -69,7 +69,7 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
                             this.orderTypeController.deleteAllOrder(codeRecipe);
                             this.recipeController.deleteRecipe(codeRecipe);
                         }
-                        this.listSelectionModelRecipe.clearSelection();
+                        this.listSelectionModelRecipe.clearSelection();// todo : encore besoin ?
                         this.repaint();
                         this.revalidate();
                     }

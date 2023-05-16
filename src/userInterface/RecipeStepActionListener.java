@@ -41,7 +41,7 @@ public class RecipeStepActionListener implements ActionListener {
             }
         }
         int selectionIndex = recipeStepsList.getSelectedIndex();
-        if (eventName.equals("Save")) {
+        if (eventName.equals("Save") && selectionIndex != -1) {
             recipeStepListModel.set(selectionIndex, recipeStepsTextArea.getText());
         }
     }
