@@ -20,6 +20,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
     private AddCommentPanel addCommentPanel = new AddCommentPanel();
 
+    private VegetableJumpingPanel moveVegetablePanel = new VegetableJumpingPanel(true);
+
     private JPanel currentPanel;
     private HashMap<String, JPanel> menus = new HashMap<>();
 
@@ -37,7 +39,7 @@ public class MainFrame extends JFrame implements ActionListener {
         JMenuItem recipeModification = this.createMenuItem("Modification de Recette", this.modificationRecipePanel);
         JMenuItem recipeElimination = this.createMenuItem("Listing des Recettes", this.listingRecipePanel);
         JMenuItem recipeListing = this.createMenuItem("Elimination de recette", this.eliminationRecipePanel);
-            crud.add(recipePublication);
+        crud.add(recipePublication);
         crud.add(recipeModification);
         crud.add(recipeElimination);
         crud.add(recipeListing);
@@ -56,9 +58,15 @@ public class MainFrame extends JFrame implements ActionListener {
 
         jobTask.add(comment);
 
+        JMenu vegetableThread = new JMenu("Saut de légume");
+        JMenuItem vegetableMoving = this.createMenuItem("Saut de légume",this.moveVegetablePanel);
+
+        vegetableThread.add(vegetableMoving);
+
         this.menuBar.add(crud);
         this.menuBar.add(search);
         this.menuBar.add(jobTask);
+        this.menuBar.add(vegetableThread);
 
         this.setJMenuBar(this.menuBar);
         this.addWindowListener(new MainFrameListener());
@@ -69,7 +77,7 @@ public class MainFrame extends JFrame implements ActionListener {
             WINDOWS_RESOLUTION_X,
             WINDOWS_RESOLUTION_Y
         );
-        this.setVisible(true);
+        setVisible(true);
     }
 
     public JMenuItem createMenuItem(String label, JPanel panel) {
@@ -85,6 +93,7 @@ public class MainFrame extends JFrame implements ActionListener {
         if (this.currentPanel != null) {
             this.remove(this.currentPanel);
         }
+        System.out.println("teste pour egal : actionPerformed"+action.equals("Saut de légume"));
         this.currentPanel = this.menus.get(action);
         this.add(this.currentPanel);
         this.repaint();
