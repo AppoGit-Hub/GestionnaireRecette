@@ -452,6 +452,7 @@ public class GlobalRecipePanel extends JPanel {
         this.descriptionTextArea.setText(description);
     }
     public Recipe getRecipe(int code) {
+        // TODO : do a better job with at this maybe with exceptions ?
         String title = this.getTitle();
         if (title != null && title.length() > 0) {
             Person author = this.getAuthor();
