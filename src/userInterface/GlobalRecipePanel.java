@@ -455,7 +455,7 @@ public class GlobalRecipePanel extends JPanel {
     public void setDescription(String description) {
         this.descriptionTextArea.setText(description);
     }
-    public Recipe getRecipe(int code) {
+    protected Recipe getRecipe(int code) {
         // TODO : do a better job with at this maybe with exceptions ?
         String title = this.getTitle();
         if (title != null && title.length() > 0) {
@@ -504,7 +504,7 @@ public class GlobalRecipePanel extends JPanel {
         }
         return null;
     }
-    public void setAllMenuCategory() {
+    protected void setAllMenuCategory() {
         try {
             ArrayList<MealCategory> mealCategories = mealCategoryController.readAllMealCategory();
             this.mealCategoryComboBoxModel.addAll(mealCategories);
@@ -512,7 +512,7 @@ public class GlobalRecipePanel extends JPanel {
             JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void setAllMenuType() {
+    protected void setAllMenuType() {
         try {
             ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
             this.menuTypeComboBoxModel.addAll(menuTypes);
@@ -520,7 +520,7 @@ public class GlobalRecipePanel extends JPanel {
             JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void setAllUtensil() {
+    protected void setAllUtensil() {
         try {
             ArrayList<Utensil> utensils = utensilController.readAllUtensil();
             this.utensilComboBoxModel.addAll(utensils);
@@ -528,7 +528,7 @@ public class GlobalRecipePanel extends JPanel {
             JOptionPane.showMessageDialog(null, "Failed to load utensils", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void setAllIngredient() {
+    protected void setAllIngredient() {
         try {
             ArrayList<Ingredient> ingredients = ingredientController.readAllIngredient();
             this.nameIngredientComboBoxModel.addAll(ingredients);
@@ -536,11 +536,11 @@ public class GlobalRecipePanel extends JPanel {
             JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void setAllUnit() {
+    protected void setAllUnit() {
         List<Unit> units = List.of(Unit.values());
         this.unitIngredientComboBoxModel.addAll(units);
     }
-    public void setAllCountry() {
+    protected void setAllCountry() {
         try {
             ArrayList<Country> countries = countryController.readAllCountry();
             this.countryComboBoxModel.addAll(countries);
@@ -548,11 +548,11 @@ public class GlobalRecipePanel extends JPanel {
             JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void setAllComplexity() {
+    protected void setAllComplexity() {
         List<Complexity> complexities = List.of(Complexity.values());
         this.complexityComboBoxModel.addAll(complexities);
     }
-    public void setAllAuthor() {
+    protected void setAllAuthor() {
         try {
             ArrayList<Person> persons = personController.readAllPerson();
             this.authorComboBoxModel.addAll(persons);

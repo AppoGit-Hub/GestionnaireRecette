@@ -36,7 +36,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         this.add(recipeModificationNorthPanel, BorderLayout.NORTH);
     }
 
-    public void setAllRecipe() {
+    private void setAllRecipe() {
         try {
             RecipeController recipeController = this.getRecipeController();
             ArrayList<Recipe> recipes = recipeController.readAllRecipe();
@@ -46,7 +46,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setGeneralRecipeRecipe(Recipe recipe) {
+    private void setGeneralRecipeRecipe(Recipe recipe) {
         String title = recipe.getTitle();
         boolean isHot = recipe.getIsHot();
         boolean isSalty = recipe.getIsSalted();
@@ -74,7 +74,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setUtencilForRecipe(Recipe selection) {
+    private void setUtencilForRecipe(Recipe selection) {
         EquipementController equipementController = this.getEquipementController();
         UtensilController utensilController = this.getUtensilController();
         DefaultListModel<Utensil> utensilList = this.getUtensilListModel();
@@ -92,7 +92,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setRecipeStepForRecipe(Recipe selection) {
+    private void setRecipeStepForRecipe(Recipe selection) {
         RecipeStepController recipeStepController = this.getRecipeStepController();
         DefaultListModel<String> recipeStepListModel = this.getRecipeStepListModel();
         try {
@@ -108,7 +108,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setMenuTypeForRecipe(Recipe selection) {
+    private void setMenuTypeForRecipe(Recipe selection) {
         MenuTypeController menuTypeController = this.getMenuTypeController();
         PeriodController periodController = this.getPeriodController();
         DefaultListModel<MenuType> menuTypeListModel = this.getMenuTypeListModel();
@@ -125,7 +125,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setMealCategoryForRecipe(Recipe selection) {
+    private void setMealCategoryForRecipe(Recipe selection) {
         OrderTypeController orderTypeController = this.getOrderTypeController();
         MealCategoryController mealCategoryController = this.getMealCategoryController();
         DefaultListModel<MealCategory> mealCategoryListModel = this.getMealCategoryListModel();
@@ -142,7 +142,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setIngredientForRecipe(Recipe selection) {
+    private void setIngredientForRecipe(Recipe selection) {
         LineRecipeController lineRecipeController = this.getLineRecipeController();
         DefaultListModel<LineRecipeDisplay> ingredientListModel = this.getIngredientListModel();
         try {
@@ -158,7 +158,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setAuthorForRecipe(Recipe selection) {
+    private void setAuthorForRecipe(Recipe selection) {
         // TODO : no time left, need further work ...
         PersonController personController = this.getPersonController();
         DefaultComboBoxModel<Person> personComboBoxModel = this.getAuthorComboBoxModel();
@@ -177,7 +177,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void setCountryForRecipe(Recipe selection) {
+    private void setCountryForRecipe(Recipe selection) {
         // TODO : no time left, need further work ...
         CountryController countryController = this.getCountryController();
         DefaultComboBoxModel<Country> countryComboBoxModel = this.getCountryComboBoxModel();
@@ -196,7 +196,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void updateUtensil(Recipe selection) {
+    private void updateUtensil(Recipe selection) {
         EquipementController equipementController = this.getEquipementController();
         DefaultListModel<Utensil> utensilListModel = this.getUtensilListModel();
 
@@ -216,7 +216,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void updateRecipe(Recipe selection) {
+    private void updateRecipe(Recipe selection) {
         RecipeController recipeController = this.getRecipeController();
         try {
             Recipe recipe = this.getRecipe(selection.getCode());
@@ -228,7 +228,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void updateMenuType(Recipe selection) {
+    private void updateMenuType(Recipe selection) {
         PeriodController periodController = this.getPeriodController();
         DefaultListModel<MenuType> menuTypeListModel = this.getMenuTypeListModel();
         try {
@@ -247,7 +247,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void updateMealCategory(Recipe selection) {
+    private void updateMealCategory(Recipe selection) {
         OrderTypeController orderTypeController = this.getOrderTypeController();
         DefaultListModel<MealCategory> mealCategoryListModel = this.getMealCategoryListModel();
         try {
@@ -266,7 +266,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void updateRecipeSteps(Recipe selection) {
+    private void updateRecipeSteps(Recipe selection) {
         RecipeStepController recipeStepController = this.getRecipeStepController();
         DefaultListModel<String> recipeStepListModel = this.getRecipeStepListModel();
         try {
@@ -287,7 +287,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void updateIngredient(Recipe selection) {
+    private void updateIngredient(Recipe selection) {
         LineRecipeController lineRecipeController = this.getLineRecipeController();
         DefaultListModel<LineRecipeDisplay> ingredientListModel = this.getIngredientListModel();
         try {
@@ -306,11 +306,11 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
-    public void updateCountry(Recipe selection) {
+    private void updateCountry(Recipe selection) {
         // TODO : no time left, need further work
     }
 
-    public void updateAuthor(Recipe selection) {
+    private void updateAuthor(Recipe selection) {
         // TODO : no time left, need further work ...
     }
 
