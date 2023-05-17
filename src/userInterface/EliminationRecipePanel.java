@@ -41,7 +41,7 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
         this.jTable = new JTable(new ListingRecipeTableModel());
         this.jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         this.jTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);//je ne suis pas sûr de ce que cela veut dire
-        this.listSelectionModelRecipe = this.jTable.getSelectionModel( );
+        this.listSelectionModelRecipe = this.jTable.getSelectionModel();
 
         this.add(new JScrollPane(jTable), BorderLayout.CENTER);
         this.add(deleteButton, BorderLayout.NORTH);
@@ -69,7 +69,7 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
                             this.orderTypeController.deleteAllOrder(codeRecipe);
                             this.recipeController.deleteRecipe(codeRecipe);
                         }
-                        this.listSelectionModelRecipe.clearSelection();// todo : encore besoin ?
+                        this.listSelectionModelRecipe.clearSelection();
                         this.repaint();
                         this.revalidate();
                     }

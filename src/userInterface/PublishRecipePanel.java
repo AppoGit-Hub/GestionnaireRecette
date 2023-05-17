@@ -27,7 +27,7 @@ public class PublishRecipePanel extends GlobalRecipePanel implements ActionListe
 
     public int getNextRecipeCode() {
         try {
-            return this.recipeController.getNextCode() + 1;//on a déjà fait plus un pourquoi le refaire
+            return this.recipeController.getNextCode() + 1;
         } catch (NextCodeRecipeException exception) {
             JOptionPane.showMessageDialog(null, "Failed to load recipe code", "Failed To Load", JOptionPane.ERROR_MESSAGE);
         }

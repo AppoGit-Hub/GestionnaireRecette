@@ -5,6 +5,8 @@ import exception.*;
 import model.*;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,12 +29,12 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         this.recipeModifyButton.addActionListener(this);
         this.recipeSelectionComboBox.addActionListener(this);
 
+        this.setAllRecipe();
+
         JPanel recipeModificationNorthPanel = new JPanel();
         recipeModificationNorthPanel.setLayout(new FlowLayout());
         recipeModificationNorthPanel.add(recipeSelectionComboBox);
         recipeModificationNorthPanel.add(recipeModifyButton);
-
-        this.setAllRecipe();
 
         this.add(recipeModificationNorthPanel, BorderLayout.NORTH);
     }
@@ -44,7 +46,6 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
             this.recipeSelectionComboBoxModel.addAll(recipes);
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Failed to load recipes", "Failed To Load Recipes", JOptionPane.ERROR_MESSAGE);
-
         }
     }
 
@@ -274,27 +275,29 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        String source = e.getActionCommand();
+    public void actionPerformed(ActionEvent event) {
+        String source = event.getActionCommand();
         Recipe selection = (Recipe) this.recipeSelectionComboBox.getSelectedItem();
-        if (selection != null) {
-            if (source.equals("comboBoxChanged")) {
+        if (source.equals("comboBoxChanged")) {
+            if (selection != null) {
                 this.setGeneralRecipeRecipe(selection);
                 this.setUtencilForRecipe(selection);
                 this.setRecipeStepForRecipe(selection);
                 this.setMenuTypeForRecipe(selection);
                 this.setMealCategoryForRecipe(selection);
                 this.setIngredientForRecipe(selection);
-            } else if (source.equals("Modify")) {
+            }
+        } else if (source.equals("Modify")) {
+            if (selection != null) {
                 this.updateRecipe(selection);
                 this.updateUtensil(selection);
                 this.updateMenuType(selection);
                 this.updateMealCategory(selection);
                 this.updateRecipeSteps(selection);
                 this.updateIngredient(selection);
+            } else {
+                JOptionPane.showMessageDialog(null, "You must select an recipe", "Select A Recipe", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "You must select an recipe", "Select A Recipe", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
