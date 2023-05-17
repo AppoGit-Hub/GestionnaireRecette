@@ -10,9 +10,9 @@ public class ImageVegetable extends JLabel {
         super(new ImageIcon(urlImage));
         this.positionX = positionX;
         this.positionY = positionY;
-        //setSize(100,100);
+        setSize(100,100);
         goUp = true;
-        //setVisible(true);// car pourquoi pas ahhhhhaahahahahahha...
+
     }
     public void move(){
         positionY += ((goUp)? 30 : -30);

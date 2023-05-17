@@ -12,24 +12,22 @@ public class VegetableJumpingPanel extends JPanel {
     public VegetableJumpingPanel(boolean continued){
         setImageVegetable = new HashSet<>();
         this.continued = continued;
-        //setBackground(Color.WHITE);
+        setBackground(Color.WHITE);
         setLayout(null);
-        theMoveThread = new VegetableMoveThread(this);
+        theMoveThread = new VegetableMoveThread(this,continued);
         theMoveThread.start();
     }
 
     @Override
-    public void paint(Graphics aGraphic){
+    public synchronized void paint(Graphics aGraphic){
         super.paint(aGraphic);
-        //this.removeAll(); //pour vider et voir si cela à un effet
         for(ImageVegetable aImageVegetable : setImageVegetable){
             aImageVegetable.setLocation(aImageVegetable.getPositionX(),aImageVegetable.getPositionY());
-            aImageVegetable.setBounds(new Rectangle(100,100));
+            //aImageVegetable.setBounds(new Rectangle(100,100));
             this.add(aImageVegetable);
-            System.out.println(aImageVegetable.getIcon());
-            this.setBackground(Color.BLUE);
+            //this.setBackground(Color.BLUE);
             System.out.println("partie paint de vegetableJumpingPanel"+this.continued);
-            revalidate();
+            //revalidate();
         }
     }
 

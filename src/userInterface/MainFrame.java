@@ -20,9 +20,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
     private AddCommentPanel addCommentPanel = new AddCommentPanel();
 
-    private VegetableJumpingPanel moveVegetablePanel = new VegetableJumpingPanel(true);
+    //private VegetableJumpingPanel moveVegetablePanel = new VegetableJumpingPanel(true);
 
     private JPanel currentPanel;
+
     private HashMap<String, JPanel> menus = new HashMap<>();
 
     private static final int SCREEN_RESOLUTION_X = 1920;
@@ -58,15 +59,9 @@ public class MainFrame extends JFrame implements ActionListener {
 
         jobTask.add(comment);
 
-        JMenu vegetableThread = new JMenu("Saut de légume");
-        JMenuItem vegetableMoving = this.createMenuItem("Saut de légume",this.moveVegetablePanel);
-
-        vegetableThread.add(vegetableMoving);
-
         this.menuBar.add(crud);
         this.menuBar.add(search);
         this.menuBar.add(jobTask);
-        this.menuBar.add(vegetableThread);
 
         this.setJMenuBar(this.menuBar);
         this.addWindowListener(new MainFrameListener());
@@ -77,6 +72,11 @@ public class MainFrame extends JFrame implements ActionListener {
             WINDOWS_RESOLUTION_X,
             WINDOWS_RESOLUTION_Y
         );
+
+        currentPanel = new VegetableJumpingPanel(true);
+        this.add(currentPanel);
+        //add(new ImageVegetable(10,500,"carotte.png"));
+
         setVisible(true);
     }
 
