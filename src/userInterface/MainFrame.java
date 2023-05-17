@@ -80,10 +80,6 @@ public class MainFrame extends JFrame implements ActionListener {
                 WINDOWS_RESOLUTION_Y
         );
 
-        currentPanel = new VegetableJumpingPanel();
-        this.add(currentPanel);
-        //add(new ImageVegetable(10,500,"carotte.png"));
-
         setVisible(true);
     }
 

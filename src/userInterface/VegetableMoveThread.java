@@ -15,7 +15,7 @@ public class VegetableMoveThread extends Thread {
     }
 
     public void run(){
-        presentationPage.getImageVegetableSet().add(new ImageVegetable(10,500,"panier.png"));
+        presentationPage.getImageVegetableSet().add(new ImageVegetable(50,50,"panier.png"));
         while(continued) {
             try{
                 Thread.sleep(190);
@@ -37,7 +37,7 @@ public class VegetableMoveThread extends Thread {
                         default -> "carotte.png";
                     };
 
-                    presentationPage.getImageVegetableSet().add(new ImageVegetable(10,500,urlImage));
+                    presentationPage.getImageVegetableSet().add(new ImageVegetable(50,50,urlImage));
 
                     counter = 0;
                 }
