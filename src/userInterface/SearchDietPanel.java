@@ -48,7 +48,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
         this.add(dietError, BorderLayout.SOUTH);
     }
 
-    public void setAllDiet() {
+    private void setAllDiet() {
         try {
             ArrayList<Diet> diets = dietController.readAllDiet();
             this.dietComboBoxModel.addAll(diets);
@@ -57,7 +57,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
         }
     }
 
-    public void setDietRecipe(Diet diet) {
+    private void setDietRecipe(Diet diet) {
         try {
             ArrayList<SearchDietResult> searchDietResults = this.searchController.searchDiet(diet.getId());
             this.dietTable.setModel(new SearchDietTableModel(searchDietResults));

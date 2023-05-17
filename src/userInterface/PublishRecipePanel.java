@@ -25,7 +25,7 @@ public class PublishRecipePanel extends GlobalRecipePanel implements ActionListe
         this.add(publishRecipeButton, BorderLayout.NORTH);
     }
 
-    public int getNextRecipeCode() {
+    private int getNextRecipeCode() {
         try {
             return this.recipeController.getNextCode() + 1;
         } catch (NextCodeRecipeException exception) {

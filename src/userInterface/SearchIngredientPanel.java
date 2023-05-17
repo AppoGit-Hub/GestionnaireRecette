@@ -61,13 +61,13 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
         this.add(ingredientErrorLabel, BorderLayout.SOUTH);
     }
 
-    public boolean isStartBeforeEnd() {
+    private boolean isStartBeforeEnd() {
         int startYear = (int) this.startDate.getValue();
         int endYear = (int) this.endDate.getValue();
         return startYear <= endYear;
     }
 
-    public void setAllIngredient() {
+    private void setAllIngredient() {
         try {
             ArrayList<Ingredient> ingredients = this.ingredientController.readAllIngredient();
             this.ingredientComboBoxModel.addAll(ingredients);
@@ -77,7 +77,7 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
         }
     }
 
-    public void setIngredientRecipe(Ingredient ingredient, LocalDate dateBeginning, LocalDate dateEnding) {
+    private void setIngredientRecipe(Ingredient ingredient, LocalDate dateBeginning, LocalDate dateEnding) {
         try {
             ArrayList<SearchIngredientResult> searchIngredientResults = this.searchManager.searchIngredient(ingredient.getName(), dateBeginning, dateEnding);
             this.ingredientTable.setModel(new SearchIngredientTableModel(searchIngredientResults));

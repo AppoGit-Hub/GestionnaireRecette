@@ -63,7 +63,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
         this.add(recipeErrorLabel, BorderLayout.SOUTH);
     }
 
-    public void setAllMenuType() {
+    private void setAllMenuType() {
         try {
             ArrayList<MenuType> menuTypes = this.menuTypeController.getAllMenuTypes();
             this.menuTypeComboBoxModel.addAll(menuTypes);
@@ -72,7 +72,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void setAllIngredient() {
+    private void setAllIngredient() {
         try {
             ArrayList<Ingredient> ingredients = this.ingredientController.readAllIngredient();
             this.ingredientComboBoxModel.addAll(ingredients);
@@ -81,7 +81,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void setRecipe(MenuType menuType, Ingredient ingredient, boolean isHot) {
+    private void setRecipe(MenuType menuType, Ingredient ingredient, boolean isHot) {
         try {
             ArrayList<SearchRecipeResult> searchRecipeResults = this.searchController.searchRecipe(ingredient.getName(), isHot, menuType.getId());
             this.recipeTable.setModel(new SearchRecipeTableModel(searchRecipeResults));
