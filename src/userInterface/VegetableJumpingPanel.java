@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 
+// Sometimes its working, sometimes it's not. It is working
+// on Benjamin's PC but not a Guyri's PC
 public class VegetableJumpingPanel extends JPanel {
     private HashSet<ImageVegetable> setImageVegetable;
     private VegetableMoveThread theMoveThread;
@@ -14,7 +16,7 @@ public class VegetableJumpingPanel extends JPanel {
         this.continued = true;
         //setBackground(Color.WHITE);
         setLayout(null);
-        theMoveThread = new VegetableMoveThread(this,continued);
+        theMoveThread = new VegetableMoveThread(this, continued);
         theMoveThread.start();
     }
 
