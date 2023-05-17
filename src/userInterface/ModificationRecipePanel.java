@@ -158,6 +158,44 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
+    public void setAuthorForRecipe(Recipe selection) {
+        // TODO : need further work ...
+        PersonController personController = this.getPersonController();
+        DefaultComboBoxModel<Person> personComboBoxModel = this.getAuthorComboBoxModel();
+        try {
+            personComboBoxModel.removeAllElements();;
+            Person person = personController.readPerson(selection.getCode());
+            int index = 0;
+            while (index < personComboBoxModel.getSize() && personComboBoxModel.getElementAt(index).getId() != person.getId()) {
+                index++;
+            }
+            if (index < personComboBoxModel.getSize()) {
+                personComboBoxModel.setSelectedItem(personComboBoxModel.getElementAt(index));
+            }
+        } catch (PersonException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void setCountryForRecipe(Recipe selection) {
+        // TODO : need further work ...
+        CountryController countryController = this.getCountryController();
+        DefaultComboBoxModel<Country> countryComboBoxModel = this.getCountryComboBoxModel();
+        try {
+            countryComboBoxModel.removeAllElements();;
+            Country country = countryController.readCountry(selection.getCode());
+            int index = 0;
+            while (index < countryComboBoxModel.getSize() && countryComboBoxModel.getElementAt(index).getId() != country.getId()) {
+                index++;
+            }
+            if (index < countryComboBoxModel.getSize()) {
+                countryComboBoxModel.setSelectedItem(countryComboBoxModel.getElementAt(index));
+            }
+        } catch (CountryException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void updateUtensil(Recipe selection) {
         EquipementController equipementController = this.getEquipementController();
         DefaultListModel<Utensil> utensilListModel = this.getUtensilListModel();
@@ -280,6 +318,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 this.setMenuTypeForRecipe(selection);
                 this.setMealCategoryForRecipe(selection);
                 this.setIngredientForRecipe(selection);
+                this.setAuthorForRecipe(selection);
+                this.setCountryForRecipe(selection);
             }
         } else if (source.equals("Modify")) {
             if (selection != null) {
@@ -289,6 +329,10 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 this.updateMealCategory(selection);
                 this.updateRecipeSteps(selection);
                 this.updateIngredient(selection);
+
+                this.recipeSelectionComboBoxModel.removeAllElements();
+                this.setAllRecipe();
+
             } else {
                 JOptionPane.showMessageDialog(null, "You must select an recipe", "Select A Recipe", JOptionPane.ERROR_MESSAGE);
             }

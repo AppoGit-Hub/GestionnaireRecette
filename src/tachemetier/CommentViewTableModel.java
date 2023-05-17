@@ -51,14 +51,14 @@ public class CommentViewTableModel extends AbstractTableModel {
                 return comment.getRating();
             case 3:
                 try {
-                    Person author = personController.getPerson(comment.getPerson());
+                    Person author = personController.readPerson(comment.getPerson());
                     return author.getFirstname();
                 } catch (Exception exception) {
                     System.out.printf(exception.getMessage());
                 }
             case 4:
                 try {
-                    Person author = personController.getPerson(comment.getPerson());
+                    Person author = personController.readPerson(comment.getPerson());
                     return author.getLastname();
                 } catch (Exception exception) {
                     System.out.printf(exception.getMessage());

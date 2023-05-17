@@ -584,10 +584,14 @@ public class GlobalRecipePanel extends JPanel {
     public IngredientController getIngredientController() {
         return this.ingredientController;
     }
+    public CountryController getCountryController() {
+        return this.countryController;
+    }
     public RecipeController getRecipeController() { return this.recipeController; }
     public LineRecipeController getLineRecipeController() {
         return this.lineRecipeController;
     }
+    public PersonController getPersonController() { return this.personController; }
     public DefaultListModel<Utensil> getUtensilListModel() {
         return this.utensilListModel;
     }
@@ -602,6 +606,12 @@ public class GlobalRecipePanel extends JPanel {
     }
     public DefaultListModel<LineRecipeDisplay> getIngredientListModel() {
         return this.lineRecipeModel;
+    }
+    public DefaultComboBoxModel<Person> getAuthorComboBoxModel() {
+        return this.authorComboBoxModel;
+    }
+    public DefaultComboBoxModel<Country> getCountryComboBoxModel() {
+        return this.countryComboBoxModel;
     }
 }
 

@@ -21,7 +21,7 @@ public class PersonController {
         return this.manager.readAllPerson();
     }
 
-    public Person getPerson(int person) throws PersonException {
+    public Person readPerson(int person) throws PersonException {
         return this.manager.readPerson(person);
     }
 }
