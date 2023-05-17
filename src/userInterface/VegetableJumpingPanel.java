@@ -21,15 +21,18 @@ public class VegetableJumpingPanel extends JPanel {
     }
 
     @Override
-    public synchronized void paint(Graphics aGraphic){
+    public void paint(Graphics aGraphic){
         super.paint(aGraphic);
-        for(ImageVegetable aImageVegetable : setImageVegetable){
-            aImageVegetable.setLocation(aImageVegetable.getPositionX(),aImageVegetable.getPositionY());
-            //aImageVegetable.setBounds(new Rectangle(100,100));
-            this.add(aImageVegetable);
-            //this.setBackground(Color.BLUE);
-            System.out.println("partie paint de vegetableJumpingPanel"+this.continued);
-            //revalidate();
+        try {
+            synchronized(setImageVegetable) {
+                for(ImageVegetable aImageVegetable : setImageVegetable){
+                    aImageVegetable.setLocation(aImageVegetable.getPositionX(),aImageVegetable.getPositionY());
+                    this.add(aImageVegetable);
+                }
+            }
+        } catch (Exception exception) {
+            // oopsie...
+            //System.out.println(exception.getMessage());
         }
     }
 
