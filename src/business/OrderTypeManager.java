@@ -1,10 +1,7 @@
 package business;
 
 import dataAccess.OrderTypeDataBaseAccess;
-import exception.AllOrderTypeException;
-import exception.CreateOrderTypeException;
-import exception.DeleteAllOrderTypeException;
-import exception.DeleteOrderTypeException;
+import exception.*;
 import interfaceAccess.OrderTypeDataAccess;
 import model.OrderType;
 
@@ -21,18 +18,18 @@ public class OrderTypeManager {
         this.orderTypeAccess = orderTypeAccess;
     }
 
-    public ArrayList<OrderType> getAllOrderType(int recipeCode) throws AllOrderTypeException {
-        return this.orderTypeAccess.getAllOrderType(recipeCode);
+    public ArrayList<OrderType> readAllOrderType(int recipeCode) throws OrderTypeException {
+        return this.orderTypeAccess.readAllOrderType(recipeCode);
     }
 
-    public void createOrderType(int recipeCode, int mealCategory) throws CreateOrderTypeException {
+    public void createOrderType(int recipeCode, int mealCategory) throws OrderTypeException {
         this.orderTypeAccess.createOrderType(recipeCode, mealCategory);
     }
 
-    public void deleteOrderType(int recipeCode, int mealCategory) throws DeleteOrderTypeException {
+    public void deleteOrderType(int recipeCode, int mealCategory) throws OrderTypeException {
         this.orderTypeAccess.deleteOrderType(recipeCode, mealCategory);
     }
-    public void deleteAllOrder(int recipeCode) throws DeleteAllOrderTypeException {
+    public void deleteAllOrder(int recipeCode) throws OrderTypeException {
         this.orderTypeAccess.deleteAllOrderType(recipeCode);
     }
 }

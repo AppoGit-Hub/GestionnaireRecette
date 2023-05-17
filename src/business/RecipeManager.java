@@ -25,18 +25,16 @@ public class RecipeManager {
         return this.recipeAccess.getNumberRecipe();
     }
 
-    public ArrayList<Recipe> getAllRecipe() throws AllRecipeException {
-        return this.recipeAccess.getAllRecipe();
+    public ArrayList<Recipe> readAllRecipe() throws RecipeException {
+        return this.recipeAccess.readAllRecipe();
     }
-    public void deleteRecipe(int codeRecipe) throws DeleteRecipeException {
-        this.recipeAccess.delete(codeRecipe);
+    public void deleteRecipe(int codeRecipe) throws RecipeException {
+        this.recipeAccess.deleteRecipe(codeRecipe);
     }
-
-    public void updateRecipe(Recipe recipe) throws UpdateRecipeException {
-        this.recipeAccess.update(recipe);
+    public void updateRecipe(Recipe recipe) throws RecipeException {
+        this.recipeAccess.updateRecipe(recipe);
     }
-
-    public void createRecipe(Recipe recipe) throws CreateRecipeException {
+    public void createRecipe(Recipe recipe) throws RecipeException {
         this.recipeAccess.createRecipe(recipe);
     }
 }

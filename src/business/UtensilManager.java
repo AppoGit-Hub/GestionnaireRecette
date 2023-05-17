@@ -1,7 +1,6 @@
 package business;
 
 import dataAccess.UtensilDataBaseAccess;
-import exception.AllUtensilException;
 import exception.UtensilException;
 import interfaceAccess.UtensilDataAccess;
 import model.Utensil;
@@ -19,11 +18,11 @@ public class UtensilManager {
         this.utensilAccess = utensilAccess;
     }
 
-    public Utensil getUtensil(String name) throws UtensilException {
-        return this.utensilAccess.getUtensil(name);
+    public Utensil readUtensil(String name) throws UtensilException {
+        return this.utensilAccess.readUtensil(name);
     }
 
-    public ArrayList<Utensil> getAllUtensil() throws AllUtensilException {
-        return this.utensilAccess.getAllUtensil();
+    public ArrayList<Utensil> readAllUtensil() throws UtensilException {
+        return this.utensilAccess.readAllUtensil();
     }
 }

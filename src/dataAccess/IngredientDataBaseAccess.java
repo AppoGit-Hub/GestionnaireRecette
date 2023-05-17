@@ -1,8 +1,6 @@
 package dataAccess;
 
-import exception.AllIngredientException;
-import exception.AllMealCategoryException;
-import exception.IngredientException;
+import exception.*;
 import interfaceAccess.IngredientDataAccess;
 import model.Ingredient;
 import model.MealCategory;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 
 public class IngredientDataBaseAccess implements IngredientDataAccess {
     @Override
-    public Ingredient getIngredient(String ingredient) throws IngredientException {
+    public Ingredient readIngredient(String ingredient) throws IngredientException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM ingredient WHERE name = ?";
@@ -30,12 +28,12 @@ public class IngredientDataBaseAccess implements IngredientDataAccess {
             Integer type = data.getInt("type");
             return new Ingredient(name, minTemp, maxTemp, season, type);
         } catch (SQLException exception) {
-            throw new IngredientException(exception.getMessage());
+            throw new IngredientException(exception.getMessage(), new OneException(), new ReadException());
         }
     }
 
     @Override
-    public ArrayList<Ingredient> getAllIngredient() throws AllIngredientException {
+    public ArrayList<Ingredient> readAllIngredient() throws IngredientException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM ingredient";
@@ -53,7 +51,7 @@ public class IngredientDataBaseAccess implements IngredientDataAccess {
             }
             return ingredients;
         } catch (SQLException exception) {
-            throw new AllIngredientException(exception.getMessage());
+            throw new IngredientException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
 }

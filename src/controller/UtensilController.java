@@ -1,7 +1,6 @@
 package controller;
 
 import business.UtensilManager;
-import exception.AllUtensilException;
 import exception.UtensilException;
 import model.Utensil;
 
@@ -18,11 +17,10 @@ public class UtensilController {
         this.manager = manager;
     }
 
-    public Utensil getUtensil(String name) throws UtensilException {
-        return this.manager.getUtensil(name);
+    public Utensil readUtensil(String name) throws UtensilException {
+        return this.manager.readUtensil(name);
     }
-
-    public ArrayList<Utensil> getAllUtensil() throws AllUtensilException {
-        return this.manager.getAllUtensil();
+    public ArrayList<Utensil> readAllUtensil() throws UtensilException {
+        return this.manager.readAllUtensil();
     }
 }

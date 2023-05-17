@@ -17,18 +17,18 @@ public class LineRecipeController {
         this.manager = manager;
     }
 
-    public ArrayList<LineRecipe> getLineRecipeForRecipe(int recipe) throws LineRecipeException {
-        return this.manager.getLineRecipeForRecipe(recipe);
+    public ArrayList<LineRecipe> readLineRecipeForRecipe(int recipe) throws LineRecipeException {
+        return this.manager.readLineRecipeForRecipe(recipe);
     }
 
-    public void createLineRecipe(LineRecipe lineRecipe) throws CreateLineRecipeException {
+    public void createLineRecipe(LineRecipe lineRecipe) throws LineRecipeException {
         this.manager.createLineRecipe(lineRecipe);
     }
 
-    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteLineRecipeException {
+    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws LineRecipeException {
         this.manager.deleteLineRecipe(ingredient, recipeOrigin);
     }
-    public void deleteAllLineRecip(int recipeCode) throws DeleteAllLineRecipeException {
+    public void deleteAllLineRecipe(int recipeCode) throws LineRecipeException {
         this.manager.deleteAllLineRecipe(recipeCode);
     }
 }

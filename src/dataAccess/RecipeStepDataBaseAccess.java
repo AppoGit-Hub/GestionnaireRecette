@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
     @Override
-    public ArrayList<RecipeStep> getAllRecipeStep(int recipeCode) throws AllRecipeStepException {
+    public ArrayList<RecipeStep> readAllRecipeStep(int recipeCode) throws RecipeStepException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM recipestep WHERE baseRecipe = ?;";
@@ -29,12 +29,11 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             }
             return recipeSteps;
         } catch (SQLException exception) {
-            throw new AllRecipeStepException(exception.getMessage());
+            throw new RecipeStepException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
-
     @Override
-    public void deleteRecipeStep(int recipeCode, int number) throws DeleteRecipeStepException {
+    public void deleteRecipeStep(int recipeCode, int number) throws RecipeStepException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM recipestep WHERE baseRecipe = ? AND number = ?;";
@@ -43,23 +42,22 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             statement.setInt(2, number);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteRecipeStepException(exception.getMessage());
+            throw new RecipeStepException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllRecipeStep(int recipeCode) throws DeleteAllOfOneRecipeException {
+    public void deleteAllRecipeStep(int recipeCode) throws RecipeStepException {
         try{
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM recipestep WHERE baseRecipe = ? ;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
-        }catch(SQLException exception){
-            throw new DeleteAllOfOneRecipeException(exception.getMessage());
+        } catch(SQLException exception) {
+            throw new RecipeStepException(exception.getMessage(), new AllException(), new DeleteException());
         }
-    }//todo : changer l'exception
-
+    }
     @Override
-    public void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException {
+    public void createRecipeStep(RecipeStep recipeStep) throws RecipeStepException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "INSERT INTO recipestep VALUES (?, ?, ?);";
@@ -69,7 +67,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             statement.setString(3, recipeStep.getDescription());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreateRecipeStepException(exception.getMessage());
+            throw new RecipeStepException(exception.getMessage(), new OneException(), new CreateException());
         }
     }
 }

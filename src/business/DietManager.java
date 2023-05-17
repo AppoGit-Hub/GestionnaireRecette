@@ -1,7 +1,7 @@
 package business;
 
 import dataAccess.DietDataBaseAcces;
-import exception.AllDietException;
+import exception.DietException;
 import interfaceAccess.DietDataAccess;
 import model.Diet;
 
@@ -18,7 +18,7 @@ public class DietManager {
         this.dietAccess = dietAccess;
     }
 
-    public ArrayList<Diet> getAllDiet() throws AllDietException {
-        return this.dietAccess.getAllDiet();
+    public ArrayList<Diet> readAllDiet() throws DietException {
+        return this.dietAccess.readAllDiet();
     }
 }

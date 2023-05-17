@@ -1,10 +1,7 @@
 package business;
 
 import dataAccess.CommentDataBaseAccess;
-import exception.CreateCommentException;
-import exception.DeleteAllCommentException;
-import exception.GetAllCommentException;
-import exception.GetNumberCommentException;
+import exception.*;
 import interfaceAccess.CommentDataAccess;
 import model.Comment;
 
@@ -19,11 +16,11 @@ public class CommentManager {
         this.commentAccess = commentAccess;
     }
 
-    public void deleteAllComment(int recipeCode) throws DeleteAllCommentException {
+    public void deleteAllComment(int recipeCode) throws CommentException {
         this. commentAccess.deleteAllComment(recipeCode);
     }
 
-    public void createComment(Comment comment) throws CreateCommentException {
+    public void createComment(Comment comment) throws CommentException {
         this.commentAccess.createComment(comment);
     }
 
@@ -31,7 +28,7 @@ public class CommentManager {
         return this.commentAccess.getNumberComment(recipeCode);
     }
 
-    public ArrayList<Comment> getAllComment(int recipeCode) throws GetAllCommentException {
-        return this.commentAccess.getAllComment(recipeCode);
+    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException {
+        return this.commentAccess.readAllComment(recipeCode);
     }
 }

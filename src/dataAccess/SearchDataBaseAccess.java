@@ -1,6 +1,5 @@
 package dataAccess;
 
-import exception.CreatePeriodException;
 import exception.SearchDietException;
 import exception.SearchIngredientException;
 import exception.SearchRecipeException;

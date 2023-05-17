@@ -1,8 +1,6 @@
 package dataAccess;
 
-import exception.AllCountryException;
-import exception.AllEquipementException;
-import exception.CountryException;
+import exception.*;
 import interfaceAccess.CountryDataAccess;
 import model.Country;
 import model.Equipment;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 
 public class CountryDataBaseAccess implements CountryDataAccess {
     @Override
-    public ArrayList<Country> getAllCountry() throws AllCountryException {
+    public ArrayList<Country> readAllCountry() throws CountryException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM country;";
@@ -30,24 +28,24 @@ public class CountryDataBaseAccess implements CountryDataAccess {
             }
             return countries;
         } catch (SQLException exception) {
-            throw new AllCountryException(exception.getMessage());
+            throw new CountryException(exception.getMessage(), new OneException(), new ReadException());
         }
     }
 
     @Override
-    public Country getCountry(int country) throws CountryException {
+    public Country readCountry(int country) throws CountryException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM country WHERE id = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, country);
             ResultSet data = statement.executeQuery();
-            data.next();// TODO : cela sert à quoi ? pour passer à la ligne suivante mais il n'y a qu'une ligne alors à quoi bon le faire ?
+            data.next();
             int id = data.getInt("id");
             String name = data.getString("name");
             return new Country(id, name);
         } catch (SQLException exception) {
-            throw new CountryException(exception.getMessage());
+            throw new CountryException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
 }

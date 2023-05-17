@@ -1,7 +1,6 @@
 package controller;
 
 import business.IngredientManager;
-import exception.AllIngredientException;
 import exception.IngredientException;
 import model.Ingredient;
 
@@ -18,11 +17,11 @@ public class IngredientController {
         this.manager = manager;
     }
 
-    public Ingredient getIngredient(String ingredient) throws IngredientException {
-        return this.manager.getIngredient(ingredient);
+    public Ingredient readIngredient(String ingredient) throws IngredientException {
+        return this.manager.readIngredient(ingredient);
     }
 
-    public ArrayList<Ingredient> getAllIngredient() throws AllIngredientException {
-        return this.manager.getAllIngredient();
+    public ArrayList<Ingredient> readAllIngredient() throws IngredientException {
+        return this.manager.readAllIngredient();
     }
 }

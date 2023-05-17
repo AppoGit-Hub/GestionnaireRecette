@@ -1,7 +1,6 @@
 package business;
 
 import dataAccess.IngredientDataBaseAccess;
-import exception.AllIngredientException;
 import exception.IngredientException;
 import interfaceAccess.IngredientDataAccess;
 import model.Ingredient;
@@ -19,11 +18,11 @@ public class IngredientManager {
         this.ingredientAccess = ingredientAccess;
     }
 
-    public Ingredient getIngredient(String ingredient) throws IngredientException {
-        return this.ingredientAccess.getIngredient(ingredient);
+    public Ingredient readIngredient(String ingredient) throws IngredientException {
+        return this.ingredientAccess.readIngredient(ingredient);
     }
 
-    public ArrayList<Ingredient> getAllIngredient() throws AllIngredientException {
-        return this.ingredientAccess.getAllIngredient();
+    public ArrayList<Ingredient> readAllIngredient() throws IngredientException {
+        return this.ingredientAccess.readAllIngredient();
     }
 }

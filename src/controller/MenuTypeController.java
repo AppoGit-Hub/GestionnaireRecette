@@ -1,7 +1,6 @@
 package controller;
 
 import business.MenuTypeManager;
-import exception.AllMenuTypeException;
 import exception.MenuTypeException;
 import model.MenuType;
 
@@ -18,11 +17,11 @@ public class MenuTypeController {
         this.manager = manager;
     }
 
-    public ArrayList<MenuType> getAllMenuTypes() throws AllMenuTypeException {
-        return manager.getAllMenuTypes();
+    public ArrayList<MenuType> getAllMenuTypes() throws MenuTypeException {
+        return manager.readAllMenuTypes();
     }
 
-    public MenuType getMenuType(int menuType) throws MenuTypeException {
-        return manager.getMenuType(menuType);
+    public MenuType readMenuType(int menuType) throws MenuTypeException {
+        return manager.readMenuType(menuType);
     }
 }

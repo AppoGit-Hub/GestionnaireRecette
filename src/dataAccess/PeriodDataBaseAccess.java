@@ -1,9 +1,6 @@
 package dataAccess;
 
-import exception.AllPeriodException;
-import exception.CreatePeriodException;
-import exception.DeleteAllPeriodException;
-import exception.DeletePeriodException;
+import exception.*;
 import interfaceAccess.PeriodDataAccess;
 import model.Period;
 
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 
 public class PeriodDataBaseAccess implements PeriodDataAccess {
     @Override
-    public void createPeriod(int periodRecipe, int menuType) throws CreatePeriodException {
+    public void createPeriod(int periodRecipe, int menuType) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "INSERT INTO period VALUES (?, ?);";
@@ -24,12 +21,12 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             statement.setInt(2, menuType);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreatePeriodException(exception.getMessage());
+            throw new PeriodException(exception.getMessage(), new OneException(), new CreateException());
         }
     }
 
     @Override
-    public void deletePeriod(int periodRecipe, int menuType) throws DeletePeriodException {
+    public void deletePeriod(int periodRecipe, int menuType) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM period WHERE periodRecipe = ? AND menuType = ?;";
@@ -38,10 +35,10 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             statement.setInt(2, menuType);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeletePeriodException(exception.getMessage());
+            throw new PeriodException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllPeriod(int periodRecipe) throws DeleteAllPeriodException {
+    public void deleteAllPeriod(int periodRecipe) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM period WHERE periodRecipe = ? ;";
@@ -49,12 +46,12 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             statement.setInt(1, periodRecipe);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteAllPeriodException(exception.getMessage());
+            throw new PeriodException(exception.getMessage(), new AllException(), new DeleteException());
         }
-    }//todo : changer l'interface et l'exception
+    }
 
     @Override
-    public ArrayList<Period> getAllPeriod(int recipeCode) throws AllPeriodException {
+    public ArrayList<Period> readAllPeriod(int recipeCode) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM period WHERE periodRecipe = ?;";
@@ -70,7 +67,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             }
             return periods;
         } catch (SQLException exception) {
-            throw new AllPeriodException(exception.getMessage());
+            throw new PeriodException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
 }

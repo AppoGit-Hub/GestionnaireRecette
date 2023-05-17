@@ -1,9 +1,6 @@
 package business;
 
-import exception.AllPeriodException;
-import exception.CreatePeriodException;
-import exception.DeleteAllPeriodException;
-import exception.DeletePeriodException;
+import exception.*;
 import interfaceAccess.PeriodDataAccess;
 import dataAccess.PeriodDataBaseAccess;
 import model.Period;
@@ -21,17 +18,17 @@ public class PeriodManager {
         this.periodAccess = periodAccess;
     }
 
-    public ArrayList<Period> getAllPeriod(int recipeCode) throws AllPeriodException {
-        return this.periodAccess.getAllPeriod(recipeCode);
+    public ArrayList<Period> readAllPeriod(int recipeCode) throws PeriodException {
+        return this.periodAccess.readAllPeriod(recipeCode);
     }
 
-    public void createPeriod(int periodRecipe, int menuType) throws CreatePeriodException {
+    public void createPeriod(int periodRecipe, int menuType) throws PeriodException {
         this.periodAccess.createPeriod(periodRecipe, menuType);
     }
-    public void deletePeriod(int periodRecipe, int menuType) throws DeletePeriodException {
+    public void deletePeriod(int periodRecipe, int menuType) throws PeriodException {
         this.periodAccess.deletePeriod(periodRecipe, menuType);
     }
-    public void deleteAllPeriod(int periodRecipe) throws DeleteAllPeriodException {
+    public void deleteAllPeriod(int periodRecipe) throws PeriodException {
         this.periodAccess.deleteAllPeriod(periodRecipe);
     }
 }

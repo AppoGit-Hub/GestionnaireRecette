@@ -1,9 +1,6 @@
 package dataAccess;
 
-import exception.CreateCommentException;
-import exception.DeleteAllCommentException;
-import exception.GetAllCommentException;
-import exception.GetNumberCommentException;
+import exception.*;
 import interfaceAccess.CommentDataAccess;
 import model.Comment;
 import model.Recipe;
@@ -15,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CommentDataBaseAccess implements CommentDataAccess {
-    public void deleteAllComment(int recipeCode) throws DeleteAllCommentException {
+    public void deleteAllComment(int recipeCode) throws CommentException {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query = "DELETE FROM comment WHERE recipe = ?;";
@@ -23,26 +20,11 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
         } catch(SQLException exception) {
-            throw new DeleteAllCommentException(exception.getMessage());
+            throw new CommentException(exception.getMessage(), new AllException(), new DeleteException());
         }
     }
 
-    @Override
-    public int getNumberComment(int recipeCode) throws GetNumberCommentException {
-        try {
-            Connection connection = SingletonConnexion.getInstance();
-            String query = "SELECT COUNT(*) AS number FROM comment WHERE recipe = ?;";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, recipeCode);
-            ResultSet data = statement.executeQuery();
-            data.next();
-            return data.getInt("number");
-        } catch (SQLException exception) {
-            throw new GetNumberCommentException(exception.getMessage());
-        }
-    }
-
-    public ArrayList<Comment> getAllComment(int recipeCode) throws GetAllCommentException {
+    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query = "SELECT * FROM comment WHERE recipe = ?;";
@@ -61,10 +43,10 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             }
             return comments;
         } catch (SQLException exception) {
-            throw new GetAllCommentException(exception.getMessage());
+            throw new CommentException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
-    public void createComment(Comment comment) throws CreateCommentException {
+    public void createComment(Comment comment) throws CommentException {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query = "INSERT INTO comment VALUES (?, ?, ?, ?, ?, ?);";
@@ -77,9 +59,22 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             statement.setInt(6, comment.getPerson());
             statement.executeUpdate();
         } catch(SQLException exception) {
-            throw new CreateCommentException(exception.getMessage());
+            throw new CommentException(exception.getMessage(), new OneException(), new ReadException());
         }
     }
 
-
+    @Override
+    public int getNumberComment(int recipeCode) throws GetNumberCommentException {
+        try {
+            Connection connection = SingletonConnexion.getInstance();
+            String query = "SELECT COUNT(*) AS number FROM comment WHERE recipe = ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, recipeCode);
+            ResultSet data = statement.executeQuery();
+            data.next();
+            return data.getInt("number");
+        } catch (SQLException exception) {
+            throw new GetNumberCommentException(exception.getMessage());
+        }
+    }
 }

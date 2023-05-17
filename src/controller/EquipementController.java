@@ -1,10 +1,7 @@
 package controller;
 
 import business.EquipementManager;
-import exception.AllEquipementException;
-import exception.CreateEquipementForException;
-import exception.DeleteAllEquipementException;
-import exception.DeleteEquipementException;
+import exception.*;
 import model.Equipment;
 
 import java.util.ArrayList;
@@ -20,18 +17,18 @@ public class EquipementController {
         this.manager = manager;
     }
 
-    public ArrayList<Equipment> getAllEquipementOf(int recipeCode) throws AllEquipementException {
+    public ArrayList<Equipment> getAllEquipementOf(int recipeCode) throws EquipementException {
         return this.manager.getAllEquipementOf(recipeCode);
     }
 
-    public void createEquipementFor(int recipeCode, String utensilName) throws CreateEquipementForException {
+    public void createEquipementFor(int recipeCode, String utensilName) throws EquipementException {
         this.manager.createEquipementFor(recipeCode, utensilName);
     }
 
-    public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
+    public void deleteEquipementFor(int recipeCode, String utensilName) throws EquipementException {
         this.manager.deleteEquipementFor(recipeCode, utensilName);
     }
-    public void deleteAllEquipement(int recipeCode) throws DeleteAllEquipementException {
+    public void deleteAllEquipement(int recipeCode) throws EquipementException {
         this.manager.deleteAllEquipement(recipeCode);
     }
 }

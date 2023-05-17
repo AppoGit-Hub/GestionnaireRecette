@@ -9,10 +9,10 @@ public class VegetableJumpingPanel extends JPanel {
     private VegetableMoveThread theMoveThread;
     private Boolean continued;
 
-    public VegetableJumpingPanel(boolean continued){
+    public VegetableJumpingPanel() {
         setImageVegetable = new HashSet<>();
-        this.continued = continued;
-        setBackground(Color.WHITE);
+        this.continued = true;
+        //setBackground(Color.WHITE);
         setLayout(null);
         theMoveThread = new VegetableMoveThread(this,continued);
         theMoveThread.start();

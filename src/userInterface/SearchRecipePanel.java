@@ -3,9 +3,8 @@ package userInterface;
 import controller.IngredientController;
 import controller.MenuTypeController;
 import controller.SearchController;
-import exception.AllIngredientException;
-import exception.AllMenuTypeException;
 import exception.SearchRecipeException;
+import exception.TypeException;
 import model.*;
 
 import javax.swing.*;
@@ -68,17 +67,17 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
         try {
             ArrayList<MenuType> menuTypes = this.menuTypeController.getAllMenuTypes();
             this.menuTypeComboBoxModel.addAll(menuTypes);
-        } catch (AllMenuTypeException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load menu types", "Failed to Load Menu Types", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void setAllIngredient() {
         try {
-            ArrayList<Ingredient> ingredients = this.ingredientController.getAllIngredient();
+            ArrayList<Ingredient> ingredients = this.ingredientController.readAllIngredient();
             this.ingredientComboBoxModel.addAll(ingredients);
-        } catch (AllIngredientException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load ingredients", "Failed to Load Ingredients", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 

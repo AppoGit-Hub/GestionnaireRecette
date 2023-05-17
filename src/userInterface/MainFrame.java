@@ -8,69 +8,76 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class MainFrame extends JFrame implements ActionListener {
-    private JMenuBar menuBar = new JMenuBar();
-    private PublishRecipePanel publishRecipePanel;
-    private ModificationRecipePanel modificationRecipePanel = new ModificationRecipePanel();
-    private ListingRecipePanel listingRecipePanel = new ListingRecipePanel();
-    private EliminationRecipePanel eliminationRecipePanel = new EliminationRecipePanel();
-    // si on les mets là  alors il seront crée une fois et ne changerons pas, on fait une fonction pour cela ?
-    private SearchIngredientPanel searchIngredientPanel = new SearchIngredientPanel();
-    private SearchDietPanel searchDietPanel = new SearchDietPanel();
-    private SearchRecipePanel searchRecipePanel = new SearchRecipePanel();
-
-    private AddCommentPanel addCommentPanel = new AddCommentPanel();
-
-    //private VegetableJumpingPanel moveVegetablePanel = new VegetableJumpingPanel(true);
-
     private JPanel currentPanel;
-
-    private HashMap<String, JPanel> menus = new HashMap<>();
-
     private static final int SCREEN_RESOLUTION_X = 1920;
     private static final int SCREEN_RESOLUTION_Y = 1080;
     private static final int WINDOWS_RESOLUTION_X = 700;
     private static final int WINDOWS_RESOLUTION_Y = 500;
 
     public MainFrame() {
-        this.publishRecipePanel = new PublishRecipePanel();
-
+        this.currentPanel = new WelcomePanel();
+        this.add(currentPanel);
 
         JMenu crud = new JMenu("CRUD");
-        JMenuItem recipePublication = this.createMenuItem("Publication de Recette", this.publishRecipePanel);
-        JMenuItem recipeModification = this.createMenuItem("Modification de Recette", this.modificationRecipePanel);
-        JMenuItem recipeElimination = this.createMenuItem("Listing des Recettes", this.listingRecipePanel);
-        JMenuItem recipeListing = this.createMenuItem("Elimination de recette", this.eliminationRecipePanel);
+        JMenuItem recipePublication = new JMenuItem("Publication de Recette");
+        JMenuItem recipeModification = new JMenuItem("Modification de Recette");
+        JMenuItem recipeElimination = new JMenuItem("Listing des Recettes");
+        JMenuItem recipeListing = new JMenuItem("Elimination de Recette");
+
+        recipePublication.addActionListener(this);
+        recipeModification.addActionListener(this);
+        recipeElimination.addActionListener(this);
+        recipeListing.addActionListener(this);
+
         crud.add(recipePublication);
         crud.add(recipeModification);
         crud.add(recipeElimination);
         crud.add(recipeListing);
 
         JMenu search = new JMenu("Recherches");
-        JMenuItem ingredient = this.createMenuItem("Ingredient", this.searchIngredientPanel);
-        JMenuItem diet = this.createMenuItem("Regime Alimentaire", this.searchDietPanel);
-        JMenuItem recipe = this.createMenuItem("Recette", this.searchRecipePanel);
+        JMenuItem ingredient = new JMenuItem("Ingredient");
+        JMenuItem diet = new JMenuItem("Regime Alimentaire");
+        JMenuItem recipe = new JMenuItem("Recette");
+
+        search.addActionListener(this);
+        ingredient.addActionListener(this);
+        diet.addActionListener(this);
+        recipe.addActionListener(this);
 
         search.add(ingredient);
         search.add(diet);
         search.add(recipe);
 
         JMenu jobTask = new JMenu("Tache Metier");
-        JMenuItem comment = this.createMenuItem("Ajout Commentaire", this.addCommentPanel);
+        JMenuItem comment = new JMenuItem("Ajout Commentaire");
+
+        jobTask.addActionListener(this);
+        comment.addActionListener(this);
 
         jobTask.add(comment);
 
-        this.menuBar.add(crud);
-        this.menuBar.add(search);
-        this.menuBar.add(jobTask);
+        JMenu vegetableThread = new JMenu("Saut de légume");
+        JMenuItem vegetableMoving = new JMenuItem("Saut de légume");
 
-        this.setJMenuBar(this.menuBar);
+        vegetableThread.addActionListener(this);
+        vegetableMoving.addActionListener(this);
+
+        vegetableThread.add(vegetableMoving);
+
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(crud);
+        menuBar.add(search);
+        menuBar.add(jobTask);
+        menuBar.add(vegetableThread);
+
+        this.setJMenuBar(menuBar);
         this.addWindowListener(new MainFrameListener());
 
         this.setBounds(
-            (SCREEN_RESOLUTION_X / 2) - (WINDOWS_RESOLUTION_X / 2),
-            (SCREEN_RESOLUTION_Y / 2) - (WINDOWS_RESOLUTION_Y / 2),
-            WINDOWS_RESOLUTION_X,
-            WINDOWS_RESOLUTION_Y
+                (SCREEN_RESOLUTION_X / 2) - (WINDOWS_RESOLUTION_X / 2),
+                (SCREEN_RESOLUTION_Y / 2) - (WINDOWS_RESOLUTION_Y / 2),
+                WINDOWS_RESOLUTION_X,
+                WINDOWS_RESOLUTION_Y
         );
 
         currentPanel = new VegetableJumpingPanel(true);
@@ -80,23 +87,49 @@ public class MainFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public JMenuItem createMenuItem(String label, JPanel panel) {
-        JMenuItem menuItem = new JMenuItem(label);
-        menuItem.addActionListener(this);
-        this.menus.put(label, panel);
-        return menuItem;
+    private JPanel gePanel(String name) {
+        // TODO : do this a better way. Maybe with generics ? or even state design pattern ?
+        switch (name) {
+            case "Publication de Recette" -> {
+                return new PublishRecipePanel();
+            }
+            case "Modification de Recette" -> {
+                return new ModificationRecipePanel();
+            }
+            case "Listing des Recettes" -> {
+                return new ListingRecipePanel();
+            }
+            case "Elimination de Recette" -> {
+                return new EliminationRecipePanel();
+            }
+            case "Ingredient" -> {
+                return new SearchIngredientPanel();
+            }
+            case "Regime Alimentaire" -> {
+                return new SearchDietPanel();
+            }
+            case "Recette" -> {
+                return new SearchRecipePanel();
+            }
+            case "Ajout Commentaire" -> {
+                return new AddCommentPanel();
+            }
+            case "Saut de légume" -> {
+                return new VegetableJumpingPanel();
+            }
+        }
+        return null;
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         String action = event.getActionCommand();
-        if (this.currentPanel != null) {
-            this.remove(this.currentPanel);
+        if (currentPanel != null) {
+            this.remove(currentPanel);
         }
-        System.out.println("teste pour egal : actionPerformed"+action.equals("Saut de légume"));
-        this.currentPanel = this.menus.get(action);
-        this.add(this.currentPanel);
-        this.repaint();
+        currentPanel = this.gePanel(action);
+        this.add(currentPanel);
         this.revalidate();
+        this.repaint();
     }
 }

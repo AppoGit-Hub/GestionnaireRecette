@@ -1,10 +1,7 @@
 package controller;
 
 import business.CommentManager;
-import exception.CreateCommentException;
-import exception.DeleteAllCommentException;
-import exception.GetAllCommentException;
-import exception.GetNumberCommentException;
+import exception.*;
 import model.Comment;
 
 import java.util.ArrayList;
@@ -19,11 +16,11 @@ public class CommentController {
         this.manager = manager;
     }
 
-    public void deleteAllComment(int recipeCode) throws DeleteAllCommentException {
+    public void deleteAllComment(int recipeCode) throws CommentException {
         this.manager.deleteAllComment(recipeCode);
     }
 
-    public void createComment(Comment comment) throws CreateCommentException {
+    public void createComment(Comment comment) throws CommentException {
         this.manager.createComment(comment);
     }
 
@@ -31,7 +28,7 @@ public class CommentController {
         return this.manager.getNumberComment(recipeCode);
     }
 
-    public ArrayList<Comment> getAllComment(int recipeCode) throws GetAllCommentException {
-        return this.manager.getAllComment(recipeCode);
+    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException {
+        return this.manager.readAllComment(recipeCode);
     }
 }

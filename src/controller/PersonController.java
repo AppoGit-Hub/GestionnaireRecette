@@ -1,9 +1,6 @@
 package controller;
 
 import business.PersonManager;
-import exception.AllPersonException;
-import exception.CreatePeriodException;
-import exception.DeletePeriodException;
 import exception.PersonException;
 import model.Person;
 
@@ -20,11 +17,11 @@ public class PersonController {
         this.manager = manager;
     }
 
-    public ArrayList<Person> getAllPerson() throws AllPersonException {
-        return this.manager.getAllPerson();
+    public ArrayList<Person> readAllPerson() throws PersonException {
+        return this.manager.readAllPerson();
     }
 
     public Person getPerson(int person) throws PersonException {
-        return this.manager.getPerson(person);
+        return this.manager.readPerson(person);
     }
 }

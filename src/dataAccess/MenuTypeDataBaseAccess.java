@@ -1,8 +1,10 @@
 package dataAccess;
 
+import exception.AllException;
 import exception.MenuTypeException;
+import exception.OneException;
+import exception.ReadException;
 import interfaceAccess.MenuTypeDataAccess;
-import exception.AllMenuTypeException;
 import model.MenuType;
 
 import java.sql.*;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class MenuTypeDataBaseAccess implements MenuTypeDataAccess {
     @Override
-    public ArrayList<MenuType> getAllMenuTypes() throws AllMenuTypeException {
+    public ArrayList<MenuType> readAllMenuTypes() throws MenuTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM menuType";
@@ -25,12 +27,12 @@ public class MenuTypeDataBaseAccess implements MenuTypeDataAccess {
             }
             return menuTypes;
         } catch (SQLException exception) {
-            throw new AllMenuTypeException(exception.getMessage());
+            throw new MenuTypeException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
 
     @Override
-    public MenuType getMenuType(int menuType) throws MenuTypeException {
+    public MenuType readMenuType(int menuType) throws MenuTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM menuType WHERE id = ?";
@@ -42,7 +44,7 @@ public class MenuTypeDataBaseAccess implements MenuTypeDataAccess {
             String name = data.getString("name");
             return new MenuType(id, name);
         } catch (SQLException exception) {
-            throw new MenuTypeException(exception.getMessage());
+            throw new MenuTypeException(exception.getMessage(), new OneException(), new ReadException());
         }
     }
 }
