@@ -15,6 +15,9 @@ public class MainFrame extends JFrame implements ActionListener {
     private static final int WINDOWS_RESOLUTION_Y = 500;
 
     public MainFrame() {
+        this.currentPanel = new WelcomePanel();
+        this.add(currentPanel);
+
         JMenu crud = new JMenu("CRUD");
         JMenuItem recipePublication = new JMenuItem("Publication de Recette");
         JMenuItem recipeModification = new JMenuItem("Modification de Recette");
