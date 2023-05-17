@@ -159,7 +159,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     }
 
     public void setAuthorForRecipe(Recipe selection) {
-        // TODO : need further work ...
+        // TODO : no time left, need further work ...
         PersonController personController = this.getPersonController();
         DefaultComboBoxModel<Person> personComboBoxModel = this.getAuthorComboBoxModel();
         try {
@@ -178,7 +178,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     }
 
     public void setCountryForRecipe(Recipe selection) {
-        // TODO : need further work ...
+        // TODO : no time left, need further work ...
         CountryController countryController = this.getCountryController();
         DefaultComboBoxModel<Country> countryComboBoxModel = this.getCountryComboBoxModel();
         try {
@@ -306,6 +306,14 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         }
     }
 
+    public void updateCountry(Recipe selection) {
+        // TODO : no time left, need further work
+    }
+
+    public void updateAuthor(Recipe selection) {
+        // TODO : no time left, need further work ...
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         String source = event.getActionCommand();
@@ -329,6 +337,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 this.updateMealCategory(selection);
                 this.updateRecipeSteps(selection);
                 this.updateIngredient(selection);
+                this.updateAuthor(selection);
+                this.updateCountry(selection);
 
                 this.recipeSelectionComboBoxModel.removeAllElements();
                 this.setAllRecipe();
