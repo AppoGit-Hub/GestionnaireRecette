@@ -1,7 +1,6 @@
 package dataAccess;
 
-import exception.AllMealCategoryException;
-import exception.MealCategoryException;
+import exception.*;
 import interfaceAccess.MealCategoryDataAccess;
 import model.MealCategory;
 
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 
 public class MealCategoryDataBaseAccess implements MealCategoryDataAccess {
     @Override
-    public ArrayList<MealCategory> getAllMealCategory()throws AllMealCategoryException {
+    public ArrayList<MealCategory> readAllMealCategory()throws MealCategoryException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM mealcategory";
@@ -25,11 +24,11 @@ public class MealCategoryDataBaseAccess implements MealCategoryDataAccess {
             }
             return menuCategories;
         } catch (SQLException exception) {
-            throw new AllMealCategoryException(exception.getMessage());
+            throw new MealCategoryException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
     @Override
-    public MealCategory getMealCategory(int mealCategory) throws MealCategoryException {
+    public MealCategory readMealCategory(int mealCategory) throws MealCategoryException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM mealcategory WHERE id = ?";
@@ -41,7 +40,7 @@ public class MealCategoryDataBaseAccess implements MealCategoryDataAccess {
             String name = data.getString("name");
             return new MealCategory(id, name);
         } catch (Exception exception) {
-            throw new MealCategoryException(exception.getMessage());
+            throw new MealCategoryException(exception.getMessage(), new OneException(), new ReadException());
         }
     }
 }

@@ -2,7 +2,7 @@ package userInterface;
 
 import controller.DietController;
 import controller.SearchController;
-import exception.AllDietException;
+import exception.DietException;
 import exception.SearchDietException;
 import model.SearchDietResult;
 import model.Diet;
@@ -50,10 +50,10 @@ public class SearchDietPanel extends JPanel implements ActionListener {
 
     public void setAllDiet() {
         try {
-            ArrayList<Diet> diets = dietController.getAllDiet();
+            ArrayList<Diet> diets = dietController.readAllDiet();
             this.dietComboBoxModel.addAll(diets);
-        } catch (AllDietException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load diets", "Failed to Load Diets", JOptionPane.ERROR_MESSAGE);
+        } catch (DietException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 

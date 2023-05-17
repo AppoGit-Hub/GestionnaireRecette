@@ -18,18 +18,18 @@ public class LineRecipeManager {
         this.lineRecipeAccess = lineRecipeAccess;
     }
 
-    public ArrayList<LineRecipe> getLineRecipeForRecipe(int recipe) throws LineRecipeException {
-        return this.lineRecipeAccess.getLineRecipeForRecipe(recipe);
+    public ArrayList<LineRecipe> readLineRecipeForRecipe(int recipe) throws LineRecipeException {
+        return this.lineRecipeAccess.readLineRecipeForRecipe(recipe);
     }
 
-    public void createLineRecipe(LineRecipe lineRecipe) throws CreateLineRecipeException {
+    public void createLineRecipe(LineRecipe lineRecipe) throws LineRecipeException {
         this.lineRecipeAccess.createLineRecipe(lineRecipe);
     }
 
-    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws DeleteLineRecipeException {
+    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws LineRecipeException {
         this.lineRecipeAccess.deleteLineRecipe(ingredient, recipeOrigin);
     }
-    public void deleteAllLineRecipe(int recipeOrigin) throws DeleteAllLineRecipeException {
+    public void deleteAllLineRecipe(int recipeOrigin) throws LineRecipeException {
         this.lineRecipeAccess.deleteAllLineRecipe(recipeOrigin);
     }
 }

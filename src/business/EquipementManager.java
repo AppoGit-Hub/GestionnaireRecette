@@ -1,11 +1,8 @@
 package business;
 
-import exception.CreateEquipementForException;
-import exception.DeleteAllEquipementException;
-import exception.DeleteEquipementException;
+import exception.*;
 import interfaceAccess.EquipementDataAccess;
 import dataAccess.EquipementDataBaseAccess;
-import exception.AllEquipementException;
 import model.Equipment;
 
 import java.util.ArrayList;
@@ -21,18 +18,18 @@ public class EquipementManager {
         this.equipementAccess = equipementAccess;
     }
 
-    public ArrayList<Equipment> getAllEquipementOf(int recipeCode) throws AllEquipementException {
-        return this.equipementAccess.getAllEquipementOf(recipeCode);
+    public ArrayList<Equipment> getAllEquipementOf(int recipeCode) throws EquipementException {
+        return this.equipementAccess.readAllEquipementOf(recipeCode);
     }
 
-    public void createEquipementFor(int recipeCode, String utensilName) throws CreateEquipementForException {
+    public void createEquipementFor(int recipeCode, String utensilName) throws EquipementException {
         this.equipementAccess.createEquipementFor(recipeCode, utensilName);
     }
 
-    public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
+    public void deleteEquipementFor(int recipeCode, String utensilName) throws EquipementException {
         this.equipementAccess.deleteEquipementFor(recipeCode, utensilName);
     }
-    public void deleteAllEquipement(int recipeCode) throws DeleteAllEquipementException {
+    public void deleteAllEquipement(int recipeCode) throws EquipementException {
         this.equipementAccess.deleteAllEquipement(recipeCode);
     }
 }

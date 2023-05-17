@@ -1,7 +1,6 @@
 package dataAccess;
 
-import exception.AllUtensilException;
-import exception.UtensilException;
+import exception.*;
 import interfaceAccess.UtensilDataAccess;
 import model.LevelPrice;
 import model.Utensil;
@@ -12,9 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class    UtensilDataBaseAccess implements UtensilDataAccess {
+public class UtensilDataBaseAccess implements UtensilDataAccess {
     @Override
-    public Utensil getUtensil(String name) throws UtensilException {
+    public Utensil readUtensil(String name) throws UtensilException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM utensil WHERE name = ?;";
@@ -29,14 +28,11 @@ public class    UtensilDataBaseAccess implements UtensilDataAccess {
 
             return new Utensil(utensilName, isElectric, levelPrice);
         } catch (SQLException exception) {
-            throw new UtensilException(exception.getMessage());
+            throw new UtensilException(exception.getMessage(), new OneException(), new ReadException());
         }
     }
-
-
-
     @Override
-    public ArrayList<Utensil> getAllUtensil() throws AllUtensilException {
+    public ArrayList<Utensil> readAllUtensil() throws UtensilException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM utensil;";
@@ -51,7 +47,7 @@ public class    UtensilDataBaseAccess implements UtensilDataAccess {
             }
             return utensils;
         } catch (SQLException exception) {
-            throw new AllUtensilException(exception.getMessage());
+            throw new UtensilException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
 }

@@ -1,10 +1,7 @@
 package controller;
 
 import business.PeriodManager;
-import exception.AllPeriodException;
-import exception.CreatePeriodException;
-import exception.DeleteAllPeriodException;
-import exception.DeletePeriodException;
+import exception.*;
 import model.Period;
 
 import java.util.ArrayList;
@@ -20,16 +17,16 @@ public class PeriodController {
         this.manager = manager;
     }
 
-    public ArrayList<Period> getAllPeriod(int recipeCode) throws AllPeriodException {
-        return this.manager.getAllPeriod(recipeCode);
+    public ArrayList<Period> readAllPeriod(int recipeCode) throws PeriodException {
+        return this.manager.readAllPeriod(recipeCode);
     }
-    public void createPeriod(int periodRecipe, int menuType) throws CreatePeriodException {
+    public void createPeriod(int periodRecipe, int menuType) throws PeriodException {
         this.manager.createPeriod(periodRecipe, menuType);
     }
-    public void deletePeriod(int periodRecipe, int menuType) throws DeletePeriodException {
+    public void deletePeriod(int periodRecipe, int menuType) throws PeriodException {
         this.manager.deletePeriod(periodRecipe, menuType);
     }
-    public void deleteAllPeriod(int periodRecipe) throws DeleteAllPeriodException {
+    public void deleteAllPeriod(int periodRecipe) throws PeriodException {
         this.manager.deleteAllPeriod(periodRecipe);
     }
 }

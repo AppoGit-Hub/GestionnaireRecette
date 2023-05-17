@@ -83,7 +83,7 @@ public class MainFrame extends JFrame implements ActionListener {
     }
 
     private JPanel gePanel(String name) {
-        // TODO : do this a better way. Maybe with generics ?
+        // TODO : do this a better way. Maybe with generics ? or even state design pattern ?
         switch (name) {
             case "Publication de Recette" -> {
                 return new PublishRecipePanel();

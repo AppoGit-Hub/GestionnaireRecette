@@ -1,7 +1,6 @@
 package business;
 
 import dataAccess.CountryDataBaseAccess;
-import exception.AllCountryException;
 import exception.CountryException;
 import interfaceAccess.CountryDataAccess;
 import model.Country;
@@ -19,11 +18,11 @@ public class CountryManager {
         this.countryAccess = countryAccess;
     }
 
-    public ArrayList<Country> getAllCountry() throws AllCountryException {
-        return this.countryAccess.getAllCountry();
+    public ArrayList<Country> readAllCountry() throws CountryException {
+        return this.countryAccess.readAllCountry();
     }
 
-    public Country getCountry(int country) throws CountryException {
-        return this.countryAccess.getCountry(country);
+    public Country readCountry(int country) throws CountryException {
+        return this.countryAccess.readCountry(country);
     }
 }

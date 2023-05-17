@@ -1,7 +1,12 @@
 package exception;
 
-public class LineRecipeException extends Exception {
-    public LineRecipeException(String message) {
-        super(message);
+public class LineRecipeException extends TypeException {
+    public LineRecipeException(String errorMessage, RangeOperationException rangeOperation, OperationException operation) {
+        super(errorMessage, rangeOperation, operation);
+    }
+
+    @Override
+    protected String getType() {
+        return "line recipe";
     }
 }

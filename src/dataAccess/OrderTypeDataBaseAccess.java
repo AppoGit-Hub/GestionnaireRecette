@@ -1,9 +1,6 @@
 package dataAccess;
 
-import exception.AllOrderTypeException;
-import exception.CreateOrderTypeException;
-import exception.DeleteAllOrderTypeException;
-import exception.DeleteOrderTypeException;
+import exception.*;
 import interfaceAccess.OrderTypeDataAccess;
 import model.OrderType;
 
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 
 public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
     @Override
-    public void createOrderType(int recipeCode, int mealCategory) throws CreateOrderTypeException {
+    public void createOrderType(int recipeCode, int mealCategory) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "INSERT INTO orderType VALUES (?, ?);";
@@ -24,11 +21,11 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             statement.setInt(2, mealCategory);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreateOrderTypeException(exception.getMessage());
+            throw new OrderTypeException(exception.getMessage(), new OneException(), new CreateException());
         }
     }
     @Override
-    public void deleteOrderType(int recipeCode, int mealCategory) throws DeleteOrderTypeException {
+    public void deleteOrderType(int recipeCode, int mealCategory) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM orderType WHERE fromRecipe = ? AND mealCategory = ?";
@@ -37,10 +34,10 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             statement.setInt(2, mealCategory);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteOrderTypeException(exception.getMessage());
+            throw new OrderTypeException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllOrderType(int recipeCode) throws DeleteAllOrderTypeException {
+    public void deleteAllOrderType(int recipeCode) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM orderType WHERE fromRecipe = ?;";
@@ -48,11 +45,11 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteAllOrderTypeException(exception.getMessage());
+            throw new OrderTypeException(exception.getMessage(), new AllException(), new DeleteException());
         }
-    }//todo : changer interface et exception
+    }
     @Override
-    public ArrayList<OrderType> getAllOrderType(int recipeCode) throws AllOrderTypeException {
+    public ArrayList<OrderType> readAllOrderType(int recipeCode) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM orderType WHERE fromRecipe = ?;";
@@ -68,7 +65,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             }
             return orderTypes;
         } catch (SQLException exception) {
-            throw new AllOrderTypeException(exception.getMessage());
+            throw new OrderTypeException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
 }

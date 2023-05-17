@@ -58,11 +58,11 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
                             "This is permanent !",
                             JOptionPane.YES_NO_OPTION);
                     if (confirmation == OK_OPTION) {
-                        ArrayList<Recipe> recipes = recipeController.getAllRecipe();
+                        ArrayList<Recipe> recipes = recipeController.readAllRecipe();
                         for (int index = 0; index < selectedIndex.length; index++) {
                             int codeRecipe = recipes.get(index).getCode();
                             this.recipeStepController.deleteAllStepRecipe(codeRecipe);
-                            this.lineRecipeController.deleteAllLineRecip(codeRecipe);
+                            this.lineRecipeController.deleteAllLineRecipe(codeRecipe);
                             this.equipementController.deleteAllEquipement(codeRecipe);
                             this.commentController.deleteAllComment(codeRecipe);
                             this.periodController.deleteAllPeriod(codeRecipe);
@@ -73,8 +73,8 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
                         this.repaint();
                         this.revalidate();
                     }
-                } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(null, "Failed to delete recipe", "Failed To Delete recipe", JOptionPane.ERROR_MESSAGE);
+                } catch (TypeException exception) {
+                    JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "You must select recipes", "Select Recipes", JOptionPane.ERROR_MESSAGE);

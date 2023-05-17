@@ -2,8 +2,8 @@ package userInterface;
 
 import business.SearchManager;
 import controller.IngredientController;
-import exception.AllIngredientException;
 import exception.SearchIngredientException;
+import exception.TypeException;
 import model.Ingredient;
 import model.SearchIngredientResult;
 
@@ -69,10 +69,10 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
 
     public void setAllIngredient() {
         try {
-            ArrayList<Ingredient> ingredients = this.ingredientController.getAllIngredient();
+            ArrayList<Ingredient> ingredients = this.ingredientController.readAllIngredient();
             this.ingredientComboBoxModel.addAll(ingredients);
-        } catch (AllIngredientException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load ingredients", "Failed to Load ingredients", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
 
         }
     }

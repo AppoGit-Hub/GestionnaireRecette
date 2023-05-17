@@ -30,8 +30,13 @@ public abstract class TypeException extends Exception {
         this.rangeOperation = rangeOperation;
     }
 
-    @Override
-    public String toString() {
-        return rangeOperation.getDescription() + " " + operation.getDescription() + " exception";
+    protected abstract String getType();
+
+    public String getDescription() {
+        return String.format("Failed to %s %s %s", operation.getDescription(), rangeOperation.getDescription(), getType());
+    }
+
+    public String getTitle() {
+        return String.format("%s error", getType());
     }
 }

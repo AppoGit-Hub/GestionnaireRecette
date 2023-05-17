@@ -1,11 +1,10 @@
 package interfaceAccess;
 
-import exception.AllDietException;
+import exception.DietException;
 import model.Diet;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public interface DietDataAccess {
-    ArrayList<Diet> getAllDiet() throws AllDietException;
+    ArrayList<Diet> readAllDiet() throws DietException;
 }

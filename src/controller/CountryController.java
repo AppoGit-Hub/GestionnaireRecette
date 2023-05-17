@@ -1,7 +1,6 @@
 package controller;
 
 import business.CountryManager;
-import exception.AllCountryException;
 import exception.CountryException;
 import model.Country;
 
@@ -17,11 +16,11 @@ public class CountryController {
         this.manager = manager;
     }
 
-    public ArrayList<Country> getAllCountry() throws AllCountryException {
-        return this.manager.getAllCountry();
+    public ArrayList<Country> readAllCountry() throws CountryException {
+        return this.manager.readAllCountry();
     }
 
-    public Country getCountry(int country) throws CountryException {
-        return this.manager.getCountry(country);
+    public Country readCountry(int country) throws CountryException {
+        return this.manager.readCountry(country);
     }
 }

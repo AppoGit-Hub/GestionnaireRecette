@@ -5,13 +5,10 @@ import exception.*;
 import model.*;
 
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 
 public class ModificationRecipePanel extends GlobalRecipePanel implements ActionListener {
@@ -42,10 +39,10 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
     public void setAllRecipe() {
         try {
             RecipeController recipeController = this.getRecipeController();
-            ArrayList<Recipe> recipes = recipeController.getAllRecipe();
+            ArrayList<Recipe> recipes = recipeController.readAllRecipe();
             this.recipeSelectionComboBoxModel.addAll(recipes);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load recipes", "Failed To Load Recipes", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -86,12 +83,12 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
             ArrayList<Equipment> equipments = equipementController.getAllEquipementOf(selection.getCode());
             ArrayList<Utensil> utensils = new ArrayList<Utensil>();
             for (Equipment equipment : equipments) {
-                Utensil utensil = utensilController.getUtensil(equipment.getUtensil());
+                Utensil utensil = utensilController.readUtensil(equipment.getUtensil());
                 utensils.add(utensil);
             }
             utensilList.addAll(utensils);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to set utensils", "Failed To Set Utensils", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -100,14 +97,14 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<String> recipeStepListModel = this.getRecipeStepListModel();
         try {
             recipeStepListModel.removeAllElements();
-            ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
+            ArrayList<RecipeStep> recipeSteps = recipeStepController.readAllRecipeStep(selection.getCode());
             ArrayList<String> recipeStepsDescription = new ArrayList<String>();
             for (RecipeStep recipeStep : recipeSteps) {
                 recipeStepsDescription.add(recipeStep.getDescription());
             }
             recipeStepListModel.addAll(recipeStepsDescription);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to set recipe steps", "Failed To Set Recipe Steps", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -117,14 +114,14 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MenuType> menuTypeListModel = this.getMenuTypeListModel();
         try {
             menuTypeListModel.removeAllElements();
-            ArrayList<Period> periods = periodController.getAllPeriod(selection.getCode());
+            ArrayList<Period> periods = periodController.readAllPeriod(selection.getCode());
             ArrayList<MenuType> menuTypes = new ArrayList<MenuType>();
             for (Period period : periods) {
-                menuTypes.add(menuTypeController.getMenuType(period.getMenuType()));
+                menuTypes.add(menuTypeController.readMenuType(period.getMenuType()));
             }
             menuTypeListModel.addAll(menuTypes);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to set menu types", "Failed To Set Menu Types", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -134,14 +131,14 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MealCategory> mealCategoryListModel = this.getMealCategoryListModel();
         try {
             mealCategoryListModel.removeAllElements();
-            ArrayList<OrderType> orderTypes = orderTypeController.getAllOrderType(selection.getCode());
+            ArrayList<OrderType> orderTypes = orderTypeController.readAllOrderType(selection.getCode());
             ArrayList<MealCategory> mealCategories = new ArrayList<MealCategory>();
             for (OrderType orderType : orderTypes) {
-                mealCategories.add(mealCategoryController.getMealCategory(orderType.getMealCategory()));
+                mealCategories.add(mealCategoryController.readMealCategory(orderType.getMealCategory()));
             }
             mealCategoryListModel.addAll(mealCategories);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to set meal catogories", "Failed To Set Meal Catogories", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -150,14 +147,14 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<LineRecipeDisplay> ingredientListModel = this.getIngredientListModel();
         try {
             ingredientListModel.removeAllElements();
-            ArrayList<LineRecipe> lineRecipes = lineRecipeController.getLineRecipeForRecipe(selection.getCode());
+            ArrayList<LineRecipe> lineRecipes = lineRecipeController.readLineRecipeForRecipe(selection.getCode());
             ArrayList<LineRecipeDisplay> lineRecipeDisplays = new ArrayList<>();
             for (LineRecipe lineRecipe : lineRecipes) {
                 lineRecipeDisplays.add(new LineRecipeDisplay(lineRecipe.getIngredient(), lineRecipe.getQuantity(), lineRecipe.getUnit()));
             }
             ingredientListModel.addAll(lineRecipeDisplays);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to set ingredients", "Failed To Set Ingredients", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -176,8 +173,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 Utensil utensil = newUtensils.nextElement();
                 equipementController.createEquipementFor(selection.getCode(), utensil.getName());
             }
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to update utensils", "Failed To Update Utensils", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -188,10 +185,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
             if (recipe != null) {
                 recipeController.updateRecipe(recipe);
             }
-        } catch (UpdateRecipeException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to update recipe", "Recipe Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Recipe Error", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -200,7 +195,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MenuType> menuTypeListModel = this.getMenuTypeListModel();
         try {
             // TODO : do a better job at updating menu types values
-            ArrayList<Period> periods = periodController.getAllPeriod(selection.getCode());
+            ArrayList<Period> periods = periodController.readAllPeriod(selection.getCode());
             for (Period period : periods) {
                 periodController.deletePeriod(selection.getCode(), period.getMenuType());
             }
@@ -209,8 +204,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 MenuType menuType = newMenuTypes.nextElement();
                 periodController.createPeriod(selection.getCode(), menuType.getId());
             }
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to update menu types", "Failed To Update Menu Types", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -219,7 +214,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<MealCategory> mealCategoryListModel = this.getMealCategoryListModel();
         try {
             // TODO : do a better job at updating meal categories values
-            ArrayList<OrderType> orderTypes = orderTypeController.getAllOrderType(selection.getCode());
+            ArrayList<OrderType> orderTypes = orderTypeController.readAllOrderType(selection.getCode());
             for (OrderType orderType : orderTypes) {
                 orderTypeController.deleteOrderType(selection.getCode(), orderType.getMealCategory());
             }
@@ -228,8 +223,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 MealCategory mealCategory = newMealCategries.nextElement();
                 orderTypeController.createOrderType(selection.getCode(), mealCategory.getId());
             }
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to update meal categories", "Failed To Update Meal Categories", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -238,7 +233,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<String> recipeStepListModel = this.getRecipeStepListModel();
         try {
             // TODO : do a better job at updating recipe steps values
-            ArrayList<RecipeStep> recipeSteps = recipeStepController.getAllRecipeStep(selection.getCode());
+            ArrayList<RecipeStep> recipeSteps = recipeStepController.readAllRecipeStep(selection.getCode());
             for (RecipeStep recipeStep : recipeSteps) {
                 recipeStepController.deleteRecipeStep(selection.getCode(), recipeStep.getNumber());
             }
@@ -249,9 +244,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 recipeStepController.createRecipeStep(new RecipeStep(selection.getCode(), index, recipeStepDescription));
                 index++;
             }
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to update recipe steps", "Failed To Update Recipe Steps", JOptionPane.ERROR_MESSAGE);
-
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -260,7 +254,7 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
         DefaultListModel<LineRecipeDisplay> ingredientListModel = this.getIngredientListModel();
         try {
             // TODO : do a better job at ingredient values
-            ArrayList<LineRecipe> lineRecipes = lineRecipeController.getLineRecipeForRecipe(selection.getCode());
+            ArrayList<LineRecipe> lineRecipes = lineRecipeController.readLineRecipeForRecipe(selection.getCode());
             for (LineRecipe lineRecipe : lineRecipes) {
                 lineRecipeController.deleteLineRecipe(lineRecipe.getIngredient(), selection.getCode());
             }
@@ -269,8 +263,8 @@ public class ModificationRecipePanel extends GlobalRecipePanel implements Action
                 LineRecipeDisplay lineRecipeDisplay = newLineRecipes.nextElement();
                 lineRecipeController.createLineRecipe(new LineRecipe(lineRecipeDisplay.getIngredient(), selection.getCode(), lineRecipeDisplay.getQuantity(), lineRecipeDisplay.getUnit()));
             }
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to update ingredients", "Failed To Update Ingredients", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 

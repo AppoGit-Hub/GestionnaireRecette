@@ -44,8 +44,8 @@ public class PublishRecipePanel extends GlobalRecipePanel implements ActionListe
                 if (recipe != null) {
                     this.recipeController.createRecipe(recipe);
                 }
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null, exception.getMessage(), "Recipe Error", JOptionPane.ERROR_MESSAGE);
+            } catch (TypeException exception) {
+                JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
         }
     }

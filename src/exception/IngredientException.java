@@ -1,7 +1,11 @@
 package exception;
 
-public class IngredientException extends Exception {
-    public IngredientException(String message) {
-        super(message);
+public class IngredientException extends TypeException {
+    public IngredientException(String errorMessage, RangeOperationException rangeOperation, OperationException operation) {
+        super(errorMessage, rangeOperation, operation);
+    }
+    @Override
+    protected String getType() {
+        return "ingredient";
     }
 }

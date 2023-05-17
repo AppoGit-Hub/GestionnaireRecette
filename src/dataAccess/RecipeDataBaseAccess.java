@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class RecipeDataBaseAccess implements RecipeDataAccess {
     @Override
-    public void createRecipe(Recipe recipe) throws CreateRecipeException {
+    public void createRecipe(Recipe recipe) throws RecipeException {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query =
@@ -34,17 +34,21 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             statement.setInt(12, recipe.getPerson());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreateRecipeException(exception.getMessage());
+            throw new RecipeException(exception.getMessage(), new OneException(), new CreateException());
         }
     }
 
     @Override
-    public Recipe read() {
-        return null;
+    public Recipe readRecipe() throws RecipeException {
+        try {
+            throw new SQLException();
+        } catch (SQLException exception) {
+            throw new RecipeException(exception.getMessage(), new OneException(), new ReadException());
+        }
     }
 
     @Override
-    public void update(Recipe recipe) throws UpdateRecipeException {
+    public void updateRecipe(Recipe recipe) throws RecipeException {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query =
@@ -79,25 +83,74 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             statement.setInt(12, recipe.getCode());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new UpdateRecipeException(exception.getMessage());
+            throw new RecipeException(exception.getMessage(), new OneException(), new UpdateException());
         }
     }
-
-
-    public void delete(int codeRecipe) throws DeleteRecipeException{
+    public void deleteRecipe(int codeRecipe) throws RecipeException {
         try{
             Connection connection = SingletonConnexion.getInstance();
             String query = "DELETE FROM recipe WHERE code = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,codeRecipe);
-            System.out.println("accesdata : recipe : delete : partie 3");
             statement.executeUpdate();
 
-        }catch(SQLException exception){
-            throw new DeleteRecipeException(exception.getMessage());
+        } catch(SQLException exception) {
+            throw new RecipeException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
+    @Override
+    public ArrayList<Recipe> readAllRecipe() throws RecipeException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "SELECT * FROM recipe;";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            ResultSet data = statement.executeQuery();
+            ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
+            while (data.next()) {
+                int code = data.getInt("code");
+                String title = data.getString("title");
+                boolean isHot = data.getBoolean("isHot");
+                Date publicationDate = data.getDate("publicationDate");
+                int timePreparation = data.getInt("timePreparation");
+                boolean isSalted = data.getBoolean("isSalted");
+                int numberPeopleConcerned = data.getInt("numberPeople");
+                Complexity complexity = Complexity.values()[data.getInt("complexityLevel")];
+                int person = data.getInt("author");
+
+                Recipe recipe = new Recipe(
+                        code,
+                        title,
+                        isHot,
+                        publicationDate.toLocalDate(),
+                        timePreparation,
+                        isSalted,
+                        numberPeopleConcerned,
+                        complexity,
+                        person
+                );
+
+                String description = data.getString("description");
+                if (!data.wasNull()) {
+                    recipe.setDescription(description);
+                }
+
+                int notAuthor = data.getInt("notAuthor");
+                if (!data.wasNull()) {
+                    recipe.setNoteAuthor(notAuthor);
+                }
+
+                int speciality = data.getInt("speciality");
+                if (!data.wasNull()) {
+                    recipe.setSpeciality(speciality);
+                }
+                recipes.add(recipe);
+            }
+            return recipes;
+        } catch (SQLException exception) {
+            throw new RecipeException(exception.getMessage(), new AllException(), new ReadException());
+        }
+    }
     @Override
     public int getNextCode() throws NextCodeRecipeException {
         try {
@@ -121,63 +174,6 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             return data.getInt("NUMBER_RECIPE");
         }catch(SQLException exception){
             throw new NumberRecipeException(exception.getMessage());
-        }
-    }
-    @Override
-    public ArrayList<Recipe> getAllRecipe() throws AllRecipeException {
-        try {
-            Connection connexion = SingletonConnexion.getInstance();
-            String query = "SELECT * FROM recipe;";
-            PreparedStatement statement = connexion.prepareStatement(query);
-            ResultSet data = statement.executeQuery();
-            ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-
-            while (data.next()) {
-                int code = data.getInt("code");
-                String title = data.getString("title");
-                boolean isHot = data.getBoolean("isHot");
-                Date publicationDate = data.getDate("publicationDate");
-                int timePreparation = data.getInt("timePreparation");
-                boolean isSalted = data.getBoolean("isSalted");
-                int numberPeopleConcerned = data.getInt("numberPeople");
-                Complexity complexity = Complexity.values()[data.getInt("complexityLevel")];
-                int person = data.getInt("author");
-
-                try {
-                    Recipe recipe = new Recipe(
-                            code,
-                            title,
-                            isHot,
-                            publicationDate.toLocalDate(),
-                            timePreparation,
-                            isSalted,
-                            numberPeopleConcerned,
-                            complexity,
-                            person
-                    );
-
-                    String description = data.getString("description");
-                    if (!data.wasNull()) {
-                        recipe.setDescription(description);
-                    }
-
-                    int notAuthor = data.getInt("notAuthor");
-                    if (!data.wasNull()) {
-                        recipe.setNoteAuthor(notAuthor);
-                    }
-
-                    int speciality = data.getInt("speciality");
-                    if (!data.wasNull()) {
-                        recipe.setSpeciality(speciality);
-                    }
-                    recipes.add(recipe);
-                } catch (Exception exception){
-                    throw new AllRecipeException(exception.getMessage());
-                }
-            }
-            return recipes;
-        } catch (SQLException exception) {
-            throw new AllRecipeException(exception.getMessage());
         }
     }
 }

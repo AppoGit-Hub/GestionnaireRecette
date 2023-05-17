@@ -1,17 +1,14 @@
 package interfaceAccess;
 
-import exception.AllRecipeStepException;
-import exception.CreateRecipeStepException;
-import exception.DeleteAllOfOneRecipeException;
-import exception.DeleteRecipeStepException;
+import exception.*;
 import model.Recipe;
 import model.RecipeStep;
 
 import java.util.ArrayList;
 
 public interface RecipeStepDataAccess {
-    ArrayList<RecipeStep> getAllRecipeStep(int recipeCode) throws AllRecipeStepException;
-    void deleteRecipeStep(int recipeCode, int number) throws DeleteRecipeStepException;
-    void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException;
-    void deleteAllRecipeStep(int recipeCode) throws DeleteAllOfOneRecipeException;
+    ArrayList<RecipeStep> readAllRecipeStep(int recipeCode) throws RecipeStepException;
+    void deleteRecipeStep(int recipeCode, int number) throws RecipeStepException;
+    void createRecipeStep(RecipeStep recipeStep) throws RecipeStepException;
+    void deleteAllRecipeStep(int recipeCode) throws RecipeStepException;
 }

@@ -1,7 +1,6 @@
 package dataAccess;
 
-import exception.AllDietException;
-import exception.AllEquipementException;
+import exception.*;
 import interfaceAccess.DietDataAccess;
 import model.Diet;
 import model.Equipment;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 
 public class DietDataBaseAcces implements DietDataAccess {
     @Override
-    public ArrayList<Diet> getAllDiet() throws AllDietException {
+    public ArrayList<Diet> readAllDiet() throws DietException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM diet;";
@@ -29,7 +28,7 @@ public class DietDataBaseAcces implements DietDataAccess {
             }
             return diets;
         } catch (SQLException exception) {
-            throw new AllDietException(exception.getMessage());
+            throw new DietException(exception.getMessage(), new AllException(), new ReadException());
         }
 
     }

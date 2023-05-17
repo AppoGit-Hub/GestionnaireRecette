@@ -1,7 +1,6 @@
 package controller;
 
 import business.MealCategoryManager;
-import exception.AllMealCategoryException;
 import exception.MealCategoryException;
 import model.MealCategory;
 
@@ -18,11 +17,11 @@ public class MealCategoryController {
         this.manager = manager;
     }
 
-    public ArrayList<MealCategory> getAllMenuCategories() throws AllMealCategoryException {
-        return manager.getAllMenuCategories();
+    public ArrayList<MealCategory> readAllMealCategory() throws MealCategoryException {
+        return manager.readAllMealCategory();
     }
 
-    public MealCategory getMealCategory(int mealCategory) throws MealCategoryException {
-        return manager.getMealCategory(mealCategory);
+    public MealCategory readMealCategory(int mealCategory) throws MealCategoryException {
+        return manager.readMealCategory(mealCategory);
     }
 }

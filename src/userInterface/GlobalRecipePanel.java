@@ -394,15 +394,15 @@ public class GlobalRecipePanel extends JPanel {
     public void setAuthor(int authorID) {
         // TODO : maybe there is a better way to do this ?
         try {
-            ArrayList<Person> persons = this.personController.getAllPerson();
+            ArrayList<Person> persons = this.personController.readAllPerson();
             int index = 0;
             while (index < persons.size() && persons.get(index).getId() != authorID) {
                 index++;
             }
             Person person = persons.get(index);
             this.setAuthor(person);
-        } catch (AllPersonException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load author", "Failed To Load", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
     public Country getCountry() {
@@ -414,15 +414,15 @@ public class GlobalRecipePanel extends JPanel {
     public void setCountry(int countryID) {
         // TODO : maybe there is a better way to do this ?
         try {
-            ArrayList<Country> countries = this.countryController.getAllCountry();
+            ArrayList<Country> countries = this.countryController.readAllCountry();
             int index = 0;
             while (index < countries.size() && countries.get(index).getId() != countryID) {
                 index++;
             }
             Country country = countries.get(index);
             this.setCountry(country);
-        } catch (AllCountryException e) {
-            JOptionPane.showMessageDialog(null, "Failed to load country", "Failed To Load", JOptionPane.ERROR_MESSAGE);
+        } catch (CountryException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
     public Complexity getComplexity() {
@@ -506,23 +506,23 @@ public class GlobalRecipePanel extends JPanel {
     }
     public void setAllMenuCategory() {
         try {
-            ArrayList<MealCategory> mealCategories = mealCategoryController.getAllMenuCategories();
+            ArrayList<MealCategory> mealCategories = mealCategoryController.readAllMealCategory();
             this.mealCategoryComboBoxModel.addAll(mealCategories);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load menus categories", "Failed To Load", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllMenuType() {
         try {
             ArrayList<MenuType> menuTypes = menuTypeController.getAllMenuTypes();
             this.menuTypeComboBoxModel.addAll(menuTypes);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load menus types", "Failed To Load", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllUtensil() {
         try {
-            ArrayList<Utensil> utensils = utensilController.getAllUtensil();
+            ArrayList<Utensil> utensils = utensilController.readAllUtensil();
             this.utensilComboBoxModel.addAll(utensils);
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Failed to load utensils", "Failed To Load", JOptionPane.ERROR_MESSAGE);
@@ -530,10 +530,10 @@ public class GlobalRecipePanel extends JPanel {
     }
     public void setAllIngredient() {
         try {
-            ArrayList<Ingredient> ingredients = ingredientController.getAllIngredient();
+            ArrayList<Ingredient> ingredients = ingredientController.readAllIngredient();
             this.nameIngredientComboBoxModel.addAll(ingredients);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load ingredients", "Failed To Load", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllUnit() {
@@ -542,10 +542,10 @@ public class GlobalRecipePanel extends JPanel {
     }
     public void setAllCountry() {
         try {
-            ArrayList<Country> countries = countryController.getAllCountry();
+            ArrayList<Country> countries = countryController.readAllCountry();
             this.countryComboBoxModel.addAll(countries);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load countrys", "Failed To Load", JOptionPane.ERROR_MESSAGE);
+        } catch (CountryException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
     public void setAllComplexity() {
@@ -554,10 +554,10 @@ public class GlobalRecipePanel extends JPanel {
     }
     public void setAllAuthor() {
         try {
-            ArrayList<Person> persons = personController.getAllPerson();
+            ArrayList<Person> persons = personController.readAllPerson();
             this.authorComboBoxModel.addAll(persons);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load authors", "Failed To Load", JOptionPane.ERROR_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
     public EquipementController getEquipementController() {

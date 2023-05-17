@@ -3,9 +3,7 @@ package tachemetier;
 import controller.CommentController;
 import controller.PersonController;
 import controller.RecipeController;
-import exception.AllPersonException;
-import exception.AllRecipeException;
-import exception.GetAllCommentException;
+import exception.*;
 import model.*;
 
 import javax.swing.*;
@@ -83,24 +81,24 @@ public class AddCommentPanel extends JPanel implements ActionListener {
 
     public void setAllRecipe() {
         try {
-            ArrayList<Recipe> recipes = this.recipeController.getAllRecipe();
+            ArrayList<Recipe> recipes = this.recipeController.readAllRecipe();
             this.recipeViewComboBoxModel.addAll(recipes);
-        } catch (AllRecipeException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load recipes from database", "Failed To Load Recipes", JOptionPane.WARNING_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public void setAllAuthor() {
         try {
-            ArrayList<Person> authors = this.personController.getAllPerson();
+            ArrayList<Person> authors = this.personController.readAllPerson();
             this.commentFormAuthorModel.addAll(authors);
-        } catch (AllPersonException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to load recipes from authors from database", "Failed To Load Authors", JOptionPane.WARNING_MESSAGE);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    private void setCommentForRecipe(int recipeCode) throws GetAllCommentException {
-        ArrayList<Comment> commentsFromRecipe = this.commentController.getAllComment(recipeCode);
+    private void setCommentForRecipe(int recipeCode) throws CommentException {
+        ArrayList<Comment> commentsFromRecipe = this.commentController.readAllComment(recipeCode);
         this.commentTable.setModel(new CommentViewTableModel(commentsFromRecipe));
     }
 
@@ -137,8 +135,8 @@ public class AddCommentPanel extends JPanel implements ActionListener {
             if (recipe != null) {
                 try {
                     this.setCommentForRecipe(recipe.getCode());
-                } catch (GetAllCommentException exception) {
-                    JOptionPane.showMessageDialog(null, "An error occured while displaying the comment", "An Error Occured", JOptionPane.ERROR_MESSAGE);
+                } catch (CommentException exception) {
+                    JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

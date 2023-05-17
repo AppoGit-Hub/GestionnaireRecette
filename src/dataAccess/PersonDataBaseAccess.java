@@ -1,8 +1,6 @@
 package dataAccess;
 
-import exception.AllCountryException;
-import exception.AllPersonException;
-import exception.PersonException;
+import exception.*;
 import interfaceAccess.PersonDataAccess;
 import model.Country;
 import model.Person;
@@ -11,9 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class PersonDataBaseAccess implements PersonDataAccess {
-
     @Override
-    public ArrayList<Person> getAllPerson() throws AllPersonException {
+    public ArrayList<Person> readAllPerson() throws PersonException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM person;";
@@ -31,12 +28,12 @@ public class PersonDataBaseAccess implements PersonDataAccess {
             }
             return persons;
         } catch (SQLException exception) {
-            throw new AllPersonException(exception.getMessage());
+            throw new PersonException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
 
     @Override
-    public Person getPerson(int person) throws PersonException {
+    public Person readPerson(int person) throws PersonException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM person WHERE id = ?;";
@@ -51,7 +48,7 @@ public class PersonDataBaseAccess implements PersonDataAccess {
             String password = data.getString("password");
             return new Person(id, firstname, lastname, birthday.toLocalDate(), password);
         } catch (SQLException exception) {
-            throw new PersonException(exception.getMessage());
+            throw new PersonException(exception.getMessage(), new OneException(), new ReadException());
         }
     }
 }

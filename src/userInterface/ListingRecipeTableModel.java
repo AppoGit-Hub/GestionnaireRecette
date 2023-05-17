@@ -1,14 +1,12 @@
 package userInterface;
 
 import controller.RecipeController;
-import exception.AllRecipeException;
 import exception.NumberRecipeException;
+import exception.TypeException;
 import model.Recipe;
 
 import javax.swing.table.AbstractTableModel;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ListingRecipeTableModel extends AbstractTableModel {
     private RecipeController recipeController;
@@ -44,7 +42,7 @@ public class ListingRecipeTableModel extends AbstractTableModel {
     }
     public Object getValueAt(int row, int col){
         try {
-            ArrayList<Recipe> recipes = recipeController.getAllRecipe();
+            ArrayList<Recipe> recipes = recipeController.readAllRecipe();
             Recipe recipe = recipes.get(row);
             return switch (col) {
                 case 0 -> recipe.getCode();
@@ -59,8 +57,7 @@ public class ListingRecipeTableModel extends AbstractTableModel {
                 case 9 -> recipe.getComplexity();
                 default -> null;
             };
-        } catch (AllRecipeException exception) {
-            // Message dialog for the exception ?
+        } catch (TypeException exception) {
             System.out.println(exception.getMessage());
         }
         return null;

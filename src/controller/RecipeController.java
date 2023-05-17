@@ -20,22 +20,22 @@ public class RecipeController {
     public int getNextCode() throws NextCodeRecipeException {
         return this.manager.getNextCode();
     }
-    public int  getNumberRecipe() throws NumberRecipeException {
+    public int getNumberRecipe() throws NumberRecipeException {
         return this.manager.getNumberRecipe();
     }
 
-    public ArrayList<Recipe> getAllRecipe() throws AllRecipeException {
-        return this.manager.getAllRecipe();
+    public ArrayList<Recipe> readAllRecipe() throws RecipeException {
+        return this.manager.readAllRecipe();
     }
 
-    public void updateRecipe(Recipe recipe) throws UpdateRecipeException {
+    public void updateRecipe(Recipe recipe) throws RecipeException {
         this.manager.updateRecipe(recipe);
     }
-    public void deleteRecipe(int codeRecipe) throws DeleteRecipeException {
+    public void deleteRecipe(int codeRecipe) throws RecipeException {
         this.manager.deleteRecipe(codeRecipe);
     }
 
-    public void createRecipe(Recipe recipe) throws CreateRecipeException {
+    public void createRecipe(Recipe recipe) throws RecipeException {
         this.manager.createRecipe(recipe);
     }
 }

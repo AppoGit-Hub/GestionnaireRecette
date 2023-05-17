@@ -1,7 +1,7 @@
 package controller;
 
 import business.DietManager;
-import exception.AllDietException;
+import exception.DietException;
 import model.Diet;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class DietController {
         this.manager = manager;
     }
 
-    public ArrayList<Diet> getAllDiet() throws AllDietException {
-        return this.manager.getAllDiet();
+    public ArrayList<Diet> readAllDiet() throws DietException {
+        return this.manager.readAllDiet();
     }
 }

@@ -1,9 +1,6 @@
 package business;
 
-import exception.AllRecipeStepException;
-import exception.CreateRecipeStepException;
-import exception.DeleteAllOfOneRecipeException;
-import exception.DeleteRecipeStepException;
+import exception.*;
 import interfaceAccess.RecipeStepDataAccess;
 import dataAccess.RecipeStepDataBaseAccess;
 import model.RecipeStep;
@@ -21,16 +18,16 @@ public class RecipeStepManager {
         this.recipeStepAccess = recipeStepAccess;
     }
 
-    public ArrayList<RecipeStep> getAllRecipeStep(int recipeCode) throws AllRecipeStepException {
-        return recipeStepAccess.getAllRecipeStep(recipeCode);
+    public ArrayList<RecipeStep> readAllRecipeStep(int recipeCode) throws RecipeStepException {
+        return recipeStepAccess.readAllRecipeStep(recipeCode);
     }
-    public void deleteRecipeStep(int recipeCode, int number) throws DeleteRecipeStepException {
+    public void deleteRecipeStep(int recipeCode, int number) throws RecipeStepException {
         this.recipeStepAccess.deleteRecipeStep(recipeCode, number);
     }
-    public void createRecipeStep(RecipeStep recipeStep) throws CreateRecipeStepException {
+    public void createRecipeStep(RecipeStep recipeStep) throws RecipeStepException {
         this.recipeStepAccess.createRecipeStep(recipeStep);
     }
-    public void deleteAllStepRecipe(int recipeCode) throws DeleteAllOfOneRecipeException {
+    public void deleteAllStepRecipe(int recipeCode) throws RecipeStepException {
         this.recipeStepAccess.deleteAllRecipeStep(recipeCode);
     }
 }

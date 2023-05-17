@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class EquipementDataBaseAccess implements EquipementDataAccess {
     @Override
-    public ArrayList<Equipment> getAllEquipementOf(int recipeCode) throws AllEquipementException {
+    public ArrayList<Equipment> readAllEquipementOf(int recipeCode) throws EquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM equipment WHERE inRecipe = ?;";
@@ -28,11 +28,11 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             }
             return equipments;
         } catch (SQLException exception) {
-            throw new AllEquipementException(exception.getMessage());
+            throw new EquipementException(exception.getMessage(), new AllException(), new ReadException());
         }
     }
     @Override
-    public void createEquipementFor(int recipeCode, String utensilName) throws CreateEquipementForException {
+    public void createEquipementFor(int recipeCode, String utensilName) throws EquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "INSERT INTO equipment VALUES (?, ?)";
@@ -41,12 +41,11 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             statement.setInt(2, recipeCode);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new CreateEquipementForException(exception.getMessage());
+            throw new EquipementException(exception.getMessage(), new OneException(), new CreateException());
         }
     }
-
     @Override
-    public void deleteEquipementFor(int recipeCode, String utensilName) throws DeleteEquipementException {
+    public void deleteEquipementFor(int recipeCode, String utensilName) throws EquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM equipment WHERE ustensil = ? AND inRecipe = ?;";
@@ -55,10 +54,10 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             statement.setInt(2, recipeCode);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteEquipementException(exception.getMessage());
+            throw new EquipementException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllEquipement(int recipeCode) throws DeleteAllEquipementException {
+    public void deleteAllEquipement(int recipeCode) throws EquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM equipment WHERE inRecipe = ?;";
@@ -66,7 +65,7 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             statement.setInt(1, recipeCode);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new DeleteAllEquipementException(exception.getMessage());
+            throw new EquipementException(exception.getMessage(), new AllException(), new DeleteException());
         }
-    }//todo : changer exception
+    }
 }
