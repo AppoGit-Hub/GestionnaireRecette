@@ -111,7 +111,11 @@ public class MainFrame extends JFrame implements ActionListener {
                 return new AddCommentPanel();
             }
             case "Saut de légume" -> {
-                return new VegetableJumpingPanel();
+                VegetableJumpingPanel vegetablePanel = new VegetableJumpingPanel();
+                VegetableMoveThread moveThread = new VegetableMoveThread(vegetablePanel);
+                moveThread.start();
+
+                return vegetablePanel;
             }
         }
         return null;

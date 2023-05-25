@@ -8,16 +8,10 @@ import java.util.HashSet;
 // on Benjamin's PC but not a Guyri's PC
 public class VegetableJumpingPanel extends JPanel {
     private HashSet<ImageVegetable> setImageVegetable;
-    private VegetableMoveThread theMoveThread;
-    private Boolean continued;
 
     public VegetableJumpingPanel() {
         setImageVegetable = new HashSet<>();
-        this.continued = true;
-        //setBackground(Color.WHITE);
         setLayout(null);
-        theMoveThread = new VegetableMoveThread(this, continued);
-        theMoveThread.start();
     }
 
     @Override

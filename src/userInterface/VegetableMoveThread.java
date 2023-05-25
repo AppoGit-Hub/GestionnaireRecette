@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class VegetableMoveThread extends Thread {
     private VegetableJumpingPanel presentationPage;
-    private boolean continued;
     private Random random;
+    private boolean continued;
     private int counter;
-    public VegetableMoveThread( VegetableJumpingPanel presentationPage,Boolean continued){
+    public VegetableMoveThread(VegetableJumpingPanel presentationPage){
         this.presentationPage = presentationPage;
-        this.continued = continued;
+        this.continued = true;
         this.random = new Random();
         this.counter = 0;
     }
@@ -19,7 +19,7 @@ public class VegetableMoveThread extends Thread {
         while(continued) {
             try{
                 Thread.sleep(190);
-                for( ImageVegetable aImageVegetable : presentationPage.getImageVegetableSet()){
+                for(ImageVegetable aImageVegetable : presentationPage.getImageVegetableSet()){
                     aImageVegetable.move();
                 }
                 presentationPage.getImageVegetableSet().removeIf(ImageVegetable::needBeEliminated);
