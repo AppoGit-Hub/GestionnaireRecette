@@ -1,12 +1,10 @@
-package tachemetier;
+package userInterface;
 
 import controller.PersonController;
 import model.Comment;
-import model.Complexity;
 import model.Person;
 
 import javax.swing.table.AbstractTableModel;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CommentViewTableModel extends AbstractTableModel {
@@ -80,4 +78,5 @@ public class CommentViewTableModel extends AbstractTableModel {
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
     }
+}
 }

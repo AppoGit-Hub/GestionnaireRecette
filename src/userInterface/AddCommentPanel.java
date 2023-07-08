@@ -1,10 +1,14 @@
-package tachemetier;
+package userInterface;
 
 import controller.CommentController;
 import controller.PersonController;
 import controller.RecipeController;
-import exception.*;
-import model.*;
+import exception.CommentException;
+import exception.TypeException;
+import model.Comment;
+import model.FormBuilder;
+import model.Person;
+import model.Recipe;
 
 import javax.swing.*;
 import java.awt.*;
