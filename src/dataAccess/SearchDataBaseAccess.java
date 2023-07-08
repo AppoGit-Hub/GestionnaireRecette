@@ -55,38 +55,17 @@ public class SearchDataBaseAccess implements SearchDataAcces {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query =
-                    """
-                    SELECT
-                        recipe.code,
-                        recipe.title,
-                        person.firstname,
-                        person.lastname,
-                        country.name
-                    FROM
-                        recipe
-                            INNER JOIN
-                        person ON recipe.author = person.id
-                            INNER JOIN
-                        country ON country.id = recipe.speciality
-                    WHERE
-                        recipe.code IN (SELECT
-                                recipe.code
-                            FROM
-                                recipe
-                                    INNER JOIN
-                                period ON period.periodRecipe = recipe.code
-                                    INNER JOIN
-                                menuType ON menuType.id = period.menuType
-                                    INNER JOIN
-                                linerecipe ON linerecipe.recipeOrigin = recipe.code
-                                    INNER JOIN
-                                ingredient ON ingredient.name = linerecipe.ingredient
-                            WHERE
-                                ingredient.name = ?
-                                    AND recipe.isHot = ?
-                                    AND menuType.id = ?)
-                    ;
-                    """;
+                """
+                SELECT recipe.code, recipe.title, person.firstname, person.lastname, country.name
+                FROM recipe
+                INNER JOIN person ON recipe.author = person.id
+                INNER JOIN country ON country.id = recipe.speciality
+                INNER JOIN period ON period.periodRecipe = recipe.code
+                INNER JOIN menuType ON menuType.id = period.menuType
+                INNER JOIN linerecipe ON linerecipe.recipeOrigin = recipe.code
+                INNER JOIN ingredient ON ingredient.name = linerecipe.ingredient
+                WHERE ingredient.name = ? AND recipe.isHot = ? AND menuType.id = ?;
+                """;
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setString(1, ingredient);
             statement.setBoolean(2, isHot);
@@ -111,30 +90,23 @@ public class SearchDataBaseAccess implements SearchDataAcces {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query =
-                    """
-                    SELECT
-                        recipe.code,
-                        recipe.title,
-                        ingredient.name AS "ingredient",
-                        foodcategory.name AS "foodcategory",
-                        productionperiod.dateBegining,
-                        productionperiod.dateEnding,
-                        linerecipe.quantity
-                    FROM
-                        recipe
-                            INNER JOIN
-                        linerecipe ON recipe.code = linerecipe.recipeOrigin
-                            INNER JOIN
-                        ingredient ON linerecipe.ingredient = ingredient.name
-                            INNER JOIN
-                        foodcategory ON foodcategory.id = ingredient.type
-                            INNER JOIN
-                        productionperiod ON productionperiod.id = ingredient.season
-                    WHERE
-                        ingredient.name = ?
-                            AND recipe.publicationDate BETWEEN ? AND ?
-                    ORDER BY foodcategory.name                        
-                    """;
+                """
+                SELECT
+                    recipe.code,
+                    recipe.title,
+                    ingredient.name AS "ingredient",
+                    foodcategory.name AS "foodcategory",
+                    productionperiod.dateBegining,
+                    productionperiod.dateEnding,
+                    linerecipe.quantity
+                FROM recipe
+                INNER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
+                INNER JOIN ingredient ON linerecipe.ingredient = ingredient.name
+                INNER JOIN foodcategory ON foodcategory.id = ingredient.type
+                INNER JOIN productionperiod ON productionperiod.id = ingredient.season
+                WHERE ingredient.name = ? AND recipe.publicationDate BETWEEN ? AND ?
+                ORDER BY foodcategory.name;                     
+                """;
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setString(1, ingredient);
             statement.setDate(2, Date.valueOf(dateBeginning));
