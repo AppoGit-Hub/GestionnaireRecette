@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class SearchDietPanel extends JPanel implements ActionListener {
-    // display recipes from a know diet
     private JComboBox<Diet> dietComboBox;
     private DefaultComboBoxModel<Diet> dietComboBoxModel;
     private JLabel dietError;

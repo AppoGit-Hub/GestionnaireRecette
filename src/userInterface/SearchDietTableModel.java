@@ -1,8 +1,10 @@
 package userInterface;
+import model.Complexity;
 import model.SearchDietResult;
 
 import javax.swing.table.AbstractTableModel;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,11 +15,12 @@ public class SearchDietTableModel extends AbstractTableModel {
 
     public SearchDietTableModel(ArrayList<SearchDietResult> searchDietResults) {
         this.columnNames = new String[] {
-            "Title",
-            "Publication Date",
-            "Number People",
-            "Complexity Level",
-            "Author"
+            "Titre",
+            "Date de Publication",
+            "Nombre de Personnes",
+            "Niveau de Complexité",
+            "Prénom",
+            "Nom"
         };
         setSearchDietResults(searchDietResults);
     }
@@ -36,43 +39,31 @@ public class SearchDietTableModel extends AbstractTableModel {
     }
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Object object;
         SearchDietResult resultDiet = searchDietResults.get(rowIndex);
         switch(columnIndex){
             case 0 :
-                object = resultDiet.getTitle();
-                break;
+                return resultDiet.getTitle();
             case 1 :
-                object = ((resultDiet.getPublicationDate() != null) ?
-                         java.util.Date.from(resultDiet.getPublicationDate().atStartOfDay(ZoneId.systemDefault()).toInstant())
-                        : null);
-                break;
+                return resultDiet.getPublicationDate();
             case 2 :
-                object = resultDiet.getNumberPeople();
-                break;
+                return resultDiet.getNumberPeople();
             case 3 :
-                object = resultDiet.getComplexity();
-                break;
+                return resultDiet.getComplexity();
+            case 4:
+                return resultDiet.getFirstname();
             default :
-                object = resultDiet.getFirstname() +" "+ resultDiet.getLastname();
-                break;
+                return resultDiet.getLastname();
         }
-        return object;
     }
     public Class getColumnClass(int column){
-        Class aClass;
-        switch(column){
-            case 0 :
-            case 4 :
-                aClass = String.class;
-                break;
-            case 1 :
-                aClass = Date.class;
-                break;
-            default :
-                aClass = Integer.class;
-        }
-        return aClass;
+        return switch (column) {
+            case 0 -> String.class;
+            case 1 -> LocalDate.class;
+            case 2 -> Integer.class;
+            case 3 -> Complexity.class;
+            case 4 -> String.class;
+            default -> String.class;
+        };
     }
 
     public void setSearchDietResults(ArrayList<SearchDietResult> searchDietResults) {

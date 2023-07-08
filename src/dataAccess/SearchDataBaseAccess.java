@@ -17,45 +17,15 @@ public class SearchDataBaseAccess implements SearchDataAcces {
             Connection connexion = SingletonConnexion.getInstance();
             String query =
                 """
-                SELECT
-                    recipe.code,
-                    recipe.title,
-                    recipe.publicationDate,
-                    recipe.numberPeople,
-                    recipe.complexityLevel,
-                    person.firstname,
-                    person.lastname
-                FROM
-                    recipe
-                        INNER JOIN
-                    person ON person.id = recipe.author
-                WHERE
-                    recipe.code IN (SELECT
-                            rcode
-                        FROM
-                            (SELECT
-                                recipe.code AS rcode, COUNT(ingredient.name) AS du
-                            FROM
-                                recipe
-                            INNER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
-                            INNER JOIN ingredient ON linerecipe.ingredient = ingredient.name
-                            INNER JOIN foodcategory ON ingredient.type = foodcategory.id
-                            INNER JOIN restriction ON restriction.foodcategory = foodcategory.id
-                            INNER JOIN diet ON restriction.diet = diet.id
-                            WHERE
-                                diet.id = ?
-                            GROUP BY recipe.code) AS leftPart
-                                INNER JOIN
-                            (SELECT
-                                recipe.code AS code, COUNT(ingredient.name) AS d
-                            FROM
-                                recipe
-                            INNER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
-                            INNER JOIN ingredient ON linerecipe.ingredient = ingredient.name
-                            GROUP BY recipe.code) AS rightPart
-                        WHERE
-                            leftPart.du = rightPart.d)
-                ;
+                SELECT DISTINCT recipe.code, recipe.title, recipe.publicationDate, recipe.numberPeople, recipe.complexityLevel, person.firstname, person.lastname
+                FROM recipe
+                INNER JOIN person ON person.id = recipe.author
+                INNER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
+                INNER JOIN ingredient ON linerecipe.ingredient = ingredient.name
+                INNER JOIN foodcategory ON ingredient.type = foodcategory.id
+                INNER JOIN restriction ON restriction.foodcategory = foodcategory.id
+                INNER JOIN diet ON restriction.diet = diet.id
+                WHERE diet.id = ?;
                 """;
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, diet);
