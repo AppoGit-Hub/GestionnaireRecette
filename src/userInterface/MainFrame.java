@@ -1,11 +1,8 @@
 package userInterface;
 
-import tachemetier.AddCommentPanel;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 
 public class MainFrame extends JFrame implements ActionListener {
     private JPanel currentPanel;

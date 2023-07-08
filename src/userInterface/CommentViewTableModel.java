@@ -79,4 +79,3 @@ public class CommentViewTableModel extends AbstractTableModel {
         this.comments = comments;
     }
 }
-}
