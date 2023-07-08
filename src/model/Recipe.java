@@ -129,7 +129,11 @@ public class Recipe {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description.isBlank() || description.isEmpty()) {
+            this.description = null;
+        } else {
+            this.description = description;
+        }
     }
 
     public void setSpeciality(Integer speciality) {

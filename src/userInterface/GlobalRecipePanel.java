@@ -484,40 +484,40 @@ public class GlobalRecipePanel extends JPanel {
         if (title != null && title.length() > 0) {
             Person author = this.getAuthor();
             if (author != null) {
-                Country country = this.getCountry();
-                if (country != null) {
-                    Complexity complexity = this.getComplexity();
-                    if (complexity != null) {
-                        boolean isHot = this.getIsHot();
-                        LocalDate publicationDate = this.getPublicationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                        boolean isSalty = this.getIsSalty();
-                        int person = this.getPeople();
-                        int note = this.getNote();
-                        int time = this.getTime();
-                        String description = this.getDescription();
+                Complexity complexity = this.getComplexity();
+                if (complexity != null) {
+                    boolean isHot = this.getIsHot();
+                    LocalDate publicationDate = this.getPublicationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    boolean isSalty = this.getIsSalty();
+                    int person = this.getPeople();
+                    int note = this.getNote();
+                    int time = this.getTime();
+                    String description = this.getDescription();
+                    Country country = this.getCountry();
 
-                        Recipe recipe = new Recipe(
-                            code,
-                            title,
-                            isHot,
-                            publicationDate,
-                            time,
-                            isSalty,
-                            person,
-                            complexity,
-                            author.getId()
-                        );
+                    Recipe recipe = new Recipe(
+                        code,
+                        title,
+                        isHot,
+                        publicationDate,
+                        time,
+                        isSalty,
+                        person,
+                        complexity,
+                        author.getId()
+                    );
 
-                        recipe.setSpeciality(country.getId());
-                        recipe.setNoteAuthor(note);
-                        recipe.setDescription(description);
-
-                        return recipe;
+                    if (country == null) {
+                        recipe.setSpeciality(null);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Select an complexity", "Recipe Complexity Error", JOptionPane.ERROR_MESSAGE);
+                        recipe.setSpeciality(country.getId());
                     }
+                    recipe.setNoteAuthor(note);
+                    recipe.setDescription(description);
+
+                    return recipe;
                 } else {
-                    JOptionPane.showMessageDialog(null, "Select an country", "Recipe Country Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Select an complexity", "Recipe Complexity Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Select an author", "Recipe Author Error", JOptionPane.ERROR_MESSAGE);
