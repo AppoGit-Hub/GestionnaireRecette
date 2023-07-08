@@ -2,9 +2,11 @@ package tachemetier;
 
 import controller.PersonController;
 import model.Comment;
+import model.Complexity;
 import model.Person;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CommentViewTableModel extends AbstractTableModel {
@@ -15,11 +17,11 @@ public class CommentViewTableModel extends AbstractTableModel {
     public CommentViewTableModel(ArrayList<Comment> comments) {
         this.personController = new PersonController();
         this.columnNames = new String[] {
-                "Title",
+                "Titre",
                 "Message",
-                "Rating",
-                "Author FirstName",
-                "Author LastName"
+                "Note",
+                "Prénom de l'Author",
+                "Nom de l'Author"
         };
         setComments(comments);
     }
@@ -66,7 +68,15 @@ public class CommentViewTableModel extends AbstractTableModel {
         }
         return null;
     }
-
+    public Class getColumnClass(int column){
+        return switch (column) {
+            case 0 -> String.class;
+            case 1 -> String.class;
+            case 2 -> Integer.class;
+            case 3 -> String.class;
+            default -> String.class;
+        };
+    }
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
     }
