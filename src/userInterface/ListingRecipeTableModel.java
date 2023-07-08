@@ -3,9 +3,11 @@ package userInterface;
 import controller.RecipeController;
 import exception.NumberRecipeException;
 import exception.TypeException;
+import model.Complexity;
 import model.Recipe;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ListingRecipeTableModel extends AbstractTableModel {
@@ -15,14 +17,14 @@ public class ListingRecipeTableModel extends AbstractTableModel {
         this.columnName = new String[] {
             "Identifiant",
             "Titre",
-            "Chaux",
-            "Date de publication",
-            "num auteur",
-            "Temps de préparation",
-            "Note de l'auteur",
-            "Salé",
-            "Pour combien de personne",
-            "Niveau de complexité"
+            "Est Chaux ?",
+            "Date de Publication",
+            "Numéro de l'Auteur",
+            "Temps de Préparation",
+            "Note de l'Auteur",
+            "est Salé ?",
+            "Pour Combien de Personne",
+            "Niveau de Complexité"
         };
         this.recipeController = new RecipeController();
     }
@@ -40,6 +42,22 @@ public class ListingRecipeTableModel extends AbstractTableModel {
     public String getColumnName(int col){
         return columnName[col];
     }
+
+    public Class getColumnClass(int column){
+        return switch (column) {
+            case 0 -> Integer.class;
+            case 1 -> String.class;
+            case 2 -> Boolean.class;
+            case 3 -> LocalDate.class;
+            case 4 -> Integer.class;
+            case 5 -> LocalDate.class;
+            case 6 -> Integer.class;
+            case 7 -> Boolean.class;
+            case 8 -> Integer.class;
+            default -> Complexity.class;
+        };
+    }
+
     public Object getValueAt(int row, int col){
         try {
             ArrayList<Recipe> recipes = recipeController.readAllRecipe();

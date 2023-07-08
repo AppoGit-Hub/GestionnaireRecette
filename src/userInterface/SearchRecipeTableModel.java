@@ -1,8 +1,11 @@
 package userInterface;
 
+import model.Country;
+import model.FoodCategory;
 import model.SearchRecipeResult;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SearchRecipeTableModel extends AbstractTableModel {
@@ -11,10 +14,10 @@ public class SearchRecipeTableModel extends AbstractTableModel {
 
     public SearchRecipeTableModel(ArrayList<SearchRecipeResult> searchRecipeResult) {
         this.columnNames = new String[] {
-            "Title",
-            "Firstname",
-            "Lastname",
-            "Country"
+            "Titre",
+            "Prénom",
+            "Nom",
+            "Pays"
         };
         setSearchRecipeResult(searchRecipeResult);
     }
@@ -41,16 +44,22 @@ public class SearchRecipeTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         SearchRecipeResult resultRecipe = searchRecipeResult.get(rowIndex);
-        switch (columnIndex) {
-            case 0 :
-                return resultRecipe.getRecipetitle();
-            case 1:
-                return resultRecipe.getPersonFirstName();
-            case 2:
-                return resultRecipe.getPersonLastName();
-            case 3:
-                return resultRecipe.getCountryName();
-        }
-        return null;//todo : ce n'est pas mieux de mettre un default dans le switch et retirer le return null
+        return switch (columnIndex) {
+            case 0 -> resultRecipe.getRecipetitle();
+            case 1 -> resultRecipe.getPersonFirstName();
+            case 2 -> resultRecipe.getPersonLastName();
+            case 3 -> resultRecipe.getCountryName();
+            default -> null;
+        };
     }
+
+    public Class getColumnClass(int column){
+        return switch (column) {
+            case 0 -> String.class;
+            case 1 -> String.class;
+            case 2 -> String.class;
+            default -> Country.class;
+        };
+    }
+
 }
