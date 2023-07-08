@@ -5,9 +5,14 @@ import exception.*;
 import model.*;
 
 import javax.swing.*;
+import javax.swing.text.DateFormatter;
 import java.awt.*;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class GlobalRecipePanel extends JPanel {
@@ -25,6 +30,8 @@ public class GlobalRecipePanel extends JPanel {
     private JLabel countryLabel;
     private JComboBox<Country> countryComboBox;
     private DefaultComboBoxModel<Country> countryComboBoxModel;
+    private JLabel publicationDateLabel;
+    private JSpinner publicationDateSpinner;
     private JLabel complexityLabel;
     private JComboBox<Complexity> complexityComboBox;
     private DefaultComboBoxModel<Complexity> complexityComboBoxModel;
@@ -139,6 +146,18 @@ public class GlobalRecipePanel extends JPanel {
         this.countryComboBoxModel = new DefaultComboBoxModel<Country>();
         this.countryComboBox = new JComboBox<Country>(countryComboBoxModel);
 
+        this.publicationDateLabel = new JLabel("Publication Date");
+        Calendar calendar = Calendar.getInstance();
+        Date initDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, -100);
+        Date earliestDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, 200);
+        Date latestDate = calendar.getTime();
+        SpinnerDateModel publicationDateModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.YEAR);
+        this.publicationDateSpinner = new JSpinner(publicationDateModel);
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(publicationDateSpinner, "dd/MM/yyyy");
+        this.publicationDateSpinner.setEditor(editor);
+
         this.complexityLabel = new JLabel("Complexity");
         this.complexityComboBoxModel = new DefaultComboBoxModel<Complexity>();
         this.complexityComboBox = new JComboBox<Complexity>(complexityComboBoxModel);
@@ -248,6 +267,7 @@ public class GlobalRecipePanel extends JPanel {
                 .addLabelAnd(authorLabel, authorComboBox)
                 .addLabelAnd(countryLabel, countryComboBox)
                 .addLabelAnd(complexityLabel, complexityComboBox)
+                .addLabelAnd(publicationDateLabel, publicationDateSpinner)
                 .addLabelAnd(peopleLabel, peopleSpinner)
                 .addLabelAnd(noteLabel, noteSpinner)
                 .addLabelAnd(timeLabel, timeSpinner)
@@ -452,6 +472,9 @@ public class GlobalRecipePanel extends JPanel {
     public String getDescription() {
         return this.descriptionTextArea.getText();
     }
+    public Date getPublicationDate() {
+        return (Date) publicationDateSpinner.getValue();
+    }
     public void setDescription(String description) {
         this.descriptionTextArea.setText(description);
     }
@@ -466,7 +489,7 @@ public class GlobalRecipePanel extends JPanel {
                     Complexity complexity = this.getComplexity();
                     if (complexity != null) {
                         boolean isHot = this.getIsHot();
-                        LocalDate publicationDate = LocalDate.now();
+                        LocalDate publicationDate = this.getPublicationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                         boolean isSalty = this.getIsSalty();
                         int person = this.getPeople();
                         int note = this.getNote();
@@ -474,15 +497,15 @@ public class GlobalRecipePanel extends JPanel {
                         String description = this.getDescription();
 
                         Recipe recipe = new Recipe(
-                                code,
-                                title,
-                                isHot,
-                                publicationDate,
-                                time,
-                                isSalty,
-                                person,
-                                complexity,
-                                author.getId()
+                            code,
+                            title,
+                            isHot,
+                            publicationDate,
+                            time,
+                            isSalty,
+                            person,
+                            complexity,
+                            author.getId()
                         );
 
                         recipe.setSpeciality(country.getId());
