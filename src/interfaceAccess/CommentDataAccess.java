@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface CommentDataAccess {
     void createComment(Comment comment) throws CommentException;
-    void deleteAllComment(int recipeCode) throws CommentException;
-    ArrayList<Comment> readAllComment(int recipeCode) throws CommentException, Exception;
-    int getNumberComment(int recipeCode) throws GetNumberCommentException;
+    void deleteAllComment(Integer recipeCode) throws CommentException;
+    ArrayList<Comment> readAllComment(Integer recipeCode) throws CommentException, Exception;
+    int getNumberComment(Integer recipeCode) throws GetNumberCommentException;
 }

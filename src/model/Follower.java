@@ -1,27 +1,27 @@
 package model;
 
 public class Follower {
-    private int child;
-    private int parent;
+    private Integer child;
+    private Integer parent;
 
-    public Follower(int child, int parent) {
+    public Follower(Integer child, Integer parent) {
         this.setChild(child);
         this.setParent(parent);
     }
 
-    public int getChild() {
+    public Integer getChild() {
         return child;
     }
 
-    public void setChild(int child) {
+    public void setChild(Integer child) {
         this.child = child;
     }
 
-    public int getParent() {
+    public Integer getParent() {
         return parent;
     }
 
-    public void setParent(int parent) {
+    public void setParent(Integer parent) {
         this.parent = parent;
     }
 }

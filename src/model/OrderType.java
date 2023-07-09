@@ -1,27 +1,27 @@
 package model;
 
 public class OrderType {
-    private int recipe;
-    private int mealCategory;
+    private Integer recipe;
+    private Integer mealCategory;
 
-    public OrderType(int recipe, int mealCategory) {
+    public OrderType(Integer recipe, Integer mealCategory) {
         setRecipe(recipe);
         setMealCategory(mealCategory);
     }
 
-    public int getRecipe() {
+    public Integer getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(int recipe) {
+    public void setRecipe(Integer recipe) {
         this.recipe = recipe;
     }
 
-    public int getMealCategory() {
+    public Integer getMealCategory() {
         return mealCategory;
     }
 
-    public void setMealCategory(int mealCategory) {
+    public void setMealCategory(Integer mealCategory) {
         this.mealCategory = mealCategory;
     }
 }

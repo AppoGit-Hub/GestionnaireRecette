@@ -6,17 +6,17 @@ public enum Complexity {
     ADVANCED(2),
     EXPERT(3);
 
-    private int complexity;
+    private Integer complexity;
 
-    Complexity(int complexity) {
+    Complexity(Integer complexity) {
         setComplexity(complexity);
     }
 
-    public void setComplexity(int complexity) {
+    public void setComplexity(Integer complexity) {
         this.complexity = complexity;
     }
 
-    public int getComplexity() {
+    public Integer getComplexity() {
         return complexity;
     }
 

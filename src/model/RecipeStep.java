@@ -1,26 +1,26 @@
 package model;
 
 public class RecipeStep {
-    private int recipe;
-    private int number;
+    private Integer recipe;
+    private Integer number;
     private String description;
 
-    public RecipeStep(int recipe, int number, String description) {
+    public RecipeStep(Integer recipe, Integer number, String description) {
         setRecipe(recipe);
         setNumber(number);
         setDescription(description);
     }
 
-    public int getRecipe() {
+    public Integer getRecipe() {
         return recipe;
     }
-    public void setRecipe(int recipe) {
+    public void setRecipe(Integer recipe) {
         this.recipe = recipe;
     }
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
     public String getDescription() {

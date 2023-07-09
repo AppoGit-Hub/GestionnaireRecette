@@ -1,18 +1,18 @@
 package model;
 
 public class LineRecipe extends LineRecipeDisplay {
-    private int recipe;
+    private Integer recipe;
 
-    public LineRecipe(String ingredient, int recipe, int quantity, Unit unit) {
+    public LineRecipe(String ingredient, Integer recipe, Integer quantity, Unit unit) {
         super(ingredient, quantity, unit);
         this.setRecipe(recipe);
     }
 
-    public void setRecipe(int recipe) {
+    public void setRecipe(Integer recipe) {
         this.recipe = recipe;
     }
 
-    public int getRecipe() {
+    public Integer getRecipe() {
         return recipe;
     }
 }

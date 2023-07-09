@@ -3,25 +3,15 @@ package model;
 import java.time.LocalDate;
 
 public class SearchIngredientResult {
-/*
-    int recipeCode = data.getInt("code");
-    String recipeTitle = data.getString("title");
-    String ingredientName = data.getString("ingredient");
-    String foodCategoryName = data.getString("foodcategory");
-    LocalDate producitonDateBegining = data.getDate("dateBegining").toLocalDate();
-    LocalDate producitonDateEnding = data.getDate("dateEnding").toLocalDate();
-    int lineRecipeQuantity =data.getInt("quantity");
- */
-
     private int recipeCode;
     private String recipeTitle;
     private String ingredient;
     private String foodCategory;
-    private LocalDate DateBegining;
-    private LocalDate DateEnding;
-    private int lineRecipeQuantity;
+    private LocalDate dateBegining;
+    private LocalDate dateEnding;
+    private Integer lineRecipeQuantity;
 
-    public SearchIngredientResult(int recipeCode, String recipeTitle, String ingredient, String foodCategory, LocalDate dateBegining, LocalDate dateEnding, int lineRecipeQuantity) {
+    public SearchIngredientResult(int recipeCode, String recipeTitle, String ingredient, String foodCategory, LocalDate dateBegining, LocalDate dateEnding, Integer lineRecipeQuantity) {
         setRecipeCode(recipeCode);
         setRecipeTitle(recipeTitle);
         setIngredient(ingredient);
@@ -49,14 +39,14 @@ public class SearchIngredientResult {
     }
 
     public LocalDate getDateBegining() {
-        return DateBegining;
+        return dateBegining;
     }
 
     public LocalDate getDateEnding() {
-        return DateEnding;
+        return dateEnding;
     }
 
-    public int getLineRecipeQuantity() {
+    public Integer getLineRecipeQuantity() {
         return lineRecipeQuantity;
     }
 
@@ -73,18 +63,18 @@ public class SearchIngredientResult {
     }
 
     public void setDateBegining(LocalDate dateBegining) {
-        DateBegining = dateBegining;
+        this.dateBegining = dateBegining;
     }
 
     public void setDateEnding(LocalDate dateEnding) {
-        DateEnding = dateEnding;
+        this.dateEnding = dateEnding;
     }
 
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
 
-    public void setLineRecipeQuantity(int lineRecipeQuantity) {
+    public void setLineRecipeQuantity(Integer lineRecipeQuantity) {
         this.lineRecipeQuantity = lineRecipeQuantity;
     }
 }

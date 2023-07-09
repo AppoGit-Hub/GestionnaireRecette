@@ -2,9 +2,9 @@ package model;
 
 public class Equipment {
     private String utensil;
-    private int recipe;
+    private Integer recipe;
 
-    public Equipment(String utensil, int recipe) {
+    public Equipment(String utensil, Integer recipe) {
         setUtensil(utensil);
         setRecipe(recipe);
     }
@@ -14,10 +14,10 @@ public class Equipment {
     public String getUtensil() {
         return utensil;
     }
-    public void setRecipe(int recipe) {
+    public void setRecipe(Integer recipe) {
         this.recipe = recipe;
     }
-    public int getRecipe() {
+    public Integer getRecipe() {
         return recipe;
     }
 }

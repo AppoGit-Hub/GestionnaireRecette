@@ -3,14 +3,14 @@ package model;
 import exception.*;
 
 public class Comment {
-    private int recipe;
-    private int number;
+    private Integer recipe;
+    private Integer number;
     private String message;
-    private int rating;
+    private Integer rating;
     private String title;
-    private int person;
+    private Integer person;
 
-    public Comment(int recipe, int number, String message, int rating, String title, int person) throws Exception {
+    public Comment(Integer recipe, Integer number, String message, Integer rating, String title, Integer person) throws Exception {
         this.setRecipe(recipe);
         this.setNumber(number);
         this.setMessage(message);
@@ -19,11 +19,11 @@ public class Comment {
         this.setPerson(person);
     }
 
-    public int getRecipe() {
+    public Integer getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(int recipe) throws CommentSetRecipeException {
+    public void setRecipe(Integer recipe) throws CommentSetRecipeException {
         if (recipe >= 0) {
             this.recipe = recipe;
         } else {
@@ -31,11 +31,11 @@ public class Comment {
         }
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) throws CommentSetNumberException {
+    public void setNumber(Integer number) throws CommentSetNumberException {
         if (number >= 0) {
             this.number = number;
         } else {
@@ -55,11 +55,11 @@ public class Comment {
         }
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) throws CommentSetRatingException {
+    public void setRating(Integer rating) throws CommentSetRatingException {
         if (rating >= 0 && rating <= 10) {
             this.rating = rating;
         } else {
@@ -79,11 +79,11 @@ public class Comment {
         }
     }
 
-    public int getPerson() {
+    public Integer getPerson() {
         return person;
     }
 
-    public void setPerson(int person) throws CommentSetPersonException {
+    public void setPerson(Integer person) throws CommentSetPersonException {
         if (person >= 0) {
             this.person = person;
         } else {

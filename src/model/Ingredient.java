@@ -4,10 +4,10 @@ public class Ingredient {
     private String name;
     private Float minPreservationTemperature;
     private Float maxPreservationTemperature;
-    private int season;
-    private int type;
+    private Integer season;
+    private Integer type;
 
-    public Ingredient(String name, Float minPreservationTemperature, Float maxPreservationTemperature, int season, int type) {
+    public Ingredient(String name, Float minPreservationTemperature, Float maxPreservationTemperature, Integer season, Integer type) {
         this.setName(name);
         this.setMinMaxPreservaationTemperature(minPreservationTemperature, maxPreservationTemperature);
         this.setSeason(season);
@@ -60,11 +60,11 @@ public class Ingredient {
         this.maxPreservationTemperature = max;
     }
 
-    public int getSeason() {
+    public Integer getSeason() {
         return season;
     }
 
-    public void setSeason(int season) {
+    public void setSeason(Integer season) {
         if (season >= 0) {
             this.season = season;
         } else {
@@ -72,11 +72,11 @@ public class Ingredient {
         }
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         if (type >= 0) {
             this.type = type;
         } else {

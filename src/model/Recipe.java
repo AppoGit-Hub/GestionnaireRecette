@@ -10,24 +10,24 @@ public class Recipe {
     private boolean isHot;
     private LocalDate publicationDate;
     private String description;
-    private int timePreparation;
-    private int noteAuthor;
+    private Integer timePreparation;
+    private Integer noteAuthor;
     private boolean isSalted;
-    private int numberPeopleConcerned;
+    private Integer numberPeopleConcerned;
     private Complexity complexity;
     private Integer speciality;
-    private int person;
+    private Integer person;
 
     public Recipe(
         int code,
         String title,
         boolean isHot,
         LocalDate publicationDate,
-        int timePreparation,
+        Integer timePreparation,
         boolean isSalted,
-        int numberPeopleConcerned,
+        Integer numberPeopleConcerned,
         Complexity complexity,
-        int person
+        Integer person
     ) {
         this.setCode(code);
         this.setTitle(title);
@@ -39,95 +39,72 @@ public class Recipe {
         this.setComplexity(complexity);
         this.setPerson(person);
     }
-
     public int getCode() {
         return code;
     }
-
     public String getTitle() {
         return title;
     }
-
     public boolean getIsHot() {
         return isHot;
     }
-
     public LocalDate getPublicationDate() {
         return publicationDate;
     }
-
     public String getDescription() {
         return description;
     }
-
-    public int getTimePreparation() {
+    public Integer getTimePreparation() {
         return timePreparation;
     }
-
     public void setNoteAuthor(int note) {
         this.noteAuthor = note;
     }
-
-    public int getNoteAuthor() {
+    public Integer getNoteAuthor() {
         return noteAuthor;
     }
-
     public boolean getIsSalted() {
         return isSalted;
     }
-
-    public int getNumberPeopleConcerned() {
+    public Integer getNumberPeopleConcerned() {
         return numberPeopleConcerned;
     }
-
     public Complexity getComplexity() {
         return complexity;
     }
-
     public Integer getSpeciality() {
         return speciality;
     }
-
-    public int getPerson() {
+    public Integer getPerson() {
         return person;
     }
-
     public void setCode(int code) {
         this.code = code;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public void setIsHot(boolean hot) {
         this.isHot = hot;
     }
-
     public void setPublicationDate(LocalDate publicationDate) {
         this.publicationDate = publicationDate;
     }
-
-    public void setTimePreparation(int timePreparation) {
+    public void setTimePreparation(Integer timePreparation) {
         this.timePreparation = timePreparation;
     }
-
     public void setIsSalted(boolean salted) {
         this.isSalted = salted;
     }
-
-    public void setNumberPeopleConcerned(int numberPeopleConcerned) {
+    public void setNumberPeopleConcerned(Integer numberPeopleConcerned) {
         this.numberPeopleConcerned = numberPeopleConcerned;
     }
-
     public void setComplexity(Complexity complexity) {
         this.complexity = complexity;
     }
-
-    public void setPerson(int person) {
+    public void setPerson(Integer person) {
         this.person = person;
     }
-
     public void setDescription(String description) {
         if (description.isBlank() || description.isEmpty()) {
             this.description = null;
@@ -135,11 +112,9 @@ public class Recipe {
             this.description = description;
         }
     }
-
     public void setSpeciality(Integer speciality) {
         this.speciality = speciality;
     }
-
     @Override
     public String toString() {
         return title + " " + publicationDate;

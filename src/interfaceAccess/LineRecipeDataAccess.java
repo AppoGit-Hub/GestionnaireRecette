@@ -6,8 +6,8 @@ import model.LineRecipe;
 import java.util.ArrayList;
 
 public interface LineRecipeDataAccess {
-    ArrayList<LineRecipe> readLineRecipeForRecipe(int recipe) throws LineRecipeException;
+    ArrayList<LineRecipe> readLineRecipeForRecipe(Integer recipe) throws LineRecipeException;
     void createLineRecipe(LineRecipe lineRecipe) throws LineRecipeException;
-    void deleteLineRecipe(String ingredient, int recipeOrigin) throws LineRecipeException;
-    void deleteAllLineRecipe(int recipeOrigin) throws LineRecipeException;
+    void deleteLineRecipe(String ingredient, Integer recipeOrigin) throws LineRecipeException;
+    void deleteAllLineRecipe(Integer recipeOrigin) throws LineRecipeException;
 }

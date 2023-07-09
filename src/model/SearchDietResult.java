@@ -6,12 +6,12 @@ public class SearchDietResult {
     private int code;
     private String title;
     private LocalDate publicationDate;
-    private int numberPeople;
+    private Integer numberPeople;
     private Complexity complexity;
     private String firstname;
     private String lastname;
 
-    public SearchDietResult(int code, String title, LocalDate publicationDate, int numberPeople, Complexity complexity, String firstname, String lastname) {
+    public SearchDietResult(int code, String title, LocalDate publicationDate, Integer numberPeople, Complexity complexity, String firstname, String lastname) {
         setCode(code);
         setTitle(title);
         setPublicationDate(publicationDate);
@@ -33,7 +33,7 @@ public class SearchDietResult {
         this.publicationDate = publicationDate;
     }
 
-    public void setNumberPeople(int numberPeople) {
+    public void setNumberPeople(Integer numberPeople) {
         this.numberPeople = numberPeople;
     }
 

@@ -2,10 +2,10 @@ package model;
 
 public class LineRecipeDisplay {
     private String ingredient;
-    private int quantity;
+    private Integer quantity;
     private Unit unit;
 
-    public LineRecipeDisplay(String ingredient, int quantity, Unit unit) {
+    public LineRecipeDisplay(String ingredient, Integer quantity, Unit unit) {
         this.setIngredient(ingredient);
         this.setQuantity(quantity);
         this.setUnit(unit);
@@ -18,7 +18,7 @@ public class LineRecipeDisplay {
         this.ingredient = ingredient;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 

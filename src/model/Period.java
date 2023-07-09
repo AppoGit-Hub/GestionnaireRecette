@@ -1,27 +1,27 @@
 package model;
 
 public class Period {
-    private int recipe;
-    private int menuType;
+    private Integer recipe;
+    private Integer menuType;
 
-    public Period(int recipe, int menuType) {
+    public Period(Integer recipe, Integer menuType) {
         setRecipe(recipe);
         setMenuType(menuType);
     }
 
-    public void setRecipe(int recipe) {
+    public void setRecipe(Integer recipe) {
         this.recipe = recipe;
     }
 
-    public int getRecipe() {
+    public Integer getRecipe() {
         return recipe;
     }
 
-    public void setMenuType(int menuType) {
+    public void setMenuType(Integer menuType) {
         this.menuType = menuType;
     }
 
-    public int getMenuType() {
+    public Integer getMenuType() {
         return menuType;
     }
 }
