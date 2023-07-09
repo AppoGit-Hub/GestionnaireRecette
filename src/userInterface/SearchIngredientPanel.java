@@ -2,6 +2,7 @@ package userInterface;
 
 import business.SearchManager;
 import controller.IngredientController;
+import controller.SearchController;
 import exception.SearchIngredientException;
 import exception.TypeException;
 import model.Ingredient;
@@ -24,12 +25,12 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
     private JButton ingredientSubmitButton;
     private JTable ingredientTable;
     private IngredientController ingredientController;
-    private SearchManager searchManager;
+    private SearchController searchController;
     private static final int DATE_YEAR_MIN = 1950;
     private static final int DATE_YEAR_MAX = 2023;
     public SearchIngredientPanel() {
         this.ingredientController = new IngredientController();
-        this.searchManager = new SearchManager();
+        this.searchController = new SearchController();
 
         SpinnerNumberModel startDateSpinnerNumber = new SpinnerNumberModel(2000, DATE_YEAR_MIN, DATE_YEAR_MAX, 1);
         this.startDate = new JSpinner(startDateSpinnerNumber);
@@ -79,7 +80,7 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
 
     private void setIngredientRecipe(Ingredient ingredient, LocalDate dateBeginning, LocalDate dateEnding) {
         try {
-            ArrayList<SearchIngredientResult> searchIngredientResults = this.searchManager.searchIngredient(ingredient.getName(), dateBeginning, dateEnding);
+            ArrayList<SearchIngredientResult> searchIngredientResults = this.searchController.searchIngredient(ingredient.getName(), dateBeginning, dateEnding);
             this.ingredientTable.setModel(new SearchIngredientTableModel(searchIngredientResults));
         } catch (SearchIngredientException exception) {
             JOptionPane.showMessageDialog(null, "Failed to display ingredients", "Failed to Display Ingredients", JOptionPane.ERROR_MESSAGE);
