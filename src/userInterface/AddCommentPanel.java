@@ -101,7 +101,7 @@ public class AddCommentPanel extends JPanel implements ActionListener {
         }
     }
 
-    private void setCommentForRecipe(int recipeCode) throws CommentException {
+    private void setCommentForRecipe(int recipeCode) throws CommentException, Exception {
         ArrayList<Comment> commentsFromRecipe = this.commentController.readAllComment(recipeCode);
         this.commentTable.setModel(new CommentViewTableModel(commentsFromRecipe));
     }
@@ -141,6 +141,8 @@ public class AddCommentPanel extends JPanel implements ActionListener {
                     this.setCommentForRecipe(recipe.getCode());
                 } catch (CommentException exception) {
                     JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "An error occured while creating the comment", "An Error Occured", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

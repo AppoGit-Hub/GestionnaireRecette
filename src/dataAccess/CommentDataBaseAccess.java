@@ -3,7 +3,6 @@ package dataAccess;
 import exception.*;
 import interfaceAccess.CommentDataAccess;
 import model.Comment;
-import model.Recipe;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ public class CommentDataBaseAccess implements CommentDataAccess {
         }
     }
 
-    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException {
+    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException, Exception {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query = "SELECT * FROM comment WHERE recipe = ?;";

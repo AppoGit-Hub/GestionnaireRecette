@@ -28,7 +28,7 @@ public class CommentController {
         return this.manager.getNumberComment(recipeCode);
     }
 
-    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException {
+    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException, Exception {
         return this.manager.readAllComment(recipeCode);
     }
 }

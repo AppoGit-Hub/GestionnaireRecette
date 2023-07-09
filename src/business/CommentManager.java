@@ -28,7 +28,7 @@ public class CommentManager {
         return this.commentAccess.getNumberComment(recipeCode);
     }
 
-    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException {
+    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException, Exception {
         return this.commentAccess.readAllComment(recipeCode);
     }
 }

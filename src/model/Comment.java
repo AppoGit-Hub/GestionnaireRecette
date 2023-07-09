@@ -1,5 +1,7 @@
 package model;
 
+import exception.*;
+
 public class Comment {
     private int recipe;
     private int number;
@@ -8,7 +10,7 @@ public class Comment {
     private String title;
     private int person;
 
-    public Comment(int recipe, int number, String message, int rating, String title, int person) {
+    public Comment(int recipe, int number, String message, int rating, String title, int person) throws Exception {
         this.setRecipe(recipe);
         this.setNumber(number);
         this.setMessage(message);
@@ -21,11 +23,11 @@ public class Comment {
         return recipe;
     }
 
-    public void setRecipe(int recipe) {
+    public void setRecipe(int recipe) throws CommentSetRecipeException {
         if (recipe >= 0) {
             this.recipe = recipe;
         } else {
-            // throw exception ?
+            throw new CommentSetRecipeException(recipe);
         }
     }
 
@@ -33,11 +35,11 @@ public class Comment {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(int number) throws CommentSetNumberException {
         if (number >= 0) {
             this.number = number;
         } else {
-            // throw exception ?
+            throw new CommentSetNumberException(number);
         }
     }
 
@@ -45,11 +47,11 @@ public class Comment {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(String message) throws CommentSetMessageException {
         if (message != null && message.length() > 0) {
             this.message = message;
         } else {
-            // throw exception ?
+            throw new CommentSetMessageException(message);
         }
     }
 
@@ -57,11 +59,11 @@ public class Comment {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(int rating) throws CommentSetRatingException {
         if (rating >= 0 && rating <= 10) {
             this.rating = rating;
         } else {
-            // throw exception ?
+            throw new CommentSetRatingException(rating);
         }
     }
 
@@ -69,11 +71,11 @@ public class Comment {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title) throws CommentSetTitleException {
         if (title != null && title.length() > 0) {
             this.title = title;
         } else {
-            // throw exception ?
+            throw new CommentSetTitleException(title);
         }
     }
 
@@ -81,11 +83,11 @@ public class Comment {
         return person;
     }
 
-    public void setPerson(int person) {
+    public void setPerson(int person) throws CommentSetPersonException {
         if (person >= 0) {
             this.person = person;
         } else {
-            // throw exception ?
+            throw new CommentSetPersonException(person);
         }
     }
 }
