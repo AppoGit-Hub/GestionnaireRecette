@@ -5,9 +5,7 @@ import exception.*;
 import model.*;
 
 import javax.swing.*;
-import javax.swing.text.DateFormatter;
 import java.awt.*;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -43,12 +41,16 @@ public class GlobalRecipePanel extends JPanel {
     private JSpinner timeSpinner;
     private JLabel descriptionLabel;
     private JTextArea descriptionTextArea;
+
+
     private JButton addUtensilButton;
     private JButton removeUtensilButton;
     private JComboBox<Utensil> utensilComboBox;
     private DefaultComboBoxModel<Utensil> utensilComboBoxModel;
     private JList<Utensil> utensilList;
     private DefaultListModel<Utensil> utensilListModel;
+
+
     private JButton addMenuTypeButton;
     private JButton removeMenuTypeButton;
     private JComboBox<MenuType> menuTypeComboBox;
@@ -56,6 +58,8 @@ public class GlobalRecipePanel extends JPanel {
     private JList<MenuType> menuTypeList;
     private DefaultListModel<MenuType> menuTypeListModel;
     private JLabel menuTypeAccessErrorLabel;
+
+
     private JButton addMealCategoryButton;
     private JButton removeMealCategoryButton;
     private JComboBox<MealCategory> mealCategoryComboBox;
@@ -63,6 +67,8 @@ public class GlobalRecipePanel extends JPanel {
     private JList<MealCategory> mealCategoryList;
     private DefaultListModel<MealCategory> mealCategoryListModel;
     private JLabel mealCategoryAccessErrorLabel;
+
+
     private JTextArea recipeStepsTextArea;
     private JButton addRecipeStepsButton;
     private JButton removeRecipeStepsButton;
@@ -71,6 +77,8 @@ public class GlobalRecipePanel extends JPanel {
     private JLabel recipeStepErrorLabel;
     private JList<String> recipeStepsList;
     private DefaultListModel<String> recipeStepListModel;
+
+
     private JList<LineRecipeDisplay> lineRecipeList;
     private DefaultListModel<LineRecipeDisplay> lineRecipeModel;
     private JButton addIngredientButton;
@@ -82,6 +90,7 @@ public class GlobalRecipePanel extends JPanel {
     private JSpinner quantityIngredientSpinner;
     private JComboBox<Unit> unitIngredientComboBox;
     private DefaultComboBoxModel<Unit> unitIngredientComboBoxModel;
+
     private JTabbedPane tabs;
     private MenuTypeController menuTypeController;
     private MealCategoryController mealCategoryController;
@@ -177,6 +186,8 @@ public class GlobalRecipePanel extends JPanel {
         this.descriptionTextArea = new JTextArea(10, 10);
         this.descriptionTextArea.setLineWrap(true);
 
+        // *** //
+
         UtensilActionListener utensilActionListener = new UtensilActionListener();
         this.addUtensilButton = new JButton("Add");
         this.addUtensilButton.addActionListener(utensilActionListener);
@@ -189,6 +200,8 @@ public class GlobalRecipePanel extends JPanel {
         utensilActionListener.setUtensilComboBox(utensilComboBoxModel);
         utensilActionListener.setUtensilListModel(utensilListModel);
         utensilActionListener.setUtensilList(utensilList);
+
+        // *** //
 
         MenuTypeActionListener menuTypeActionListener = new MenuTypeActionListener();
         this.addMenuTypeButton = new JButton("Add");
@@ -204,6 +217,8 @@ public class GlobalRecipePanel extends JPanel {
         menuTypeActionListener.setMenuTypeListModel(menuTypeListModel);
         menuTypeActionListener.setMenuTypeList(menuTypeList);
 
+        // *** //
+
         MealCategoryActionListener mealCategoryActionListener = new MealCategoryActionListener();
         this.addMealCategoryButton = new JButton("Add");
         this.addMealCategoryButton.addActionListener(mealCategoryActionListener);
@@ -217,6 +232,8 @@ public class GlobalRecipePanel extends JPanel {
         mealCategoryActionListener.setMealCategoryComboxModel(mealCategoryComboBoxModel);
         mealCategoryActionListener.setMealCategoryListModel(mealCategoryListModel);
         mealCategoryActionListener.setMealCategoryList(mealCategoryList);
+
+        // *** //
 
         RecipeStepActionListener recipeStepActionListener = new RecipeStepActionListener();
         this.recipeStepsTextArea = new JTextArea(10, 20);
@@ -234,6 +251,8 @@ public class GlobalRecipePanel extends JPanel {
         recipeStepActionListener.setRecipeStepTextArea(recipeStepsTextArea);
         recipeStepActionListener.setRecipeStepListModel(recipeStepListModel);
         recipeStepActionListener.setRecipeStepsList(recipeStepsList);
+
+        // *** //
 
         IngredientActionListener ingredientActionListener = new IngredientActionListener();
         this.lineRecipeModel = new DefaultListModel<LineRecipeDisplay>();
@@ -273,7 +292,6 @@ public class GlobalRecipePanel extends JPanel {
                 .addLabelAnd(timeLabel, timeSpinner)
                 .addLabelAnd(descriptionLabel, descriptionTextArea)
                 .build();
-
 
         JPanel utensilPanel = new JPanel();
         utensilPanel.setLayout(new BorderLayout());
