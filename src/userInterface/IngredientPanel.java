@@ -91,4 +91,8 @@ public class IngredientPanel extends JPanel {
         java.util.List<Unit> units = List.of(Unit.values());
         this.unitIngredientComboBoxModel.addAll(units);
     }
+
+    public JPanel getPanel() {
+        return ingredientPanel;
+    }
 }

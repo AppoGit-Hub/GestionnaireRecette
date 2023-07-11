@@ -59,4 +59,8 @@ public class MealCategoryPanel extends JPanel {
             JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    public JPanel getPanel() {
+        return mealCategoryPanel;
+    }
 }
