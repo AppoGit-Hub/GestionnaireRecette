@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
     @Override
-    public void createOrderType(int recipeCode, int mealCategory) throws OrderTypeException {
+    public void createOrderType(Integer recipeCode, Integer mealCategory) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "INSERT INTO orderType VALUES (?, ?);";
@@ -25,7 +25,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
         }
     }
     @Override
-    public void deleteOrderType(int recipeCode, int mealCategory) throws OrderTypeException {
+    public void deleteOrderType(Integer recipeCode, Integer mealCategory) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM orderType WHERE fromRecipe = ? AND mealCategory = ?";
@@ -37,7 +37,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
             throw new OrderTypeException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllOrderType(int recipeCode) throws OrderTypeException {
+    public void deleteAllOrderType(Integer recipeCode) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM orderType WHERE fromRecipe = ?;";
@@ -49,7 +49,7 @@ public class OrderTypeDataBaseAccess implements OrderTypeDataAccess {
         }
     }
     @Override
-    public ArrayList<OrderType> readAllOrderType(int recipeCode) throws OrderTypeException {
+    public ArrayList<OrderType> readAllOrderType(Integer recipeCode) throws OrderTypeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM orderType WHERE fromRecipe = ?;";

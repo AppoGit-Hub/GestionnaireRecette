@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
     @Override
-    public ArrayList<RecipeStep> readAllRecipeStep(int recipeCode) throws RecipeStepException {
+    public ArrayList<RecipeStep> readAllRecipeStep(Integer recipeCode) throws RecipeStepException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM recipestep WHERE baseRecipe = ?;";
@@ -33,7 +33,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
         }
     }
     @Override
-    public void deleteRecipeStep(int recipeCode, int number) throws RecipeStepException {
+    public void deleteRecipeStep(Integer recipeCode, Integer number) throws RecipeStepException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM recipestep WHERE baseRecipe = ? AND number = ?;";
@@ -45,7 +45,7 @@ public class RecipeStepDataBaseAccess implements RecipeStepDataAccess {
             throw new RecipeStepException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllRecipeStep(int recipeCode) throws RecipeStepException {
+    public void deleteAllRecipeStep(Integer recipeCode) throws RecipeStepException {
         try{
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM recipestep WHERE baseRecipe = ? ;";

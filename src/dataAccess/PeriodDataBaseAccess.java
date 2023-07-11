@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PeriodDataBaseAccess implements PeriodDataAccess {
     @Override
-    public void createPeriod(int periodRecipe, int menuType) throws PeriodException {
+    public void createPeriod(Integer periodRecipe, Integer menuType) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "INSERT INTO period VALUES (?, ?);";
@@ -26,7 +26,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
     }
 
     @Override
-    public void deletePeriod(int periodRecipe, int menuType) throws PeriodException {
+    public void deletePeriod(Integer periodRecipe, Integer menuType) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM period WHERE periodRecipe = ? AND menuType = ?;";
@@ -38,7 +38,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
             throw new PeriodException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllPeriod(int periodRecipe) throws PeriodException {
+    public void deleteAllPeriod(Integer periodRecipe) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM period WHERE periodRecipe = ? ;";
@@ -51,7 +51,7 @@ public class PeriodDataBaseAccess implements PeriodDataAccess {
     }
 
     @Override
-    public ArrayList<Period> readAllPeriod(int recipeCode) throws PeriodException {
+    public ArrayList<Period> readAllPeriod(Integer recipeCode) throws PeriodException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM period WHERE periodRecipe = ?;";

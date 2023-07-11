@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
     @Override
-    public ArrayList<LineRecipe> readLineRecipeForRecipe(int recipe) throws LineRecipeException  {
+    public ArrayList<LineRecipe> readLineRecipeForRecipe(Integer recipe) throws LineRecipeException  {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM linerecipe WHERE recipeOrigin = ?;";
@@ -51,7 +51,7 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
     }
 
     @Override
-    public void deleteLineRecipe(String ingredient, int recipeOrigin) throws LineRecipeException {
+    public void deleteLineRecipe(String ingredient, Integer recipeOrigin) throws LineRecipeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM linerecipe WHERE ingredient = ? AND recipeOrigin = ?;";
@@ -63,7 +63,7 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             throw new LineRecipeException(exception.getMessage(), new OneException(), new DeleteException());
         }
     }
-    public void deleteAllLineRecipe(int recipeOrigin) throws LineRecipeException {
+    public void deleteAllLineRecipe(Integer recipeOrigin) throws LineRecipeException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "DELETE FROM linerecipe WHERE recipeOrigin = ?;";

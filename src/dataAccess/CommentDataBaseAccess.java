@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CommentDataBaseAccess implements CommentDataAccess {
-    public void deleteAllComment(int recipeCode) throws CommentException {
+    public void deleteAllComment(Integer recipeCode) throws CommentException {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query = "DELETE FROM comment WHERE recipe = ?;";
@@ -23,7 +23,7 @@ public class CommentDataBaseAccess implements CommentDataAccess {
         }
     }
 
-    public ArrayList<Comment> readAllComment(int recipeCode) throws CommentException, Exception {
+    public ArrayList<Comment> readAllComment(Integer recipeCode) throws CommentException, Exception {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query = "SELECT * FROM comment WHERE recipe = ?;";
@@ -63,7 +63,7 @@ public class CommentDataBaseAccess implements CommentDataAccess {
     }
 
     @Override
-    public int getNumberComment(int recipeCode) throws GetNumberCommentException {
+    public int getNumberComment(Integer recipeCode) throws GetNumberCommentException {
         try {
             Connection connection = SingletonConnexion.getInstance();
             String query = "SELECT COUNT(*) AS number FROM comment WHERE recipe = ?;";
