@@ -1,25 +1,23 @@
 package model;
 
-public enum Unit {
-    NONE("None"),
-    GRAM("Gram"),
-    KILOGRAM("Kilogram"),
-    POUND("Pound"),
-    OUNCE("Ounce"),
-    TONNE("Tonne"),
-    LITER("Liter"),
-    MILLILITER("Milliliter"),
-    GALLON("Gallon"),
-    PINT("Pint"),
-    QUART("Quart");
+public class Unit {
+    private int id;
+    private String name;
 
-    private String unit;
-
-    Unit(String unit) {
-        this.unit = unit;
+    public Unit(int id, String name) {
+        this.id = id;
+        this.setName(name);
     }
 
-    public String getUnit() {
-        return this.unit;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
     }
 }
