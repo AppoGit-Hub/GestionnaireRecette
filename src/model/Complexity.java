@@ -1,41 +1,23 @@
 package model;
 
-public enum Complexity {
-    BASIC(0),
-    INTERMEDIATE(1),
-    ADVANCED(2),
-    EXPERT(3);
+public class Complexity {
+    private int id;
+    private String name;
 
-    private Integer complexity;
-
-    Complexity(Integer complexity) {
-        setComplexity(complexity);
+    public Complexity(int id, String name) {
+        this.id = id;
+        this.setName(name);
     }
 
-    public void setComplexity(Integer complexity) {
-        this.complexity = complexity;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getComplexity() {
-        return complexity;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public String toString() {
-        switch (this) {
-            case BASIC -> {
-                return "Basic";
-            }
-            case INTERMEDIATE -> {
-                return "Intermediate";
-            }
-            case ADVANCED -> {
-                return "Advanced";
-            }
-            case EXPERT -> {
-                return "Expert";
-            }
-        }
-        return "Basic";
+    public int getId() {
+        return id;
     }
 }
