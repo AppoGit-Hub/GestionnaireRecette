@@ -4,10 +4,7 @@ import exception.*;
 import interfaceAccess.LineRecipeDataAccess;
 import model.LineRecipe;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
@@ -42,7 +39,14 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             statement.setString(1, lineRecipe.getIngredient());
             statement.setInt(2, lineRecipe.getRecipe());
             statement.setInt(3, lineRecipe.getQuantity());
-            statement.setInt(4, lineRecipe.getUnit());
+
+            Integer unit = lineRecipe.getUnit();
+            if (unit != null) {
+                statement.setInt(4, lineRecipe.getUnit());
+            } else {
+                statement.setNull(4, Types.NULL);
+            }
+
             statement.executeUpdate();
         } catch (SQLException exception) {
             throw new LineRecipeException(exception.getMessage(), new OneException(), new CreateException());

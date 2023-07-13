@@ -107,7 +107,7 @@ public class IngredientPanel extends JPanel implements ActionListener {
             Ingredient ingredient = (Ingredient) nameIngredientComboBoxModel.getSelectedItem();
             int ingredientCount = (int) quantityIngredientSpinner.getValue();
             Unit ingredientUnit = (Unit) unitIngredientComboBox.getSelectedItem();
-            LineRecipeDisplay lineRecipeDisplay = new LineRecipeDisplay(ingredient.getName(), ingredientCount, ingredientUnit.getId());
+            LineRecipeDisplay lineRecipeDisplay = new LineRecipeDisplay(ingredient.getName(), ingredientCount, ingredientUnit);
             lineRecipeModel.addElement(lineRecipeDisplay);
         } else if (eventName.equals("Retirer")) {
             LineRecipeDisplay selection = lineRecipeList.getSelectedValue();
@@ -123,9 +123,13 @@ public class IngredientPanel extends JPanel implements ActionListener {
             ArrayList<LineRecipe> lineRecipes = this.lineRecipeController.readLineRecipeForRecipe(selection.getCode());
             ArrayList<LineRecipeDisplay> lineRecipeDisplays = new ArrayList<>();
             for (LineRecipe lineRecipe : lineRecipes) {
-                //this.unitController.readAllUnit()
-
-                lineRecipeDisplays.add(new LineRecipeDisplay(lineRecipe.getIngredient(), lineRecipe.getQuantity(), lineRecipe.getUnit()));
+                Integer unit = lineRecipe.getUnit();
+                LineRecipeDisplay lineRecipeDisplay =
+                        new LineRecipeDisplay(
+                                lineRecipe.getIngredient(),
+                                lineRecipe.getQuantity(),
+                                (unit != null) ? this.unitController.readUnit(unit) : null);
+                lineRecipeDisplays.add(lineRecipeDisplay);
             }
             lineRecipeModel.addAll(lineRecipeDisplays);
         } catch (TypeException exception) {
@@ -143,7 +147,8 @@ public class IngredientPanel extends JPanel implements ActionListener {
             Enumeration<LineRecipeDisplay> newLineRecipes = lineRecipeModel.elements();
             while (newLineRecipes.hasMoreElements()) {
                 LineRecipeDisplay lineRecipeDisplay = newLineRecipes.nextElement();
-                this.lineRecipeController.createLineRecipe(new LineRecipe(lineRecipeDisplay.getIngredient(), selection.getCode(), lineRecipeDisplay.getQuantity(), lineRecipeDisplay.getUnit()));
+                Unit unit = lineRecipeDisplay.getUnit();
+                this.lineRecipeController.createLineRecipe(new LineRecipe(lineRecipeDisplay.getIngredient(), selection.getCode(), lineRecipeDisplay.getQuantity(), unit.getId()));
             }
         } catch (TypeException exception) {
             JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
