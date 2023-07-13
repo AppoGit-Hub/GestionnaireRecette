@@ -35,12 +35,12 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
 
         this.menuTypeComboBoxModel = new DefaultComboBoxModel<MenuType>();
         this.menuTypeComboBox = new JComboBox<MenuType>(menuTypeComboBoxModel);
-        this.isHotButton = new JRadioButton("isHot");
+        this.isHotButton = new JRadioButton("est Chaux ?");
         this.ingredientComboBoxModel = new DefaultComboBoxModel<Ingredient>();
         this.ingredientComboBox = new JComboBox<Ingredient>(ingredientComboBoxModel);
 
         this.recipeTable = new JTable();
-        this.recipeSumbitButton = new JButton("Submit");
+        this.recipeSumbitButton = new JButton("Soumettre");
         this.recipeSumbitButton.addActionListener(this);
         this.recipeErrorLabel = new JLabel();
 
@@ -52,9 +52,9 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
         JPanel recipeNorthPanel = new JPanel();
         recipeNorthPanel.setLayout(new FlowLayout());
         recipeNorthPanel.add(isHotButton);
-        recipeNorthPanel.add(new JLabel("Menu Types:"));
+        recipeNorthPanel.add(new JLabel("Types de menus:"));
         recipeNorthPanel.add(menuTypeComboBox);
-        recipeNorthPanel.add(new JLabel("Ingredients:"));
+        recipeNorthPanel.add(new JLabel("Ingrédients:"));
         recipeNorthPanel.add(ingredientComboBox);
         recipeNorthPanel.add(recipeSumbitButton);
 

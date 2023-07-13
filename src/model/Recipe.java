@@ -14,7 +14,7 @@ public class Recipe {
     private Integer noteAuthor;
     private boolean isSalted;
     private Integer numberPeopleConcerned;
-    private Complexity complexity;
+    private Integer complexity;
     private Integer speciality;
     private Integer person;
 
@@ -26,7 +26,7 @@ public class Recipe {
         Integer timePreparation,
         boolean isSalted,
         Integer numberPeopleConcerned,
-        Complexity complexity,
+        Integer complexity,
         Integer person
     ) {
         this.setCode(code);
@@ -69,7 +69,7 @@ public class Recipe {
     public Integer getNumberPeopleConcerned() {
         return numberPeopleConcerned;
     }
-    public Complexity getComplexity() {
+    public Integer getComplexity() {
         return complexity;
     }
     public Integer getSpeciality() {
@@ -99,7 +99,7 @@ public class Recipe {
     public void setNumberPeopleConcerned(Integer numberPeopleConcerned) {
         this.numberPeopleConcerned = numberPeopleConcerned;
     }
-    public void setComplexity(Complexity complexity) {
+    public void setComplexity(Integer complexity) {
         this.complexity = complexity;
     }
     public void setPerson(Integer person) {

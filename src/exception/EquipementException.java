@@ -8,6 +8,6 @@ public class EquipementException extends TypeException {
 
     @Override
     protected String getType() {
-        return "equipement";
+        return "équipement";
     }
 }

@@ -7,6 +7,6 @@ public class CountryException extends TypeException {
 
     @Override
     protected String getType() {
-        return "country";
+        return "pays";
     }
 }

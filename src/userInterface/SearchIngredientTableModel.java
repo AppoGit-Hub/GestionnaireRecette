@@ -1,6 +1,5 @@
 package userInterface;
 
-import model.Complexity;
 import model.FoodCategory;
 import model.SearchIngredientResult;
 

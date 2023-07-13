@@ -17,6 +17,10 @@ public class UnitController {
         this.manager = manager;
     }
 
+    public Unit readUnit(int id) throws UnitException {
+        return this.manager.readUnit(id);
+    }
+
     public ArrayList<Unit> readAllUnit() throws UnitException {
         return this.manager.readAllUnit();
     }

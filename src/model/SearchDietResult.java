@@ -7,11 +7,11 @@ public class SearchDietResult {
     private String title;
     private LocalDate publicationDate;
     private Integer numberPeople;
-    private Complexity complexity;
+    private Integer complexity;
     private String firstname;
     private String lastname;
 
-    public SearchDietResult(int code, String title, LocalDate publicationDate, Integer numberPeople, Complexity complexity, String firstname, String lastname) {
+    public SearchDietResult(int code, String title, LocalDate publicationDate, Integer numberPeople, Integer complexity, String firstname, String lastname) {
         setCode(code);
         setTitle(title);
         setPublicationDate(publicationDate);
@@ -37,7 +37,7 @@ public class SearchDietResult {
         this.numberPeople = numberPeople;
     }
 
-    public void setComplexity(Complexity complexity) {
+    public void setComplexity(Integer complexity) {
         this.complexity = complexity;
     }
 
@@ -65,7 +65,7 @@ public class SearchDietResult {
         return numberPeople;
     }
 
-    public Complexity getComplexity() {
+    public Integer getComplexity() {
         return complexity;
     }
 

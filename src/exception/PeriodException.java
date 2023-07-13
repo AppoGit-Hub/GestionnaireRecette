@@ -7,6 +7,6 @@ public class PeriodException extends TypeException {
 
     @Override
     protected String getType() {
-        return "period";
+        return "période";
     }
 }

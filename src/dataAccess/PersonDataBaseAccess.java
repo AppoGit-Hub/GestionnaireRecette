@@ -37,15 +37,18 @@ public class PersonDataBaseAccess implements PersonDataAccess {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query = "SELECT * FROM person WHERE id = ?;";
+
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setInt(1, person);
             ResultSet data = statement.executeQuery();
             data.next();
+
             int id = data.getInt("id");
             String firstname = data.getString("firstname");
             String lastname = data.getString("lastname");
             Date birthday = data.getDate("birthday");
             String password = data.getString("password");
+
             return new Person(id, firstname, lastname, birthday.toLocalDate(), password);
         } catch (SQLException exception) {
             throw new PersonException(exception.getMessage(), new OneException(), new ReadException());

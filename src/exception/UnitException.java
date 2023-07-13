@@ -7,6 +7,6 @@ public class UnitException extends TypeException {
 
     @Override
     protected String getType() {
-        return "unit";
+        return "unité";
     }
 }

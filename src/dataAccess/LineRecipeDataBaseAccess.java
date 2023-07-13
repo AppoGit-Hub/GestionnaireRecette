@@ -3,7 +3,6 @@ package dataAccess;
 import exception.*;
 import interfaceAccess.LineRecipeDataAccess;
 import model.LineRecipe;
-import model.Unit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,10 +22,10 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             ArrayList<LineRecipe> lineRecipes = new ArrayList<LineRecipe>();
             while (data.next()) {
                 String ingredient = data.getString("ingredient");
-                int recipeOrigin = data.getInt("recipeOrigin");
-                int quantity = data.getInt("quantity");
-                String unit = data.getString("unit");
-                lineRecipes.add(new LineRecipe(ingredient, recipeOrigin, quantity, Unit.valueOf(unit.toUpperCase())));
+                Integer recipeOrigin = data.getInt("recipeOrigin");
+                Integer quantity = data.getInt("quantity");
+                Integer unit = data.getInt("unit");
+                lineRecipes.add(new LineRecipe(ingredient, recipeOrigin, quantity, unit));
             }
             return lineRecipes;
         } catch (SQLException exception) {
@@ -43,7 +42,7 @@ public class LineRecipeDataBaseAccess implements LineRecipeDataAccess {
             statement.setString(1, lineRecipe.getIngredient());
             statement.setInt(2, lineRecipe.getRecipe());
             statement.setInt(3, lineRecipe.getQuantity());
-            statement.setString(4, lineRecipe.getUnit().getUnit());
+            statement.setInt(4, lineRecipe.getUnit());
             statement.executeUpdate();
         } catch (SQLException exception) {
             throw new LineRecipeException(exception.getMessage(), new OneException(), new CreateException());

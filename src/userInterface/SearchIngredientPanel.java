@@ -40,7 +40,7 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
         this.ingredientComboBox = new JComboBox<Ingredient>(ingredientComboBoxModel);
         this.ingredientErrorLabel = new JLabel();
         this.ingredientTable = new JTable();
-        this.ingredientSubmitButton = new JButton("Submit");
+        this.ingredientSubmitButton = new JButton("Soumettre");
         this.ingredientSubmitButton.addActionListener(this);
 
         this.setAllIngredient();
@@ -49,11 +49,11 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
 
         JPanel ingredientNorthPanel = new JPanel();
         ingredientNorthPanel.setLayout(new FlowLayout());
-        ingredientNorthPanel.add(new JLabel("Start Date:"));
+        ingredientNorthPanel.add(new JLabel("Date de début:"));
         ingredientNorthPanel.add(startDate);
-        ingredientNorthPanel.add(new JLabel("End Date:"));
+        ingredientNorthPanel.add(new JLabel("Date de fin:"));
         ingredientNorthPanel.add(endDate);
-        ingredientNorthPanel.add(new JLabel("Ingredients:"));
+        ingredientNorthPanel.add(new JLabel("Ingrédients:"));
         ingredientNorthPanel.add(ingredientComboBox);
         ingredientNorthPanel.add(ingredientSubmitButton);
 
@@ -83,7 +83,7 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
             ArrayList<SearchIngredientResult> searchIngredientResults = this.searchController.searchIngredient(ingredient.getName(), dateBeginning, dateEnding);
             this.ingredientTable.setModel(new SearchIngredientTableModel(searchIngredientResults));
         } catch (SearchIngredientException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to display ingredients", "Failed to Display Ingredients", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Échec de l'affichage des ingrédients", "Échec de l'affichage des ingrédients", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -98,10 +98,10 @@ public class SearchIngredientPanel extends JPanel implements ActionListener {
                     LocalDate dateEnding = LocalDate.of((int) this.endDate.getValue(), 12, 31);
                     this.setIngredientRecipe(ingredient, dateBeginning, dateEnding);
                 } else {
-                    JOptionPane.showMessageDialog(null, "You must select an ingredient", "Select an ingredient", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Vous devez sélectionner un ingrédient", "Sélectionner un ingrédient", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "The start year must be before the end year", "Correct The Years", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "L'année de début doit être antérieure à l'année de fin", "Corriger les années", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

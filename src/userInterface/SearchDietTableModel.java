@@ -3,11 +3,8 @@ import model.Complexity;
 import model.SearchDietResult;
 
 import javax.swing.table.AbstractTableModel;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class SearchDietTableModel extends AbstractTableModel {
     private String[] columnNames;

@@ -3,6 +3,6 @@ package exception;
 public class OneException extends RangeOperationException {
     @Override
     public String getDescription() {
-        return "the";
+        return "le/la";
     }
 }

@@ -7,6 +7,6 @@ public class ComplexityException extends TypeException {
 
     @Override
     protected String getType() {
-        return "complexity";
+        return "complexité";
     }
 }

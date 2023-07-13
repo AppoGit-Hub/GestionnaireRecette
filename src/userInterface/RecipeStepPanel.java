@@ -1,9 +1,19 @@
 package userInterface;
 
+import controller.RecipeController;
+import controller.RecipeStepController;
+import exception.TypeException;
+import model.Recipe;
+import model.RecipeStep;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
-public class RecipeStepPanel extends JPanel {
+public class RecipeStepPanel extends JPanel implements ActionListener {
     private JTextArea recipeStepsTextArea;
     private JButton addRecipeStepsButton;
     private JButton removeRecipeStepsButton;
@@ -12,25 +22,22 @@ public class RecipeStepPanel extends JPanel {
     private JLabel recipeStepErrorLabel;
     private JList<String> recipeStepsList;
     private DefaultListModel<String> recipeStepListModel;
+
     private JPanel recipeStepsPanel;
 
+    private RecipeStepController recipeStepController;
+
     public RecipeStepPanel() {
-        RecipeStepActionListener recipeStepActionListener = new RecipeStepActionListener();
+        this.recipeStepController = new RecipeStepController();
+
         this.recipeStepsTextArea = new JTextArea(10, 20);
-        this.addRecipeStepsButton = new JButton("Add");
-        addRecipeStepsButton.addActionListener(recipeStepActionListener);
-        this.removeRecipeStepsButton = new JButton("Remove");
-        removeRecipeStepsButton.addActionListener(recipeStepActionListener);
-        this.editRecipeStepsButton = new JButton("Edit");
-        editRecipeStepsButton.addActionListener(recipeStepActionListener);
-        this.saveRecipeStepsButton = new JButton("Save");
-        saveRecipeStepsButton.addActionListener(recipeStepActionListener);
+        this.addRecipeStepsButton = new JButton("Ajouter");
+        this.removeRecipeStepsButton = new JButton("Supprimer");
+        this.editRecipeStepsButton = new JButton("Editer");
+        this.saveRecipeStepsButton = new JButton("Sauvegarder");
         this.recipeStepListModel = new DefaultListModel<String>();
         this.recipeStepsList = new JList<String>(recipeStepListModel);
         this.recipeStepErrorLabel = new JLabel();
-        recipeStepActionListener.setRecipeStepTextArea(recipeStepsTextArea);
-        recipeStepActionListener.setRecipeStepListModel(recipeStepListModel);
-        recipeStepActionListener.setRecipeStepsList(recipeStepsList);
 
         this.recipeStepsPanel = new JPanel();
         this.recipeStepsPanel.setLayout(new BorderLayout());
@@ -59,5 +66,65 @@ public class RecipeStepPanel extends JPanel {
 
     public JPanel getPanel() {
         return recipeStepsPanel;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        String eventName = event.getActionCommand();
+        String textArea = recipeStepsTextArea.getText();
+        String selection = recipeStepsList.getSelectedValue();
+        if (eventName.equals("Ajouter")) {
+            int index = 0;
+            while (index < recipeStepListModel.size() && !recipeStepListModel.get(index).equals(textArea)) {
+                index++;
+            }
+            if (index == recipeStepListModel.size()) {
+                recipeStepListModel.addElement(textArea);
+            }
+        }
+        else if (selection != null) {
+            if (eventName.equals("Supprimer")) {
+                recipeStepListModel.removeElement(selection);
+            } else if (eventName.equals("Editer")) {
+                recipeStepsTextArea.setText(selection);
+            }
+        }
+        int selectionIndex = recipeStepsList.getSelectedIndex();
+        if (eventName.equals("Sauvegarder") && selectionIndex != -1) {
+            recipeStepListModel.set(selectionIndex, recipeStepsTextArea.getText());
+        }
+    }
+
+    public void setRecipeStepForRecipe(Recipe selection) {
+        try {
+            recipeStepListModel.removeAllElements();
+            ArrayList<RecipeStep> recipeSteps = this.recipeStepController.readAllRecipeStep(selection.getCode());
+            ArrayList<String> recipeStepsDescription = new ArrayList<String>();
+            for (RecipeStep recipeStep : recipeSteps) {
+                recipeStepsDescription.add(recipeStep.getDescription());
+            }
+            recipeStepListModel.addAll(recipeStepsDescription);
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void updateRecipeSteps(Recipe selection) {
+        try {
+            // TODO : do a better job at updating recipe steps values
+            ArrayList<RecipeStep> recipeSteps = this.recipeStepController.readAllRecipeStep(selection.getCode());
+            for (RecipeStep recipeStep : recipeSteps) {
+                this.recipeStepController.deleteRecipeStep(selection.getCode(), recipeStep.getNumber());
+            }
+            Enumeration<String> newRecipeStepsDescription = recipeStepListModel.elements();
+            int index = 0;
+            while (newRecipeStepsDescription.hasMoreElements()) {
+                String recipeStepDescription = newRecipeStepsDescription.nextElement();
+                this.recipeStepController.createRecipeStep(new RecipeStep(selection.getCode(), index, recipeStepDescription));
+                index++;
+            }
+        } catch (TypeException exception) {
+            JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

@@ -3,9 +3,9 @@ package model;
 public class LineRecipeDisplay {
     private String ingredient;
     private Integer quantity;
-    private Unit unit;
+    private Integer unit;
 
-    public LineRecipeDisplay(String ingredient, Integer quantity, Unit unit) {
+    public LineRecipeDisplay(String ingredient, Integer quantity, Integer unit) {
         this.setIngredient(ingredient);
         this.setQuantity(quantity);
         this.setUnit(unit);
@@ -26,16 +26,16 @@ public class LineRecipeDisplay {
         this.quantity = quantity;
     }
 
-    public Unit getUnit() {
+    public Integer getUnit() {
         return unit;
     }
 
-    public void setUnit(Unit unit) {
+    public void setUnit(Integer unit) {
         this.unit = unit;
     }
 
     @Override
     public String toString() {
-        return ingredient + " " + quantity + " " + unit;
+        return ingredient + " " + quantity + unit;
     }
 }

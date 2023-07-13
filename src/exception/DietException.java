@@ -7,6 +7,6 @@ public class DietException extends TypeException {
 
     @Override
     protected String getType() {
-        return "diet";
+        return "régime alimentaire";
     }
 }

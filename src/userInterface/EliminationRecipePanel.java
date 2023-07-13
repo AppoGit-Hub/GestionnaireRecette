@@ -35,12 +35,12 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
         this.orderTypeController = new OrderTypeController();
         this.recipeController = new RecipeController();
 
-        this.deleteButton = new JButton("Delete");
+        this.deleteButton = new JButton("Supprimer");
         this.deleteButton.addActionListener(this);
 
         this.jTable = new JTable(new ListingRecipeTableModel());
         this.jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        this.jTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);//je ne suis pas sûr de ce que cela veut dire
+        this.jTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         this.listSelectionModelRecipe = this.jTable.getSelectionModel();
 
         this.add(new JScrollPane(jTable), BorderLayout.CENTER);
@@ -48,14 +48,14 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
     }
     public void actionPerformed(ActionEvent event) {
         String source = event.getActionCommand();
-        if (source.equals("Delete")) {
+        if (source.equals("Supprimer")) {
             int[] selectedIndex = this.listSelectionModelRecipe.getSelectedIndices();
             if (selectedIndex.length > 0) {
                 try {
                     int confirmation = JOptionPane.showConfirmDialog(
                             null,
-                            "Do you really want to delete this recipe(s) ?",
-                            "This is permanent !",
+                            "Voulez-vous vraiment supprimer cette (ces) recette(s) ?",
+                            "C'est permanent !",
                             JOptionPane.YES_NO_OPTION);
                     if (confirmation == OK_OPTION) {
                         ArrayList<Recipe> recipes = recipeController.readAllRecipe();
@@ -77,7 +77,7 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "You must select recipes", "Select Recipes", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You must select recipes", "Sélectionner les recettes", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

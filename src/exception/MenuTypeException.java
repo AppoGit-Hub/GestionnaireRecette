@@ -6,6 +6,6 @@ public class MenuTypeException extends TypeException {
     }
     @Override
     protected String getType() {
-        return "menu type";
+        return "type de menu";
     }
 }

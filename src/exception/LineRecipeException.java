@@ -7,6 +7,6 @@ public class LineRecipeException extends TypeException {
 
     @Override
     protected String getType() {
-        return "line recipe";
+        return "ligne de recette";
     }
 }

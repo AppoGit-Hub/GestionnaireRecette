@@ -6,6 +6,6 @@ public class IngredientException extends TypeException {
     }
     @Override
     protected String getType() {
-        return "ingredient";
+        return "ingrédient";
     }
 }

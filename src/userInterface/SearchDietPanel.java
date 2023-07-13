@@ -29,7 +29,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
         this.dietComboBox = new JComboBox<Diet>(this.dietComboBoxModel);
         this.dietTable = new JTable();
         this.dietError = new JLabel();
-        this.dietSubmit = new JButton("Submit");
+        this.dietSubmit = new JButton("Soumettre");
         this.dietSubmit.addActionListener(this);
         
         this.setAllDiet();
@@ -38,7 +38,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
 
         JPanel dietNorthPanel = new JPanel();
         dietNorthPanel.setLayout(new FlowLayout());
-        dietNorthPanel.add(new JLabel("Diets:"));
+        dietNorthPanel.add(new JLabel("Régimes alimentaires: "));
         dietNorthPanel.add(dietComboBox);
         dietNorthPanel.add(dietSubmit);
 
@@ -61,7 +61,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
             ArrayList<SearchDietResult> searchDietResults = this.searchController.searchDiet(diet.getId());
             this.dietTable.setModel(new SearchDietTableModel(searchDietResults));
         } catch (SearchDietException exception) {
-            JOptionPane.showMessageDialog(null, "Failed to display diets", "Failed to Display Diets", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Échec de l'affichage des régimes alimentaires", "N'a pas affiché les régimes alimentaires", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -73,7 +73,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
             if (dietSelected != null) {
                 this.setDietRecipe(dietSelected);
             } else {
-                JOptionPane.showMessageDialog(null, "You must select a diet", "Select a Diet", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Vous devez choisir un régime alimentaire", "Choisir un régime alimentaire", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

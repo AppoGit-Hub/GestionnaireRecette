@@ -7,6 +7,6 @@ public class OrderTypeException extends TypeException {
 
     @Override
     protected String getType() {
-        return "order type";
+        return "type de commande";
     }
 }

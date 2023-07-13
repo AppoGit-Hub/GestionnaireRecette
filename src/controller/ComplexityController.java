@@ -17,6 +17,10 @@ public class ComplexityController {
         this.manager = manager;
     }
 
+    public Complexity readComplexity(int id) throws ComplexityException {
+        return manager.readComplexity(id);
+    }
+
     public ArrayList<Complexity> readAllComplexity() throws ComplexityException {
         return manager.readAllComplexity();
     }

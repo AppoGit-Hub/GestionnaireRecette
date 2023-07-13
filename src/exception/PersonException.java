@@ -6,6 +6,6 @@ public class PersonException extends TypeException {
     }
     @Override
     protected String getType() {
-        return "person";
+        return "personne";
     }
 }

@@ -33,10 +33,10 @@ public abstract class TypeException extends Exception {
     protected abstract String getType();
 
     public String getDescription() {
-        return String.format("Failed to %s %s %s", operation.getDescription(), rangeOperation.getDescription(), getType());
+        return String.format("Impossible de %s %s %s", operation.getDescription(), rangeOperation.getDescription(), getType());
     }
 
     public String getTitle() {
-        return String.format("%s error", getType());
+        return String.format("Erreur de %s", getType());
     }
 }

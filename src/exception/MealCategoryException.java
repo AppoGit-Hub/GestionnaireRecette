@@ -6,6 +6,6 @@ public class MealCategoryException extends TypeException {
     }
     @Override
     protected String getType() {
-        return "meal category";
+        return "catégorie de repas";
     }
 }

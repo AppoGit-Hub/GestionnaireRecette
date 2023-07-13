@@ -1,9 +1,8 @@
 package dataAccess;
 
-import exception.AllException;
-import exception.ReadException;
-import exception.UnitException;
+import exception.*;
 import interfaceAccess.UnitDataAccess;
+import model.Complexity;
 import model.LineRecipe;
 import model.Unit;
 
@@ -14,6 +13,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UnitDataBaseAccess implements UnitDataAccess {
+    @Override
+    public Unit readUnit(int id) throws UnitException {
+        try {
+            Connection connexion = SingletonConnexion.getInstance();
+            String query = "SELECT * FROM unit WHERE id = ?";
+            PreparedStatement statement = connexion.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet data = statement.executeQuery();
+            data.next();
+            String name = data.getString("name");
+            return new Unit(id, name);
+        } catch (SQLException exception) {
+            throw new UnitException(exception.getMessage(), new OneException(), new ReadException());
+        }
+    }
+
     public ArrayList<Unit> readAllUnit() throws UnitException {
         try {
             Connection connexion = SingletonConnexion.getInstance();

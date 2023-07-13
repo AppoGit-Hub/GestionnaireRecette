@@ -7,6 +7,6 @@ public class CommentException extends TypeException {
 
     @Override
     protected String getType() {
-        return "comment";
+        return "commentaire";
     }
 }

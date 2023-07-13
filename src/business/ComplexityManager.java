@@ -19,6 +19,10 @@ public class ComplexityManager {
         this.complexityDataAccess = complexityDataAccess;
     }
 
+    public Complexity readComplexity(int id) throws ComplexityException {
+        return complexityDataAccess.readComplexity(id);
+    }
+
     public ArrayList<Complexity> readAllComplexity() throws ComplexityException {
         return complexityDataAccess.readAllComplexity();
     }

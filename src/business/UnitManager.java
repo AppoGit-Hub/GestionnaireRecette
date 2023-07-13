@@ -18,6 +18,10 @@ public class UnitManager {
         this.unitDataAccess = unitDataAccess;
     }
 
+    public Unit readUnit(int id) throws UnitException {
+        return this.unitDataAccess.readUnit(id);
+    }
+
     public ArrayList<Unit> readAllUnit() throws UnitException {
         return this.unitDataAccess.readAllUnit();
     }

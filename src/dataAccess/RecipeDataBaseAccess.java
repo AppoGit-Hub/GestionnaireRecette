@@ -2,8 +2,6 @@ package dataAccess;
 
 import exception.*;
 import interfaceAccess.RecipeDataAccess;
-import model.Complexity;
-import model.Period;
 import model.Recipe;
 
 import java.sql.*;
@@ -24,28 +22,34 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             statement.setString(2, recipe.getTitle());
             statement.setBoolean(3, recipe.getIsHot());
             statement.setDate(4, Date.valueOf(recipe.getPublicationDate()));
+
             String description = recipe.getDescription();
             if (description != null) {
                 statement.setString(5, description);
             } else {
                 statement.setNull(5, Types.NULL);
             }
+
             statement.setInt(6, recipe.getTimePreparation());
+
             Integer nodeAuthor = recipe.getNoteAuthor();
             if (nodeAuthor != null) {
                 statement.setInt(7, nodeAuthor);
             } else {
                 statement.setNull(7, Types.NULL);
             }
+
             statement.setBoolean(8, recipe.getIsSalted());
             statement.setInt(9, recipe.getNumberPeopleConcerned());
-            statement.setInt(10, recipe.getComplexity().getComplexity());
+            statement.setInt(10, recipe.getComplexity());
+
             Integer speciality = recipe.getSpeciality();
             if (speciality != null) {
                 statement.setInt(11, speciality);
             } else {
                 statement.setNull(11, Types.NULL);
             }
+
             statement.setInt(12, recipe.getPerson());
             statement.executeUpdate();
         } catch (SQLException exception) {
@@ -78,7 +82,7 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
                     notAuthor = ?, 
                     isSalted = ?, 
                     numberPeople = ?, 
-                    complexityLevel = ?, 
+                    complexity = ?, 
                     speciality = ?, 
                     author = ? 
                 WHERE code = ?;
@@ -87,13 +91,27 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             statement.setString(1, recipe.getTitle());
             statement.setBoolean(2, recipe.getIsHot());
             statement.setDate(3, java.sql.Date.valueOf(recipe.getPublicationDate()));
-            statement.setString(4, recipe.getDescription());
+
+            String description = recipe.getDescription();
+            if (description == null) {
+                statement.setNull(4, Types.NULL);
+            } else {
+                statement.setString(4, description);
+            }
+
             statement.setInt(5, recipe.getTimePreparation());
             statement.setInt(6, recipe.getNoteAuthor());
             statement.setBoolean(7, recipe.getIsSalted());
             statement.setInt(8, recipe.getNumberPeopleConcerned());
-            statement.setInt(9, recipe.getComplexity().getComplexity());
-            statement.setInt(10, recipe.getSpeciality());
+            statement.setInt(9, recipe.getComplexity());
+
+            Integer country = recipe.getSpeciality();
+            if (country == null) {
+                statement.setNull(10, Types.NULL);
+            } else {
+                statement.setInt(10, recipe.getSpeciality());
+            }
+
             statement.setInt(11, recipe.getPerson());
             statement.setInt(12, recipe.getCode());
             statement.executeUpdate();
@@ -127,22 +145,22 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
                 String title = data.getString("title");
                 boolean isHot = data.getBoolean("isHot");
                 Date publicationDate = data.getDate("publicationDate");
-                int timePreparation = data.getInt("timePreparation");
+                Integer timePreparation = data.getInt("timePreparation");
                 boolean isSalted = data.getBoolean("isSalted");
-                int numberPeopleConcerned = data.getInt("numberPeople");
-                Complexity complexity = Complexity.values()[data.getInt("complexityLevel")];
-                int person = data.getInt("author");
+                Integer numberPeopleConcerned = data.getInt("numberPeople");
+                Integer complexity = data.getInt("complexity");
+                Integer person = data.getInt("author");
 
                 Recipe recipe = new Recipe(
-                        code,
-                        title,
-                        isHot,
-                        publicationDate.toLocalDate(),
-                        timePreparation,
-                        isSalted,
-                        numberPeopleConcerned,
-                        complexity,
-                        person
+                    code,
+                    title,
+                    isHot,
+                    publicationDate.toLocalDate(),
+                    timePreparation,
+                    isSalted,
+                    numberPeopleConcerned,
+                    complexity,
+                    person
                 );
 
                 String description = data.getString("description");

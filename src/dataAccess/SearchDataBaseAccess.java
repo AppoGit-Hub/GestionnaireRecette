@@ -36,8 +36,8 @@ public class SearchDataBaseAccess implements SearchDataAcces {
                 int recipeCode = data.getInt("code");
                 String title = data.getString("title");
                 LocalDate publicationDate = data.getDate("publicationDate").toLocalDate();
-                int numberPeople = data.getInt("numberPeople");
-                Complexity complexity = Complexity.values()[data.getInt("complexityLevel")];
+                Integer numberPeople = data.getInt("numberPeople");
+                Integer complexity = data.getInt("complexityLevel");
                 String personFirstName = data.getString("firstname");
                 String personLastName = data.getString("lastname");
 

@@ -7,6 +7,6 @@ public class UtensilException extends TypeException {
 
     @Override
     protected String getType() {
-        return "utensil";
+        return "ustensile";
     }
 }

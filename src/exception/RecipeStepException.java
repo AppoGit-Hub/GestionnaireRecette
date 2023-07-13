@@ -6,6 +6,6 @@ public class RecipeStepException extends TypeException {
     }
     @Override
     protected String getType() {
-        return "recipe step";
+        return "étape(s) de la recette";
     }
 }
