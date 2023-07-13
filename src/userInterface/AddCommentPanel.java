@@ -40,13 +40,14 @@ public class AddCommentPanel extends JPanel implements ActionListener {
         this.recipeController = new RecipeController();
         this.personController = new PersonController();
         this.commentController = new CommentController();
+
         this.commentFormTitle = new JTextField();
         this.commentFormMessage = new JTextArea(10, 10);
         SpinnerNumberModel commentRatingLimit = new SpinnerNumberModel(RATING_MAX_VALUE / 2, RATING_MIN_VALUE, RATING_MAX_VALUE, 1);
         this.commentFormRating = new JSpinner(commentRatingLimit);
         this.commentFormAuthorModel = new DefaultComboBoxModel<Person>();
         this.commentFormAuthor = new JComboBox<Person>(commentFormAuthorModel);
-        this.commentFormPublish = new JButton("Create");
+        this.commentFormPublish = new JButton("Créer");
         this.commentFormPublish.addActionListener(this);
         this.recipeViewComboBoxModel = new DefaultComboBoxModel<Recipe>();
         this.recipeViewComboBox = new JComboBox<Recipe>(recipeViewComboBoxModel);
@@ -54,16 +55,16 @@ public class AddCommentPanel extends JPanel implements ActionListener {
         this.commentTable = new JTable();
 
         JPanel commentNorthPanel = new JPanel();
-        commentNorthPanel.add(new JLabel("Recipes:"));
+        commentNorthPanel.add(new JLabel("Recettes:"));
         commentNorthPanel.add(recipeViewComboBox);
 
         JPanel commentCreatorPanel = new JPanel();
         commentCreatorPanel.setLayout(new BorderLayout());
         JPanel commentFormPanel = new FormBuilder()
-                .addLabelAnd(new JLabel("Title"), commentFormTitle)
+                .addLabelAnd(new JLabel("Titre"), commentFormTitle)
                 .addLabelAnd(new JLabel("Message"), commentFormMessage)
-                .addLabelAnd(new JLabel("Rating"), commentFormRating)
-                .addLabelAnd(new JLabel("Author"), commentFormAuthor)
+                .addLabelAnd(new JLabel("Evaluation"), commentFormRating)
+                .addLabelAnd(new JLabel("Auteur"), commentFormAuthor)
                 .build();
         commentCreatorPanel.add(commentFormPanel, BorderLayout.CENTER);
         commentCreatorPanel.add(commentFormPublish, BorderLayout.SOUTH);
@@ -76,8 +77,8 @@ public class AddCommentPanel extends JPanel implements ActionListener {
         this.setAllAuthor();
 
         this.tabs = new JTabbedPane();
-        this.tabs.insertTab("Create", null, commentCreatorPanel, "Create Comment", 0);
-        this.tabs.insertTab("View", null, commentViewPanel, "View Comment", 1);
+        this.tabs.insertTab("Créer", null, commentCreatorPanel, "Créer un commentaire", 0);
+        this.tabs.insertTab("Voir", null, commentViewPanel, "Voir les commentaires", 1);
 
         this.add(commentNorthPanel, BorderLayout.NORTH);
         this.add(this.tabs, BorderLayout.CENTER);
@@ -110,7 +111,7 @@ public class AddCommentPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String eventName = event.getActionCommand();
         Recipe recipe = (Recipe) this.recipeViewComboBox.getSelectedItem();
-        if (eventName.equals("Create")) {
+        if (eventName.equals("Créer")) {
             if (recipe != null) {
                 try {
                     int nextNumber = this.commentController.getNumberComment(recipe.getCode()) + 1;
@@ -124,16 +125,16 @@ public class AddCommentPanel extends JPanel implements ActionListener {
                         this.setCommentForRecipe(recipe.getCode());
                     } else {
                         if (author == null) {
-                            JOptionPane.showMessageDialog(null, "You must chosse an author", "Chosse an Author", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Vous devez choisir un auteur", "Choisir un auteur", JOptionPane.ERROR_MESSAGE);
                         } else if (message.length() == 0) {
-                            JOptionPane.showMessageDialog(null, "You must write an message", "Write a Message", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Vous devez rédiger un message", "Rédiger un message", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(null, "An error occured while creating the comment", "An Error Occured", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la création du commentaire", "Une erreur s'est produite", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "You must select a recipe", "Select a Recipe", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Vous devez sélectionner une recette", "Sélectionner une recette", JOptionPane.ERROR_MESSAGE);
             }
         } else if (eventName.equals("comboBoxChanged")) {
             if (recipe != null) {
@@ -142,7 +143,7 @@ public class AddCommentPanel extends JPanel implements ActionListener {
                 } catch (CommentException exception) {
                     JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(null, "An error occured while creating the comment", "An Error Occured", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Une erreur s'est produite lors de la création du commentaire", "Une erreur s'est produite", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
