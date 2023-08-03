@@ -51,7 +51,7 @@ public class PublishRecipePanel extends JPanel implements ActionListener {
 
     private int getNextRecipeCode() {
         try {
-            return this.recipeController.getNextCode() + 1;
+            return this.recipeController.getNextCode();
         } catch (NextCodeRecipeException exception) {
             JOptionPane.showMessageDialog(null, "Échec du chargement du code de la recette", "Échec du chargement", JOptionPane.ERROR_MESSAGE);
         }
