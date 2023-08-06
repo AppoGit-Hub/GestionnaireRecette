@@ -11,5 +11,5 @@ public class SingletonConnexion {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GestionnaireRecette", "root", "thruthVerity1@");
         }
         return connection;
-    }//  TODO : c'est pas comme le singleton du cours ?
+    }
 }
