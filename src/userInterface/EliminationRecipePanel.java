@@ -60,7 +60,7 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
                     if (confirmation == OK_OPTION) {
                         ArrayList<Recipe> recipes = recipeController.readAllRecipe();
                         for (int index = 0; index < selectedIndex.length; index++) {
-                            int codeRecipe = recipes.get(index).getCode();
+                            int codeRecipe = recipes.get(selectedIndex[index]).getCode();
                             this.recipeStepController.deleteAllStepRecipe(codeRecipe);
                             this.lineRecipeController.deleteAllLineRecipe(codeRecipe);
                             this.equipementController.deleteAllEquipement(codeRecipe);
