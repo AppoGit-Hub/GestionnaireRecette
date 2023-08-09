@@ -33,7 +33,9 @@ public class MenuTypePanel extends JPanel implements ActionListener {
         this.periodController = new PeriodController();
 
         this.addMenuTypeButton = new JButton("Ajouter");
+        this.addMenuTypeButton.addActionListener(this);
         this.removeMenuTypeButton = new JButton("Supprimer");
+        this.removeMenuTypeButton.addActionListener(this);
         this.menuTypeListModel = new DefaultListModel<MenuType>();
         this.menuTypeList = new JList<MenuType>(menuTypeListModel);
         this.menuTypeAccessErrorLabel = new JLabel();
@@ -84,7 +86,7 @@ public class MenuTypePanel extends JPanel implements ActionListener {
                     menuTypeListModel.addElement(selection);
                 }
             }
-        } else if (eventName.equals("Retirer")) {
+        } else if (eventName.equals("Supprimer")) {
             MenuType selectionList = menuTypeList.getSelectedValue();
             if (selectionList != null) {
                 menuTypeListModel.removeElement(selectionList);

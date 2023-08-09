@@ -32,7 +32,9 @@ public class UtensilPanel extends JPanel implements ActionListener {
         this.equipementController = new EquipementController();
 
         this.addUtensilButton = new JButton("Ajouter");
+        addUtensilButton.addActionListener(this);
         this.removeUtensilButton = new JButton("Supprimer");
+        removeUtensilButton.addActionListener(this);
         this.utensilComboBoxModel = new DefaultComboBoxModel<Utensil>();
         this.utensilComboBox = new JComboBox<Utensil>(utensilComboBoxModel);
         this.utensilListModel = new DefaultListModel<Utensil>();

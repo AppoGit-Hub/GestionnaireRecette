@@ -33,7 +33,9 @@ public class MealCategoryPanel extends JPanel implements ActionListener {
         this.orderTypeController = new OrderTypeController();
 
         this.addMealCategoryButton = new JButton("Ajouter");
+        this.addMealCategoryButton.addActionListener(this);
         this.removeMealCategoryButton = new JButton("Retirer");
+        this.removeMealCategoryButton.addActionListener(this);
         this.mealCategoryComboBoxModel = new DefaultComboBoxModel<MealCategory>();
         this.mealCategoryComboBox = new JComboBox<MealCategory>(mealCategoryComboBoxModel);
         this.mealCategoryListModel = new DefaultListModel<MealCategory>();

@@ -32,9 +32,13 @@ public class RecipeStepPanel extends JPanel implements ActionListener {
 
         this.recipeStepsTextArea = new JTextArea(10, 20);
         this.addRecipeStepsButton = new JButton("Ajouter");
+        this.addRecipeStepsButton.addActionListener(this);
         this.removeRecipeStepsButton = new JButton("Supprimer");
+        this.removeRecipeStepsButton.addActionListener(this);
         this.editRecipeStepsButton = new JButton("Editer");
+        this.editRecipeStepsButton.addActionListener(this);
         this.saveRecipeStepsButton = new JButton("Sauvegarder");
+        this.saveRecipeStepsButton.addActionListener(this);
         this.recipeStepListModel = new DefaultListModel<String>();
         this.recipeStepsList = new JList<String>(recipeStepListModel);
         this.recipeStepErrorLabel = new JLabel();
