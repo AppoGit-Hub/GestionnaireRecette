@@ -22,14 +22,14 @@ public class SearchIngredientTableModel extends AbstractTableModel {
         };
         setSearchIngredientResults(searchIngredientResults);
     }
-    @Override
-    public int getRowCount() {
-        return searchIngredientResults.size();
-    }
 
     @Override
     public int getColumnCount() {
         return this.columnNames.length;
+    }
+    @Override
+    public int getRowCount() {
+        return searchIngredientResults.size();
     }
 
     @Override
@@ -37,6 +37,16 @@ public class SearchIngredientTableModel extends AbstractTableModel {
         return this.columnNames[column];
     }
 
+    public Class getColumnClass(int column){
+        return switch (column) {
+            case 0 -> String.class;
+            case 1 -> Integer.class;
+            case 2 -> FoodCategory.class;
+            case 3 -> LocalDate.class;
+            case 4 -> LocalDate.class;
+            default -> Integer.class;
+        };
+    }
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         SearchIngredientResult resultRecipe = searchIngredientResults.get(rowIndex);
@@ -55,16 +65,6 @@ public class SearchIngredientTableModel extends AbstractTableModel {
                 return resultRecipe.getLineRecipeQuantity();
         }
         return null;
-    }
-    public Class getColumnClass(int column){
-        return switch (column) {
-            case 0 -> String.class;
-            case 1 -> Integer.class;
-            case 2 -> FoodCategory.class;
-            case 3 -> LocalDate.class;
-            case 4 -> LocalDate.class;
-            default -> Integer.class;
-        };
     }
 
     public void setSearchIngredientResults(ArrayList<SearchIngredientResult> searchIngredientResults) {

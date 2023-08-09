@@ -57,8 +57,8 @@ public class Recipe {
     public Integer getTimePreparation() {
         return timePreparation;
     }
-    public void setNoteAuthor(int note) {
-        this.noteAuthor = note;
+    public void setNoteAuthor(Integer note) {
+        this.noteAuthor =  note;
     }
     public Integer getNoteAuthor() {
         return noteAuthor;

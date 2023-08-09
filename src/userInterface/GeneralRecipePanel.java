@@ -42,6 +42,8 @@ public class GeneralRecipePanel extends JPanel {
     private JSpinner peopleSpinner;
     private JLabel noteLabel;
     private JSpinner noteSpinner;
+    private JRadioButton haveNote;
+    private JLabel haveNoteLabel;
     private JLabel timeLabel;
     private JSpinner timeSpinner;
     private JLabel descriptionLabel;
@@ -114,6 +116,9 @@ public class GeneralRecipePanel extends JPanel {
         SpinnerNumberModel noteSpinnerModel = new SpinnerNumberModel(5, NOTE_MIN, NOTE_MAX, 1);
         this.noteSpinner = new JSpinner(noteSpinnerModel);
 
+        this.haveNoteLabel = new JLabel("Présence/absence ");
+        this.haveNote = new JRadioButton(" note auteur ");
+
         this.timeLabel = new JLabel("Temps (min)");
         SpinnerNumberModel timeSpinnerModel = new SpinnerNumberModel(1, TIME_MIN, TIME_MAX, 1);
         this.timeSpinner = new JSpinner(timeSpinnerModel);
@@ -132,6 +137,7 @@ public class GeneralRecipePanel extends JPanel {
                 .addLabelAnd(complexityLabel, complexityComboBox)
                 .addLabelAnd(publicationDateLabel, publicationDateSpinner)
                 .addLabelAnd(peopleLabel, peopleSpinner)
+                .addLabelAnd(haveNoteLabel,haveNote)
                 .addLabelAnd(noteLabel, noteSpinner)
                 .addLabelAnd(timeLabel, timeSpinner)
                 .addLabelAnd(descriptionLabel, descriptionTextArea)
@@ -229,10 +235,14 @@ public class GeneralRecipePanel extends JPanel {
         this.peopleSpinner.setValue(people);
     }
     public Integer getNote() {
-        return (Integer) this.noteSpinner.getValue();
+        return (Integer) ((isHereNote())?this.noteSpinner.getValue() : null);
     }
-    public void setNote(int note) {
-        this.noteSpinner.setValue(note);
+    public void setNote(Integer note) {
+        this.noteSpinner.setValue((note == null)? 5 : note);
+    }
+    public boolean isHereNote(){return this.haveNote.getModel().isSelected();}
+    public void setPrecenceNote(Integer note){
+        this.haveNote.setSelected(note != null);
     }
     public Integer getTime() {
         return (Integer) this.timeSpinner.getValue();

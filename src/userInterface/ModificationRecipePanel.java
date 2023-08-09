@@ -95,6 +95,7 @@ public class ModificationRecipePanel extends JPanel implements ActionListener {
         Integer complexity = recipe.getComplexity();
         Integer peopleConcerned = recipe.getNumberPeopleConcerned();
         Integer note = recipe.getNoteAuthor();
+        Boolean isNote = note != null;
         Integer timePreparation = recipe.getTimePreparation();
         String description = recipe.getDescription();
         LocalDate publicationDate = recipe.getPublicationDate();
@@ -108,6 +109,7 @@ public class ModificationRecipePanel extends JPanel implements ActionListener {
             this.generalPanel.setComplexity(complexity);
             this.generalPanel.setPeople(peopleConcerned);
             this.generalPanel.setNote(note);
+            this.generalPanel.setPrecenceNote(note);
             this.generalPanel.setTime(timePreparation);
             this.generalPanel.setDescription(description);
             this.generalPanel.setPublicationDate(publicationDate);
