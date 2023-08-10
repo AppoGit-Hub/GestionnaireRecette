@@ -108,7 +108,7 @@ public class UtensilPanel extends JPanel implements ActionListener {
     public void updateUtensil(Recipe selection) {
         try {
             // TODO : do a better job at updating equipments values
-            utensilListModel.removeAllElements();
+            //utensilListModel.removeAllElements();
             ArrayList<Equipment> equipments = this.equipementController.getAllEquipementOf(selection.getCode());
             for (Equipment equipment : equipments) {
                 this.equipementController.deleteEquipementFor(selection.getCode(), equipment.getUtensil());

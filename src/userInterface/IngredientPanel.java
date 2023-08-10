@@ -152,7 +152,7 @@ public class IngredientPanel extends JPanel implements ActionListener {
             while (newLineRecipes.hasMoreElements()) {
                 LineRecipeDisplay lineRecipeDisplay = newLineRecipes.nextElement();
                 Unit unit = lineRecipeDisplay.getUnit();
-                this.lineRecipeController.createLineRecipe(new LineRecipe(lineRecipeDisplay.getIngredient(), selection.getCode(), lineRecipeDisplay.getQuantity(), unit.getId()));
+                this.lineRecipeController.createLineRecipe(new LineRecipe(lineRecipeDisplay.getIngredient(), selection.getCode(), lineRecipeDisplay.getQuantity(), (unit != null)? unit.getId() : null));
             }
         } catch (TypeException exception) {
             JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);

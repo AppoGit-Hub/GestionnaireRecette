@@ -7,7 +7,10 @@ public class LineRecipe {
     private Integer unit;
 
     public LineRecipe(String ingredient, Integer recipe, Integer quantity, Integer unit) {
+        this.setIngredient(ingredient);
         this.setRecipe(recipe);
+        this.setQuantity(quantity);
+        this.setUnit(unit);
     }
     public Integer getRecipe() {
         return recipe;

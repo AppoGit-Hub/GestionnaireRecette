@@ -21,7 +21,7 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
             ResultSet data = statement.executeQuery();
             ArrayList<Equipment> equipments = new ArrayList<Equipment>();
             while (data.next()) {
-                String utensilName = data.getString("ustensil");
+                String utensilName = data.getString("utensil");
                 int inRecipe = data.getInt("inRecipe");
                 Equipment equipment = new Equipment(utensilName, inRecipe);
                 equipments.add(equipment);

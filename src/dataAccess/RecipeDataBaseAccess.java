@@ -100,7 +100,11 @@ public class RecipeDataBaseAccess implements RecipeDataAccess {
             }
 
             statement.setInt(5, recipe.getTimePreparation());
-            statement.setInt(6, recipe.getNoteAuthor());
+            if(recipe.getNoteAuthor() == null){
+                statement.setNull(6,Types.NULL);
+            }else{
+                statement.setInt(6, recipe.getNoteAuthor());
+            }
             statement.setBoolean(7, recipe.getIsSalted());
             statement.setInt(8, recipe.getNumberPeopleConcerned());
             statement.setInt(9, recipe.getComplexity());
