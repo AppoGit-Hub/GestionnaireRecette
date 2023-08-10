@@ -48,7 +48,7 @@ public class EquipementDataBaseAccess implements EquipementDataAccess {
     public void deleteEquipementFor(Integer recipeCode, String utensilName) throws EquipementException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
-            String query = "DELETE FROM equipment WHERE ustensil = ? AND inRecipe = ?;";
+            String query = "DELETE FROM equipment WHERE utensil = ? AND inRecipe = ?;";
             PreparedStatement statement = connexion.prepareStatement(query);
             statement.setString(1, utensilName);
             statement.setInt(2, recipeCode);
