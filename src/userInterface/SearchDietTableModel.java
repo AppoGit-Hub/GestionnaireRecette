@@ -16,8 +16,7 @@ public class SearchDietTableModel extends AbstractTableModel {
             "Date de Publication",
             "Nombre de Personnes",
             "Niveau de Complexité",
-            "Prénom",
-            "Nom"
+            "Auteur"
         };
         setSearchDietResults(searchDietResults);
     }
@@ -46,10 +45,8 @@ public class SearchDietTableModel extends AbstractTableModel {
                 return resultDiet.getNumberPeople();
             case 3 :
                 return resultDiet.getComplexity();
-            case 4:
-                return resultDiet.getFirstname();
             default :
-                return resultDiet.getLastname();
+                return resultDiet.getName();
         }
     }
     public Class getColumnClass(int column){
@@ -58,7 +55,6 @@ public class SearchDietTableModel extends AbstractTableModel {
             case 1 -> LocalDate.class;
             case 2 -> Integer.class;
             case 3 -> Complexity.class;
-            case 4 -> String.class;
             default -> String.class;
         };
     }

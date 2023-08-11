@@ -67,7 +67,7 @@ public class PublishRecipePanel extends JPanel implements ActionListener {
                 Recipe recipe = this.generalPanel.getRecipe(nextCode);
                 if (recipe != null) {
                     this.recipeController.createRecipe(recipe);
-                    this.utensilPanel.updateUtensil(recipe);//marche pas pour une raison inconnue ???
+                    this.utensilPanel.updateUtensil(recipe);
                     this.ingredientPanel.updateIngredient(recipe);
                     this.menuTypePanel.updateMenuType(recipe);
                     this.mealCategoryPanel.updateMealCategory(recipe);

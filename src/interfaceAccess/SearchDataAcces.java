@@ -14,5 +14,5 @@ import java.util.ArrayList;
 public interface SearchDataAcces {
     ArrayList<SearchDietResult> searchDiet(int diet) throws SearchDietException;
     ArrayList<SearchRecipeResult> searchRecipe(String ingredient, boolean isHot, int menuType) throws SearchRecipeException;
-    ArrayList<SearchIngredientResult> searchIngredient(String ingredient, LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException;
+    ArrayList<SearchIngredientResult> searchIngredient( LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException;
 }

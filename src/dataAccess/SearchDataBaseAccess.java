@@ -17,7 +17,7 @@ public class SearchDataBaseAccess implements SearchDataAcces {
             Connection connexion = SingletonConnexion.getInstance();
             String query =
                 """
-                SELECT DISTINCT recipe.code, recipe.title, recipe.publicationDate, recipe.numberPeople, recipe.complexityLevel, person.firstname, person.lastname
+                SELECT DISTINCT recipe.code, recipe.title, recipe.publicationDate, recipe.numberPeople, recipe.complexity, CONCAT(person.firstname, ' ', person.lastname) as 'auteur'
                 FROM recipe
                 INNER JOIN person ON person.id = recipe.author
                 INNER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
@@ -37,11 +37,10 @@ public class SearchDataBaseAccess implements SearchDataAcces {
                 String title = data.getString("title");
                 LocalDate publicationDate = data.getDate("publicationDate").toLocalDate();
                 Integer numberPeople = data.getInt("numberPeople");
-                Integer complexity = data.getInt("complexityLevel");
-                String personFirstName = data.getString("firstname");
-                String personLastName = data.getString("lastname");
+                Integer complexity = data.getInt("complexity");
+                String name = data.getString("Auteur");
 
-                SearchDietResult result = new SearchDietResult(recipeCode, title, publicationDate, numberPeople, complexity, personFirstName, personLastName);
+                SearchDietResult result = new SearchDietResult(recipeCode, title, publicationDate, numberPeople, complexity, name);
                 searchDietResults.add(result);
             }
             return searchDietResults;
@@ -59,7 +58,7 @@ public class SearchDataBaseAccess implements SearchDataAcces {
                 SELECT recipe.code, recipe.title, person.firstname, person.lastname, country.name
                 FROM recipe
                 INNER JOIN person ON recipe.author = person.id
-                INNER JOIN country ON country.id = recipe.speciality
+                LEFT OUTER JOIN country ON country.id = recipe.speciality
                 INNER JOIN period ON period.periodRecipe = recipe.code
                 INNER JOIN menuType ON menuType.id = period.menuType
                 INNER JOIN linerecipe ON linerecipe.recipeOrigin = recipe.code
@@ -86,7 +85,7 @@ public class SearchDataBaseAccess implements SearchDataAcces {
         }
     }
 
-    public ArrayList<SearchIngredientResult> searchIngredient(String ingredient, LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
+    public ArrayList<SearchIngredientResult> searchIngredient( LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
         try {
             Connection connexion = SingletonConnexion.getInstance();
             String query =
@@ -100,17 +99,17 @@ public class SearchDataBaseAccess implements SearchDataAcces {
                     productionperiod.dateEnding,
                     linerecipe.quantity
                 FROM recipe
-                INNER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
+                LEFT OUTER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
                 INNER JOIN ingredient ON linerecipe.ingredient = ingredient.name
                 INNER JOIN foodcategory ON foodcategory.id = ingredient.type
-                INNER JOIN productionperiod ON productionperiod.id = ingredient.season
-                WHERE ingredient.name = ? AND recipe.publicationDate BETWEEN ? AND ?
-                ORDER BY foodcategory.name;                     
+                LEFT OUTER JOIN productionperiod ON productionperiod.id = ingredient.season
+                WHERE  recipe.publicationDate BETWEEN ? AND ?
+                ORDER BY recipe.code, foodcategory.id;                     
                 """;
             PreparedStatement statement = connexion.prepareStatement(query);
-            statement.setString(1, ingredient);
-            statement.setDate(2, Date.valueOf(dateBeginning));
-            statement.setDate(3, Date.valueOf(dateEnding));
+            //statement.setString(1, ingredient);
+            statement.setDate(1, Date.valueOf(dateBeginning));
+            statement.setDate(2, Date.valueOf(dateEnding));
             ResultSet data = statement.executeQuery();
             ArrayList<SearchIngredientResult> searchIngredientResults = new ArrayList<>();
             while (data.next()) {

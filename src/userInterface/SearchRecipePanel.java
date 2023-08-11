@@ -93,7 +93,7 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         String selection = event.getActionCommand();
-        if (selection.equals("Submit")) {
+        if (selection.equals("Soumettre")) {
             MenuType menuTypeSelected = (MenuType) this.menuTypeComboBox.getSelectedItem();
             Ingredient ingredientSelected = (Ingredient) this.ingredientComboBox.getSelectedItem();
             boolean isHot = this.isHotButton.isSelected();
@@ -101,10 +101,10 @@ public class SearchRecipePanel extends JPanel implements ActionListener {
                 if (ingredientSelected != null) {
                     this.setRecipe(menuTypeSelected, ingredientSelected, isHot);
                 } else {
-                    JOptionPane.showMessageDialog(null, "You must select an ingredient", "Select an Ingredient", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "vous devez selectionner un ingrédient", "Absence d'ingrédient selectionné", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "You must select an menu type", "Select a Menu Type", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Vous devez selectionner un type de menu", "Absence d'un type de menu selectionné", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

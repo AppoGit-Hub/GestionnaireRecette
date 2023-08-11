@@ -31,7 +31,7 @@ public class SearchManager {
         return this.searchDataAcces.searchRecipe(ingredient, isHot, menuType);
     }
 
-    public ArrayList<SearchIngredientResult> searchIngredient(String ingredient, LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
-        return this.searchDataAcces.searchIngredient(ingredient, dateBeginning, dateEnding);
+    public ArrayList<SearchIngredientResult> searchIngredient( LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
+        return this.searchDataAcces.searchIngredient( dateBeginning, dateEnding);
     }
 }

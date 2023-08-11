@@ -30,7 +30,7 @@ public class SearchController {
         return this.manager.searchRecipe(ingredient, isHot, menuType);
     }
 
-    public ArrayList<SearchIngredientResult> searchIngredient(String ingredient, LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
-        return this.manager.searchIngredient(ingredient, dateBeginning, dateEnding);
+    public ArrayList<SearchIngredientResult> searchIngredient( LocalDate dateBeginning, LocalDate dateEnding) throws SearchIngredientException {
+        return this.manager.searchIngredient( dateBeginning, dateEnding);
     }
 }

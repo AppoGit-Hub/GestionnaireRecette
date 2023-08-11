@@ -8,17 +8,15 @@ public class SearchDietResult {
     private LocalDate publicationDate;
     private Integer numberPeople;
     private Integer complexity;
-    private String firstname;
-    private String lastname;
+    private String name;
 
-    public SearchDietResult(int code, String title, LocalDate publicationDate, Integer numberPeople, Integer complexity, String firstname, String lastname) {
+    public SearchDietResult(int code, String title, LocalDate publicationDate, Integer numberPeople, Integer complexity, String name) {
         setCode(code);
         setTitle(title);
         setPublicationDate(publicationDate);
         setNumberPeople(numberPeople);
         setComplexity(complexity);
-        setFirstname(firstname);
-        setLastname(lastname);
+        setName(name);
     }
 
     public void setCode(int code) {
@@ -41,12 +39,8 @@ public class SearchDietResult {
         this.complexity = complexity;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCode() {
@@ -69,11 +63,8 @@ public class SearchDietResult {
         return complexity;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public String getLastname() {
-        return lastname;
-    }
 }

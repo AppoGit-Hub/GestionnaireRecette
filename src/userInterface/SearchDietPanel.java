@@ -68,7 +68,7 @@ public class SearchDietPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         String selection = event.getActionCommand();
-        if (selection.equals("Submit")) {
+        if (selection.equals("Soumettre")) {
             Diet dietSelected = (Diet) this.dietComboBox.getSelectedItem();
             if (dietSelected != null) {
                 this.setDietRecipe(dietSelected);
