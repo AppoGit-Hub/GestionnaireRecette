@@ -77,7 +77,7 @@ public class EliminationRecipePanel extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "You must select recipes", "Sélectionner les recettes", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Vous devez selectionner une recette", "Sélectionner les recettes", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
