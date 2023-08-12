@@ -107,16 +107,34 @@ public class IngredientPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         String eventName = event.getActionCommand();
-        if (eventName.equals("Ajouter") && nameIngredientComboBoxModel.getSelectedItem() != null) {
-            Ingredient ingredient = (Ingredient) nameIngredientComboBoxModel.getSelectedItem();
-            int ingredientCount = (int) quantityIngredientSpinner.getValue();
-            Unit ingredientUnit = (Unit) unitIngredientComboBox.getSelectedItem();
-            LineRecipeDisplay lineRecipeDisplay = new LineRecipeDisplay(ingredient.getName(), ingredientCount, ingredientUnit);
-            lineRecipeModel.addElement(lineRecipeDisplay);
+        if (eventName.equals("Ajouter")) {
+            if (nameIngredientComboBoxModel.getSelectedItem() != null) {
+                Ingredient ingredient = (Ingredient) nameIngredientComboBoxModel.getSelectedItem();
+                int ingredientCount = (int) quantityIngredientSpinner.getValue();
+                Unit ingredientUnit = (Unit) unitIngredientComboBox.getSelectedItem();
+                if (ingredientUnit != null) {
+                    int index = 0;
+                    while (index < lineRecipeModel.size() && !(lineRecipeModel.get(index).getIngredient().equals(ingredient.getName()))) {
+                        index++;
+                    }
+                    if (index == lineRecipeModel.size()) {
+                        LineRecipeDisplay lineRecipeDisplay = new LineRecipeDisplay(ingredient.getName(), ingredientCount, ingredientUnit);
+                        lineRecipeModel.addElement(lineRecipeDisplay);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La liste contient déjà cette ingrédient", "Selectionnez un autre ingrédient", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vous devez selectionner une unité", "Selectionnez une unité", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Vous devez selectionner un ingrédient", "Selectionnez un ingrédient", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (eventName.equals("Retirer")) {
             LineRecipeDisplay selection = lineRecipeList.getSelectedValue();
             if (selection != null) {
                 lineRecipeModel.removeElement(selection);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vous devez selectionner un ingrédient", "Selectionnez un ingrédient", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

@@ -37,6 +37,10 @@ public class LineRecipeDisplay {
 
     @Override
     public String toString() {
-        return ingredient + " " + quantity + unit;
+        if (this.unit.getId() == 0) {
+            return String.format("%d %s", quantity, ingredient);
+        } else {
+            return String.format("%d %s de %s", quantity, unit, ingredient);
+        }
     }
 }
