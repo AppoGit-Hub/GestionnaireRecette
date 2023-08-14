@@ -117,7 +117,7 @@ public class GeneralRecipePanel extends JPanel {
         this.noteSpinner = new JSpinner(noteSpinnerModel);
 
         this.haveNoteLabel = new JLabel("Présence : ");
-        this.haveNote = new JRadioButton(" note auteur ");
+        this.haveNote = new JRadioButton("Inclure une note");
 
         this.timeLabel = new JLabel("Temps (min)");
         SpinnerNumberModel timeSpinnerModel = new SpinnerNumberModel(1, TIME_MIN, TIME_MAX, 1);
