@@ -4,10 +4,7 @@ import exception.*;
 import interfaceAccess.CommentDataAccess;
 import model.Comment;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class CommentDataBaseAccess implements CommentDataAccess {
@@ -54,7 +51,12 @@ public class CommentDataBaseAccess implements CommentDataAccess {
             statement.setInt(2, comment.getNumber());
             statement.setString(3, comment.getMessage());
             statement.setInt(4, comment.getRating());
-            statement.setString(5, comment.getTitle());
+            String title = comment.getTitle();
+            if (title == null) {
+                statement.setString(5, comment.getTitle());
+            } else {
+                statement.setNull(5, Types.NULL);
+            }
             statement.setInt(6, comment.getPerson());
             statement.executeUpdate();
         } catch(SQLException exception) {

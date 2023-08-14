@@ -71,12 +71,15 @@ public class Comment {
         return title;
     }
 
-    public void setTitle(String title) throws CommentSetTitleException {
+    public void setTitle(String title) {
+        this.title = title;
+        /*
         if (title != null && title.length() > 0) {
             this.title = title;
         } else {
             throw new CommentSetTitleException(title);
         }
+        */
     }
 
     public Integer getPerson() {

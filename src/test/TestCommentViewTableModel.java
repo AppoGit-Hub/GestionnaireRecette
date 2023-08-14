@@ -65,13 +65,7 @@ public class TestCommentViewTableModel {
         assertEquals(this.comment.getRating(), 5);
     }
     @Test
-    public void setTitleTest() throws CommentSetTitleException  {
-        assertThrows(CommentSetTitleException.class, () -> {
-            this.comment.setTitle(null);
-        });
-        assertThrows(CommentSetTitleException.class, () -> {
-            this.comment.setTitle("");
-        });
+    public void setTitleTest()  {
         assertEquals(this.comment.getTitle(), "test title");
         this.comment.setTitle("test title 2");
         assertEquals(this.comment.getTitle(), "test title 2");
