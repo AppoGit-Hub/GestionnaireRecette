@@ -138,14 +138,6 @@ public class ModificationRecipePanel extends JPanel implements ActionListener {
         }
     }
 
-    private void updateCountry(Recipe selection) {
-        // TODO : no time left, need further work
-    }
-
-    private void updateAuthor(Recipe selection) {
-        // TODO : no time left, need further work ...
-    }
-
     @Override
     public void actionPerformed(ActionEvent event) {
         String source = event.getActionCommand();
@@ -164,8 +156,6 @@ public class ModificationRecipePanel extends JPanel implements ActionListener {
         } else if (source.equals("Modifier")) {
             if (selection != null) {
                 this.updateRecipe(selection);
-                this.updateAuthor(selection);
-                this.updateCountry(selection);
                 this.utensilPanel.updateUtensil(selection);
                 this.menuTypePanel.updateMenuType(selection);
                 this.mealCategoryPanel.updateMealCategory(selection);
