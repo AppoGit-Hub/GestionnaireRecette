@@ -1,7 +1,10 @@
 package userInterface;
+import controller.ComplexityController;
+import exception.TypeException;
 import model.Complexity;
 import model.SearchDietResult;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,8 +12,10 @@ import java.util.ArrayList;
 public class SearchDietTableModel extends AbstractTableModel {
     private String[] columnNames;
     private ArrayList<SearchDietResult> searchDietResults;
+    private ComplexityController complexityController;
 
     public SearchDietTableModel(ArrayList<SearchDietResult> searchDietResults) {
+        this.complexityController = new ComplexityController();
         this.columnNames = new String[] {
             "Titre",
             "Date de Publication",
@@ -44,7 +49,13 @@ public class SearchDietTableModel extends AbstractTableModel {
             case 2 :
                 return resultDiet.getNumberPeople();
             case 3 :
-                return resultDiet.getComplexity();
+                try {
+                    Complexity complexity = complexityController.readComplexity(resultDiet.getComplexity());
+                    return complexity.getName();
+                } catch (TypeException exception) {
+                    JOptionPane.showMessageDialog(null, exception.getDescription(), exception.getTitle(), JOptionPane.ERROR_MESSAGE);
+                }
+                return "Erreur de chargement";
             default :
                 return resultDiet.getName();
         }
