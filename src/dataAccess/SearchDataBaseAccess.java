@@ -17,7 +17,7 @@ public class SearchDataBaseAccess implements SearchDataAcces {
             Connection connexion = SingletonConnexion.getInstance();
             String query =
                 """
-                SELECT DISTINCT recipe.code, recipe.title, recipe.publicationDate, recipe.numberPeople, recipe.complexity, CONCAT(person.firstname, ' ', person.lastname) as 'auteur'
+                SELECT DISTINCT recipe.code, recipe.title, recipe.publicationDate, recipe.numberPeople, recipe.complexity, person.firstname, person.lastname
                 FROM recipe
                 INNER JOIN person ON person.id = recipe.author
                 INNER JOIN linerecipe ON recipe.code = linerecipe.recipeOrigin
@@ -38,9 +38,10 @@ public class SearchDataBaseAccess implements SearchDataAcces {
                 LocalDate publicationDate = data.getDate("publicationDate").toLocalDate();
                 Integer numberPeople = data.getInt("numberPeople");
                 Integer complexity = data.getInt("complexity");
-                String name = data.getString("Auteur");
+                String personFirstName = data.getString("firstname");
+                String personLastName = data.getString("lastname");
 
-                SearchDietResult result = new SearchDietResult(recipeCode, title, publicationDate, numberPeople, complexity, name);
+                SearchDietResult result = new SearchDietResult(recipeCode, title, publicationDate, numberPeople, complexity, personFirstName, personLastName);
                 searchDietResults.add(result);
             }
             return searchDietResults;

@@ -57,7 +57,7 @@ public class SearchDietTableModel extends AbstractTableModel {
                 }
                 return "Erreur de chargement";
             default :
-                return resultDiet.getName();
+                return String.format("%s %s", resultDiet.getFirstname(), resultDiet.getLastname());
         }
     }
     public Class getColumnClass(int column){
