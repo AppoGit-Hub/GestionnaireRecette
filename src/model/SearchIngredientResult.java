@@ -11,13 +11,11 @@ public class SearchIngredientResult {
     private LocalDate dateEnding;
     private Integer lineRecipeQuantity;
 
-    public SearchIngredientResult(int recipeCode, String recipeTitle, String ingredient, String foodCategory, LocalDate dateBegining, LocalDate dateEnding, Integer lineRecipeQuantity) {
+    public SearchIngredientResult(int recipeCode, String recipeTitle, String ingredient, String foodCategory, Integer lineRecipeQuantity) {
         setRecipeCode(recipeCode);
         setRecipeTitle(recipeTitle);
         setIngredient(ingredient);
         setFoodCategory(foodCategory);
-        setDateBegining(dateBegining);
-        setDateEnding(dateEnding);
         setLineRecipeQuantity(lineRecipeQuantity);
     }
 
