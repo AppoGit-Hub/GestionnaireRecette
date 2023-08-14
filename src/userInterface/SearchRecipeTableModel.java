@@ -44,13 +44,23 @@ public class SearchRecipeTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         SearchRecipeResult resultRecipe = searchRecipeResult.get(rowIndex);
-        return switch (columnIndex) {
-            case 0 -> resultRecipe.getRecipetitle();
-            case 1 -> resultRecipe.getPersonFirstName();
-            case 2 -> resultRecipe.getPersonLastName();
-            case 3 -> resultRecipe.getCountryName();
-            default -> null;
-        };
+        switch (columnIndex) {
+            case 0:
+                return resultRecipe.getRecipetitle();
+            case 1:
+                return resultRecipe.getPersonFirstName();
+            case 2:
+                return resultRecipe.getPersonLastName();
+            case 3:
+                String country = resultRecipe.getCountryName();
+                if (country == null) {
+                    return "Inconnu";
+                } else {
+                    return country;
+                }
+            default:
+                return null;
+        }
     }
 
     public Class getColumnClass(int column){
