@@ -58,9 +58,19 @@ public class SearchIngredientTableModel extends AbstractTableModel {
             case 2:
                 return resultRecipe.getFoodCategory();
             case 3:
-                return resultRecipe.getDateBegining();
+                LocalDate dateBegining = resultRecipe.getDateBegining();
+                if (dateBegining == null) {
+                    return "Inéxistante";
+                } else {
+                    return dateBegining;
+                }
             case 4:
-                return resultRecipe.getDateEnding();
+                LocalDate dateEnding = resultRecipe.getDateEnding();
+                if (dateEnding == null) {
+                    return "Inéxistante";
+                } else {
+                    return dateEnding;
+                }
             case 5:
                 return resultRecipe.getLineRecipeQuantity();
         }

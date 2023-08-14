@@ -118,10 +118,20 @@ public class SearchDataBaseAccess implements SearchDataAcces {
                 String recipeTitle = data.getString("title");
                 String ingredientName = data.getString("ingredient");
                 String foodCategoryName = data.getString("foodcategory");
-                LocalDate producitonDateBegining = data.getDate("dateBegining").toLocalDate();
-                LocalDate producitonDateEnding = data.getDate("dateEnding").toLocalDate();
-                int lineRecipeQuantity =data.getInt("quantity");
-                searchIngredientResults.add(new SearchIngredientResult(recipeCode, recipeTitle, ingredientName, foodCategoryName, producitonDateBegining, producitonDateEnding, lineRecipeQuantity));
+                int lineRecipeQuantity = data.getInt("quantity");
+                SearchIngredientResult result = new SearchIngredientResult(recipeCode, recipeTitle, ingredientName, foodCategoryName, lineRecipeQuantity);
+
+                Date producitonDateBegining = data.getDate("dateBegining");
+                if (!data.wasNull()) {
+                    result.setDateBegining(producitonDateBegining.toLocalDate());
+                }
+
+                Date producitonDateEnding = data.getDate("dateEnding");
+                if (!data.wasNull()) {
+                    result.setDateEnding(producitonDateEnding.toLocalDate());
+                }
+
+                searchIngredientResults.add(result);
             }
             return searchIngredientResults;
         } catch (SQLException exception) {
