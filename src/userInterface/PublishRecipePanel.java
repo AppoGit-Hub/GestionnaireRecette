@@ -62,7 +62,7 @@ public class PublishRecipePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String source = event.getActionCommand();
         int nextCode = getNextRecipeCode();
-        if (source.equals("Publier") ) {// => empéche de faire des recettes si il n'y en a aucun && nextCode != 1
+        if (source.equals("Publier") ) {
             try {
                 Recipe recipe = this.generalPanel.getRecipe(nextCode);
                 if (recipe != null) {

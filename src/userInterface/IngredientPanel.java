@@ -47,10 +47,6 @@ public class IngredientPanel extends JPanel implements ActionListener {
         this.addIngredientButton.addActionListener(this);
         this.removeIngredientButton = new JButton("Retirer");
         this.removeIngredientButton.addActionListener(this);
-        //this.editIngredientButton = new JButton("Editer");
-        //this.editIngredientButton.addActionListener(this);
-        //this.saveIngredientButton = new JButton("Sauvegarder");
-        //this.saveIngredientButton.addActionListener(this);
         this.nameIngredientComboBoxModel = new DefaultComboBoxModel<Ingredient>();
         this.nameIngredientComboBox = new JComboBox<Ingredient>(nameIngredientComboBoxModel);
         SpinnerNumberModel quantityIngredientModel = new SpinnerNumberModel(1, QUANTITY_MIN, QUANTITY_MAX, 1);
@@ -64,8 +60,6 @@ public class IngredientPanel extends JPanel implements ActionListener {
         JPanel ingredientWestPanel = new JPanel();
         ingredientWestPanel.setLayout(new GridLayout(7, 1));
         ingredientWestPanel.add(addIngredientButton);
-        //ingredientWestPanel.add(editIngredientButton);
-        //ingredientWestPanel.add(saveIngredientButton);
         ingredientWestPanel.add(removeIngredientButton);
 
         JPanel ingredientNorthPanel = new JPanel();

@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 
-// Sometimes its working, sometimes it's not. It is working
-// on Benjamin's PC but not a Guyri's PC
 public class VegetableJumpingPanel extends JPanel {
     private HashSet<ImageVegetable> setImageVegetable;
 
@@ -25,7 +23,6 @@ public class VegetableJumpingPanel extends JPanel {
                 }
             }
         } catch (Exception exception) {
-            // oopsie...
             //System.out.println(exception.getMessage());
         }
     }

@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class SearchRecipePanel extends JPanel implements ActionListener {
-    // display the recipes from a specific menu that is hot/cold with a known ingredient
     private JComboBox<MenuType> menuTypeComboBox;
     private DefaultComboBoxModel<MenuType> menuTypeComboBoxModel;
     private JRadioButton isHotButton;
