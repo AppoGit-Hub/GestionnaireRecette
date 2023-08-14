@@ -16,7 +16,6 @@ public class ImageVegetable extends JLabel {
         positionX += 20;
         positionY = 250 +  (int) (200 * Math.sin(25 * x));
         x += 1;
-        System.out.println(String.format("%d - %d", positionX, positionY));
     }
     public int getPositionX() {
         return positionX;

@@ -18,12 +18,13 @@ public class VegetableMoveThread extends Thread {
         presentationPage.getImageVegetableSet().add(new ImageVegetable(50,50,"panier.png"));
         while(continued) {
             try{
-                Thread.sleep(190);
+                Thread.sleep(200);
+                presentationPage.getImageVegetableSet().removeIf(ImageVegetable::needBeEliminated);
+                presentationPage.repaint();
+
                 for(ImageVegetable aImageVegetable : presentationPage.getImageVegetableSet()){
                     aImageVegetable.move();
                 }
-                presentationPage.getImageVegetableSet().removeIf(ImageVegetable::needBeEliminated);
-                presentationPage.repaint();
 
                 counter++;
 
