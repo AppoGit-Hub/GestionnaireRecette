@@ -222,7 +222,7 @@ public class GeneralRecipePanel extends JPanel {
     }
     public void setComplexity(Integer complexity) {
         int index = 0;
-        while (index < this.complexityComboBox.getItemCount() && this.complexityComboBoxModel.getElementAt(index).getId() == complexity) {
+        while (index < this.complexityComboBox.getItemCount() && this.complexityComboBoxModel.getElementAt(index).getId() != complexity) {
             index++;
         }
         Complexity actualComplexity = this.complexityComboBoxModel.getElementAt(index);
